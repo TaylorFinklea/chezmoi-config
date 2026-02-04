@@ -1,0 +1,15 @@
+# Tokyo Night Dark Theme for Atuin
+
+[theme]
+name   = "tokyo-night"
+parent = ""
+
+[colors]
+Base       = "#C0CAF5"  # normal text
+Title      = "#7AA2F7"  # headers / titles (blue)
+Important  = "#E0AF68"  # highlights (gold)
+Guidance   = "#9ECE6A"  # subtle help (green)
+Annotation = "#545C7E"  # muted grey
+AlertInfo  = "#7DCFFF"  # info messages (cyan)
+AlertWarn  = "#FF9E64"  # warnings (orange)
+AlertError = "#F7768E"  # errors (red)

@@ -1,0 +1,15 @@
+# Atuin Configuration
+# https://docs.atuin.sh/configuration/config/
+
+# UI Settings
+style = "compact"
+invert = false
+show_help = false
+
+# Sync Settings
+auto_sync = true
+sync_frequency = "10m"
+
+# Theme
+[theme]
+name = "ayu"

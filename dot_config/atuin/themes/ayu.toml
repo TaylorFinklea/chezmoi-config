@@ -1,0 +1,15 @@
+# Ayu Dark Theme for Atuin
+
+[theme]
+name   = "ayu"
+parent = ""
+
+[colors]
+Base       = "#B3B1AD"
+Title      = "#53BDFA"
+Important  = "#F9AF4F"
+Guidance   = "#90E1C6"
+Annotation = "#686868"
+AlertInfo  = "#59C2FF"
+AlertWarn  = "#FFB454"
+AlertError = "#EA6C73"

@@ -1,0 +1,24 @@
+# .chezmoiignore - Files and directories that chezmoi should not manage
+
+# Documentation and scripts
+README.md
+scripts/
+
+# Backup files
+*.bak
+*.swp
+*~
+
+# macOS specific
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Version control
+.git/
+.gitignore
+
+# IDE and editor files
+.vscode/
+.idea/
+*.code-workspace

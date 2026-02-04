@@ -1,0 +1,32 @@
+layout {
+    pane size=1 borderless=true {
+        plugin location="zellij:tab-bar"
+    }
+    pane split_direction="vertical" {
+        // Top section (A) - Stack of 3 large panes
+        pane stacked=true size="80%" {
+            pane name="neovim" command="nvim"
+            pane name="main 1"
+            pane name="main 2"
+            pane name="main 3"
+            pane name="opencode" command="opencode"
+            pane name="yazi" command="yazi"
+       }
+        // Bottom section - Split into 3 columns side by side
+        pane split_direction="horizontal" size="20%" {
+            // Left column (B) - Single pane
+            pane name="top" size="25%"
+            // Middle column (C) - Single pane
+            pane name="center" size="25%"
+            // Right column (D) - Stack for additional panes
+            pane stacked=true name="Right Stack" size="50%" {
+                pane name="bottom 1"
+                pane name="bottom 2"
+                pane name="bottom 3"
+            }
+        }
+    }
+    pane size=2 borderless=true {
+        plugin location="zellij:status-bar"
+    }
+}
