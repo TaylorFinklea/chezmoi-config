@@ -13,14 +13,14 @@
 ```bash
 mkdir -p ~/git
 cd ~/git
-git clone <your-repo-url> nixos-config
+git clone <your-repo-url> chezmoi-config
 # or if already cloned:
-cd ~/git/nixos-config
+cd ~/git/chezmoi-config
 ```
 
 ### 3. Run installation script
 ```bash
-cd ~/git/nixos-config/chezmoi
+cd ~/git/chezmoi-config
 ./scripts/install.sh
 ```
 
@@ -83,7 +83,7 @@ chezmoi add ~/.config/newapp/config.toml
 ## Customization
 
 ### Edit configurations
-All configs are in `~/git/nixos-config/chezmoi/`
+All configs are in `~/git/chezmoi-config/`
 - Shell: `dot_zshrc`, `dot_zshenv`
 - Starship: `dot_config/starship.toml`
 - Atuin: `dot_config/atuin/config.toml`
@@ -92,19 +92,19 @@ All configs are in `~/git/nixos-config/chezmoi/`
 ### Apply changes
 After editing:
 ```bash
-cd ~/git/nixos-config/chezmoi
+cd ~/git/chezmoi-config
 chezmoi apply -v
 ```
 
 ### Sync to other machines
 ```bash
-cd ~/git/nixos-config/chezmoi
+cd ~/git/chezmoi-config
 git add .
 git commit -m "Update configs"
 git push
 
 # On other machine:
-cd ~/git/nixos-config/chezmoi
+cd ~/git/chezmoi-config
 git pull
 chezmoi apply -v
 ```
@@ -118,7 +118,7 @@ exec zsh  # Restart the shell
 
 ### Chezmoi not finding source
 ```bash
-chezmoi init --source=$HOME/git/nixos-config/chezmoi
+chezmoi init --source=$HOME/git/chezmoi-config
 ```
 
 ### Reset a specific file
@@ -148,7 +148,7 @@ chezmoi managed
 
 The main differences:
 1. **No Nix required** - Everything is managed by chezmoi + Homebrew
-2. **Manual package installation** - Use `homebrew.sh` instead of nix packages
+2. **Manual package installation** - Use `scripts/install-homebrew-*.sh` instead of nix packages
 3. **Config files are raw** - No `.nix` wrappers, just the actual config files
 4. **Explicit application** - Run `chezmoi apply` to sync changes
 
@@ -156,4 +156,5 @@ The main differences:
 
 - [Chezmoi Documentation](https://www.chezmoi.io/)
 - [Main README](README.md) - Comprehensive guide
-- [Homebrew Script](../home/work/homebrew.sh) - Full package list
+- [Homebrew Script (Work)](scripts/install-homebrew-work.sh) - Work package list
+- [Homebrew Script (Personal)](scripts/install-homebrew-personal.sh) - Full package list

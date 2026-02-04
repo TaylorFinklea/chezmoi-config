@@ -9,7 +9,7 @@ echo "🚀 Installing essential CLI tools..."
 
 # Ensure Homebrew is available
 if ! command -v brew &> /dev/null; then
-    echo "❌ Homebrew not found. Please run bootstrap.sh first."
+    echo "❌ Homebrew not found. Please run install.sh first."
     exit 1
 fi
 

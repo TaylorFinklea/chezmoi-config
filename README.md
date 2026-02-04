@@ -25,7 +25,7 @@ sh -c "$(curl -fsLS get.chezmoi.io)"
 ### 2. Run the installation script
 
 ```bash
-cd ~/git/nixos-config/chezmoi
+cd ~/git/chezmoi-config
 ./scripts/install.sh
 ```
 
@@ -39,7 +39,7 @@ This will:
 
 ```bash
 # If this is your first time setting up chezmoi with this config
-cd ~/git/nixos-config/chezmoi
+cd ~/git/chezmoi-config
 chezmoi init --source=$PWD
 
 # Apply the dotfiles
@@ -50,7 +50,7 @@ chezmoi apply -v
 
 ```bash
 # Work configuration (excludes Zed, Insomnia, Bruno, Ollama, Voiceink)
-cd ~/git/nixos-config/chezmoi
+cd ~/git/chezmoi-config
 ./scripts/install-homebrew-work.sh
 
 # OR Personal configuration (full suite)
@@ -93,7 +93,10 @@ chezmoi/
 │   ├── nvim/                    # Neovim configuration
 │   └── ...
 ├── scripts/                     # Helper scripts
-│   └── install-packages.sh      # Package installation helper
+│   ├── install.sh               # Bootstrap + chezmoi init/apply
+│   ├── install-essentials.sh    # Minimal CLI tools
+│   ├── install-homebrew-work.sh # Work package set
+│   └── install-homebrew-personal.sh # Personal package set
 └── .chezmoiignore               # Files to ignore
 ```
 
@@ -123,7 +126,7 @@ Examples:
 - ✅ Shell aliases and environment variables
 
 ### Development Tools
-- 📦 Installed via Homebrew (see `home/work/homebrew.sh`)
+- 📦 Installed via Homebrew (see `scripts/install-homebrew-work.sh` and `scripts/install-homebrew-personal.sh`)
   - Git, gh (GitHub CLI)
   - Python (uv, pyenv)
   - Node.js (nvm, pnpm)
@@ -163,7 +166,7 @@ chezmoi add ~/.config/newapp/config.toml
 chezmoi re-add
 
 # Pull and apply changes from git
-cd ~/git/nixos-config/chezmoi
+cd ~/git/chezmoi-config
 git pull
 chezmoi apply -v
 ```
@@ -203,11 +206,11 @@ Then use in templates:
 
 ## Updating Configurations
 
-1. Edit files in `~/git/nixos-config/chezmoi/`
+1. Edit files in `~/git/chezmoi-config/`
 2. Test changes: `chezmoi diff`
 3. Apply locally: `chezmoi apply -v`
 4. Commit to git
-5. On other machines: `cd ~/git/nixos-config/chezmoi && git pull && chezmoi apply -v`
+5. On other machines: `cd ~/git/chezmoi-config && git pull && chezmoi apply -v`
 
 ## Troubleshooting
 

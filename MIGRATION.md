@@ -3,8 +3,8 @@
 ## From home-manager to chezmoi
 
 **Migration Date:** February 4, 2026  
-**Source:** `nixos-config/home/work.nix` and related files  
-**Destination:** `nixos-config/chezmoi/`
+**Source:** legacy home-manager/NixOS config (archived)  
+**Destination:** `chezmoi-config/`
 
 ---
 
@@ -58,7 +58,7 @@
   - File explorer configuration
 
 ### Package Management
-- ✅ **Homebrew installation script** (`home/work/homebrew.sh`)
+- ✅ **Homebrew installation scripts** (`scripts/install-homebrew-work.sh`, `scripts/install-homebrew-personal.sh`)
   - All casks (GUI applications)
   - All formulae (CLI tools)
   - Taps configuration
@@ -105,7 +105,7 @@ home.packages = with pkgs; [ ripgrep fd jq ... ];
 - Productivity: Raycast, Logseq
 - AI Tools: Ollama, Jan, Witsy
 - Window Management: Aerospace, Lunar
-- And many more (see homebrew.sh for full list)
+- And many more (see scripts/install-homebrew-personal.sh for full list)
 
 **System Utilities:**
 - Azure CLI, OpenTofu, Ansible
@@ -141,8 +141,10 @@ chezmoi/
 │   ├── nvim/
 │   └── xplr/
 └── scripts/
-    ├── bootstrap.sh          # Full setup script
-    └── install-essentials.sh # Minimal CLI tools install
+    ├── install.sh                 # Full setup script
+    ├── install-essentials.sh      # Minimal CLI tools install
+    ├── install-homebrew-work.sh   # Work package set
+    └── install-homebrew-personal.sh # Personal package set
 ```
 
 ---
@@ -188,7 +190,7 @@ xdg.configFile.myapp = {
 chezmoi add ~/.config/myapp/config.toml
 
 # Or manually create in source directory
-cp ~/.config/myapp/config.toml ~/git/nixos-config/chezmoi/dot_config/myapp/
+cp ~/.config/myapp/config.toml ~/git/chezmoi-config/dot_config/myapp/
 ```
 
 ### Applying Changes
@@ -213,8 +215,9 @@ chezmoi apply -v
 
 **After (chezmoi):**
 ```bash
-# Edit: ~/git/nixos-config/home/work/homebrew.sh
-# Run: ./homebrew.sh
+# Edit: ~/git/chezmoi-config/scripts/install-homebrew-work.sh
+# Or:   ~/git/chezmoi-config/scripts/install-homebrew-personal.sh
+# Run: ./scripts/install-homebrew-work.sh
 ```
 
 ---
@@ -234,13 +237,13 @@ chezmoi apply -v
 
 1. **Run the installer:**
    ```bash
-   cd ~/git/nixos-config/chezmoi
+   cd ~/git/chezmoi-config
    ./scripts/install.sh
    ```
    
    **Or test manually:**
    ```bash
-   cd ~/git/nixos-config/chezmoi
+   cd ~/git/chezmoi-config
    chezmoi init --source=$PWD
    chezmoi diff  # See what would change
    ```
@@ -261,7 +264,7 @@ chezmoi apply -v
    ```bash
    ./scripts/install-essentials.sh  # Essential CLI tools
    # or
-   ../home/work/homebrew.sh          # Full development environment
+   ./scripts/install-homebrew-personal.sh          # Full development environment
    ```
 
 5. **Restart shell:**
@@ -292,7 +295,7 @@ Quick fixes:
 exec zsh
 
 # Re-initialize chezmoi
-chezmoi init --source=$HOME/git/nixos-config/chezmoi
+chezmoi init --source=$HOME/git/chezmoi-config
 
 # Force apply a specific file
 chezmoi apply --force ~/.zshrc

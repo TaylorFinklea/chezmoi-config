@@ -68,15 +68,31 @@ CHEZMOI_SOURCE_DIR="$(dirname "$SCRIPT_DIR")"
 info "Chezmoi source directory: $CHEZMOI_SOURCE_DIR"
 
 # Step 4: Initialize chezmoi with this directory as source
-if [ -d "$HOME/.local/share/chezmoi" ]; then
-    warn "Removing existing chezmoi directory..."
-    rm -rf "$HOME/.local/share/chezmoi"
+info "Initializing chezmoi with local source..."
+
+CURRENT_SOURCE=""
+if command -v chezmoi &> /dev/null; then
+    CURRENT_SOURCE="$(chezmoi source-path 2>/dev/null || true)"
 fi
 
-info "Creating symlink to source directory..."
-mkdir -p "$HOME/.local/share"
-ln -sf "$CHEZMOI_SOURCE_DIR" "$HOME/.local/share/chezmoi"
-success "Chezmoi initialized with source: $CHEZMOI_SOURCE_DIR"
+if [ -n "$CURRENT_SOURCE" ]; then
+    if [ "$CURRENT_SOURCE" = "$CHEZMOI_SOURCE_DIR" ]; then
+        success "Chezmoi already initialized with this source"
+    else
+        warn "Chezmoi already initialized with: $CURRENT_SOURCE"
+        read -p "Reinitialize to use $CHEZMOI_SOURCE_DIR? (y/N) " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            chezmoi init --source="$CHEZMOI_SOURCE_DIR" --force
+            success "Chezmoi reinitialized with source: $CHEZMOI_SOURCE_DIR"
+        else
+            warn "Keeping existing chezmoi source"
+        fi
+    fi
+else
+    chezmoi init --source="$CHEZMOI_SOURCE_DIR"
+    success "Chezmoi initialized with source: $CHEZMOI_SOURCE_DIR"
+fi
 
 # Step 5: Show what would change
 info "Checking what would change..."
