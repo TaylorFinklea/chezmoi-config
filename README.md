@@ -1,11 +1,11 @@
 # Chezmoi Dotfiles Configuration
 
-This directory contains dotfile configurations managed by [chezmoi](https://www.chezmoi.io/), migrated from the previous home-manager/NixOS setup.
+This directory contains dotfile configurations managed by [chezmoi](https://www.chezmoi.io/).
 
 ## Why Chezmoi?
 
-Chezmoi is being used instead of home-manager because it:
-- Doesn't require admin/root privileges (unlike Nix)
+Chezmoi is used because it:
+- Doesn't require admin/root privileges
 - Works on managed work computers
 - Manages dotfiles with templating, encryption, and scripts
 - Supports multiple machines with different configurations
@@ -116,7 +116,7 @@ Examples:
 - `private_dot_ssh` → `~/.ssh` (with 0700 permissions)
 - `executable_dot_local/bin/script.sh` → `~/.local/bin/script.sh` (executable)
 
-## Configuration Files Migrated from home-manager
+## Included Configurations
 
 ### Shell Configuration
 - ✅ Zsh with auto-suggestions and syntax highlighting
@@ -188,21 +188,6 @@ Then use in templates:
     name = {{ .name }}
     email = {{ .email }}
 ```
-
-## Migration Notes
-
-### What was in home-manager (work.nix)
-- Package management → Now using Homebrew
-- XDG config files → Now managed by chezmoi
-- Service management → Handled by macOS LaunchAgents
-- Environment variables → In .zshenv
-- Shell aliases → In .zshrc
-
-### Not Migrated (Nix-specific)
-- Nix package derivations
-- System-level configurations
-- NixOS modules
-- Home-manager specific options
 
 ## Updating Configurations
 
