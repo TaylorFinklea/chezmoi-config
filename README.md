@@ -59,6 +59,13 @@ cd ~/git/chezmoi-config
 
 **Note:** To update your app list later, edit the script and re-run it. It won't reinstall existing packages.
 
+### 4. Install VS Code extensions (Optional)
+
+```bash
+cd ~/git/chezmoi-config
+./scripts/install-vscode-extensions.sh
+```
+
 ---
 
 ## Daily Usage
@@ -133,6 +140,11 @@ Examples:
   - Rust (rustup)
   - Go, Lua, Swift, Zig
 
+### Editor Configuration
+- ✅ VS Code settings and keybindings
+- 📦 VS Code extensions (see `vscode-extensions.txt`)
+- ✅ Neovim (LazyVim)
+
 ### Terminal Applications
 - ✅ Zellij (terminal multiplexer)
 - ✅ Ghostty (terminal emulator)
@@ -160,7 +172,13 @@ chezmoi diff
 chezmoi apply -v
 
 # Edit a file with your editor
-chezmoi edit ~/.zshrc
+chezmoi eVS Code settings
+chezmoi add ~/Library/Application\ Support/Code/User/settings.json
+
+# Export current VS Code extensions
+/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code --list-extensions > ~/git/chezmoi-config/vscode-extensions.txt
+
+# Update dit ~/.zshrc
 
 # Add a new file to chezmoi
 chezmoi add ~/.config/newapp/config.toml

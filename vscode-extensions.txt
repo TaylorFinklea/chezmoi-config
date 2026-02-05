@@ -1,0 +1,10 @@
+drewxs.tokyo-night-dark
+enkia.tokyo-night
+github.copilot-chat
+mechatroner.rainbow-csv
+ms-python.debugpy
+ms-python.python
+ms-python.vscode-pylance
+ms-python.vscode-python-envs
+openai.chatgpt
+sst-dev.opencode

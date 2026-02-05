@@ -1,0 +1,32 @@
+{
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "chat.tools.urls.autoApprove": {
+    "https://raw.githubusercontent.com": {
+      "approveRequest": false,
+      "approveResponse": true
+    },
+    "https://discuss.logseq.com": {
+      "approveRequest": false,
+      "approveResponse": true
+    },
+    "https://github.com": {
+      "approveRequest": false,
+      "approveResponse": true
+    }
+  },
+  "chat.tools.terminal.autoApprove": {
+    "/^history \\| tail -20$/": {
+      "approve": true,
+      "matchCommandLine": true
+    },
+    "mkdir": true,
+    "mv": true,
+    "cp": true
+  },
+  "git.autofetch": true,
+  "simpleBrowser.useIntegratedBrowser": true,
+  "workbench.browser.openLocalhostLinks": true,
+  "inlineChat.affordance": "gutter",
+  "workbench.colorTheme": "Tokyo Night",
+  "terminal.integrated.fontFamily": "FiraCode Nerd Font"
+}
