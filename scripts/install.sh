@@ -106,6 +106,29 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     info "Applying dotfiles..."
     chezmoi apply -v
     success "Dotfiles applied!"
+
+    # Step 6b: Bootstrap lazy.nvim if Neovim config is present
+    if [ -f "$HOME/.config/nvim/init.lua" ]; then
+        if command -v git &> /dev/null; then
+            LAZY_PATH="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/lazy/lazy.nvim"
+            if [ ! -d "$LAZY_PATH" ]; then
+                info "Bootstrapping lazy.nvim..."
+                mkdir -p "$(dirname "$LAZY_PATH")"
+                if git clone --filter=blob:none --branch=stable https://github.com/folke/lazy.nvim.git "$LAZY_PATH"; then
+                    success "lazy.nvim installed"
+                else
+                    warn "Failed to clone lazy.nvim. You can retry later with:"
+                    warn "  git clone --filter=blob:none --branch=stable https://github.com/folke/lazy.nvim.git $LAZY_PATH"
+                fi
+            else
+                success "lazy.nvim already installed"
+            fi
+        else
+            warn "git not found; skipping lazy.nvim bootstrap"
+        fi
+    else
+        warn "Neovim config not found; skipping lazy.nvim bootstrap"
+    fi
 else
     warn "Dotfile application cancelled. You can apply manually with: chezmoi apply -v"
 fi

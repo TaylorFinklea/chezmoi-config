@@ -4,27 +4,26 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[](color_purple)\
+[ ](bg:color_purple)\
 $os\
 $username\
-[](bg:color_aqua fg:color_purple)\
+[](fg:color_purple bg:color_aqua)\
 $directory\
-[](fg:color_aqua bg:color_green)\
+[](fg:color_aqua bg:color_green)\
 $git_branch\
 $git_status\
-[](fg:color_green bg:color_blue)\
+[](fg:color_green bg:color_blue)\
 $rust\
 $golang\
 $nodejs\
 $kotlin\
 $lua\
 $python\
-[](fg:color_blue bg:color_indigo)\
+[](fg:color_blue bg:color_indigo)\
 $docker_context\
 $conda\
-[](fg:color_indigo bg:color_indigo)\
+[](fg:color_indigo)\
 $time\
-[ ](fg:color_indigo)\
 $all\
 $line_break\
 $character\
@@ -198,6 +197,7 @@ symbol = ' '
 [os]
 disabled = false
 style = 'fg:color_bg1 bg:color_purple'
+format = '[$symbol ]($style)'
 
 [os.symbols]
 Alpaquita = ' '
@@ -219,7 +219,7 @@ HardenedBSD = '󰞌 '
 Illumos = '󰈸 '
 Linux = ' '
 Mabox = ' '
-Macos = ' '
+Macos = ''
 Manjaro = ' '
 Mariner = ' '
 MidnightBSD = ' '
