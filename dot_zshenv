@@ -7,9 +7,6 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # Local bin directory
 export PATH="$HOME/.local/bin:$PATH"
 
-# Python path for site-packages
-export PYTHONPATH="$HOME/.nix-profile/lib/python3.12/site-packages${PYTHONPATH:+:}$PYTHONPATH"
-
 # Add cargo bin if it exists
 [ -d "$HOME/.cargo/bin" ] && export PATH="$HOME/.cargo/bin:$PATH"
 

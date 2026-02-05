@@ -62,19 +62,12 @@ alias gs="git status"
 alias gd="git diff"
 alias gl="git log --oneline --graph --decorate"
 
-# Nix/NixOS (for when you have access)
-alias nixr="nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake .#roshar --impure"
-alias nixw="nix --extra-experimental-features 'nix-command flakes' run nix-darwin -- switch --flake .#work --impure"
-alias nixgarbage="nix-collect-garbage -d"
-
 # Utilities
 alias mvall="find . -mindepth 2 -type f -exec mv -i '{}' . ';'"
 alias nvim-kickstart='NVIM_APPNAME="nvim-kickstart" nvim'
 
 # Modern replacements
 alias y="yazi"
-alias c="claude"
-alias co="codex"
 
 # List variations
 alias ll="ls -l"

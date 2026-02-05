@@ -68,11 +68,6 @@ fi
 # ALIASES
 # ============================================================================
 
-# Nix/NixOS (for when you have access)
-alias update="nix-channel --update && nix-env -u"
-alias swork="nix --extra-experimental-features \"nix-command flakes\" run nix-darwin -- switch --flake .#work --impure"
-alias sman="nix --extra-experimental-features \"nix-command flakes\" run nix-darwin -- switch --flake .#mandalore --impure"
-
 # Git shortcuts
 alias ga="git add ."
 alias gc="git commit -m"
@@ -84,8 +79,6 @@ alias gl="git log --oneline --graph --decorate"
 
 # Modern replacements
 alias y="yazi"           # File manager
-alias c="claude"         # Claude AI (if installed)
-alias co="codex"         # Codex (if installed)
 
 # List variations
 alias ll="ls -l"
