@@ -150,10 +150,13 @@ Examples:
 ## Common Chezmoi Commands
 
 ```bash
-# Check what would change
+# Update dotfiles from git and apply changes
+chezmoi update
+
+# Check what would change (without applying)
 chezmoi diff
 
-# Apply changes
+# Apply changes manually
 chezmoi apply -v
 
 # Edit a file with your editor
@@ -164,11 +167,6 @@ chezmoi add ~/.config/newapp/config.toml
 
 # Update chezmoi from source directory
 chezmoi re-add
-
-# Pull and apply changes from git
-cd ~/git/chezmoi-config
-git pull
-chezmoi apply -v
 ```
 
 ## Template Variables
@@ -192,10 +190,10 @@ Then use in templates:
 ## Updating Configurations
 
 1. Edit files in `~/git/chezmoi-config/`
-2. Test changes: `chezmoi diff`
+2. Preview changes: `chezmoi diff`
 3. Apply locally: `chezmoi apply -v`
-4. Commit to git
-5. On other machines: `cd ~/git/chezmoi-config && git pull && chezmoi apply -v`
+4. Commit and push to git
+5. On other machines: `chezmoi update`
 
 ## Troubleshooting
 
