@@ -37,7 +37,6 @@ keybinds {
         bind "w" { ToggleFloatingPanes; SwitchToMode "Normal"; }
         bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "Normal"; }
         bind "c" { SwitchToMode "RenamePane"; PaneNameInput 0;}
-        bind "i" { PinFloatingPane; SwitchToMode "Normal"; }
     }
     move {
         bind "Ctrl z" { SwitchToMode "Normal"; }
@@ -255,7 +254,7 @@ theme "tokyo-night-dark"
 // The name of the default layout to load on startup
 // Default: "default" "compact"
 //
-default_layout "compact"
+default_layout "welcome"
 
 // Choose the mode that zellij uses when starting up.
 // Default: normal
@@ -317,10 +316,11 @@ copy_command "pbcopy"                     // osx
 
 // The folder in which Zellij will look for layouts
 //
-layout_dir "./layouts"
+layout_dir "/Users/tfinklea/.config/zellij/layouts"
 
 // The folder in which Zellij will look for themes
-/
+//
+// theme_dir "/path/to/my/theme_dir"
 
 // Auto-stack panes when resizing (v0.42.0)
 // stacked_resize true
@@ -333,8 +333,7 @@ layout_dir "./layouts"
 // show_startup_tips true
 
 // Show release notes on first run (v0.42.0)
-// show_release_notes true/
-// theme_dir "/path/to/my/theme_dir"
+// show_release_notes true
 
 ui {
   pane_frames {
