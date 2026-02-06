@@ -28,5 +28,7 @@
   "workbench.browser.openLocalhostLinks": true,
   "inlineChat.affordance": "gutter",
   "workbench.colorTheme": "Tokyo Night",
-  "terminal.integrated.fontFamily": "FiraCode Nerd Font"
+  "terminal.integrated.fontFamily": "FiraCode Nerd Font",
+  "chat.customAgentInSubagent.enabled": true,
+  "github.copilot.chat.copilotMemory.enabled": true
 }
