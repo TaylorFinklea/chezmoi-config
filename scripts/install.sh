@@ -75,9 +75,17 @@ if command -v chezmoi &> /dev/null; then
     CURRENT_SOURCE="$(chezmoi source-path 2>/dev/null || true)"
 fi
 
+EFFECTIVE_SOURCE="$CHEZMOI_SOURCE_DIR"
+
+if [ -n "$CURRENT_SOURCE" ] && [ ! -d "$CURRENT_SOURCE" ]; then
+    warn "Chezmoi source path reported as $CURRENT_SOURCE but it doesn't exist; treating as uninitialized"
+    CURRENT_SOURCE=""
+fi
+
 if [ -n "$CURRENT_SOURCE" ]; then
     if [ "$CURRENT_SOURCE" = "$CHEZMOI_SOURCE_DIR" ]; then
         success "Chezmoi already initialized with this source"
+        EFFECTIVE_SOURCE="$CHEZMOI_SOURCE_DIR"
     else
         warn "Chezmoi already initialized with: $CURRENT_SOURCE"
         read -p "Reinitialize to use $CHEZMOI_SOURCE_DIR? (y/N) " -n 1 -r
@@ -85,18 +93,21 @@ if [ -n "$CURRENT_SOURCE" ]; then
         if [[ $REPLY =~ ^[Yy]$ ]]; then
             chezmoi init --source="$CHEZMOI_SOURCE_DIR" --force
             success "Chezmoi reinitialized with source: $CHEZMOI_SOURCE_DIR"
+            EFFECTIVE_SOURCE="$CHEZMOI_SOURCE_DIR"
         else
             warn "Keeping existing chezmoi source"
+            EFFECTIVE_SOURCE="$CURRENT_SOURCE"
         fi
     fi
 else
     chezmoi init --source="$CHEZMOI_SOURCE_DIR"
     success "Chezmoi initialized with source: $CHEZMOI_SOURCE_DIR"
+    EFFECTIVE_SOURCE="$CHEZMOI_SOURCE_DIR"
 fi
 
 # Step 5: Show what would change
 info "Checking what would change..."
-chezmoi diff
+chezmoi -S "$EFFECTIVE_SOURCE" diff
 
 # Step 6: Ask for confirmation
 echo ""
@@ -104,7 +115,7 @@ read -p "Apply these changes? (y/N) " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     info "Applying dotfiles..."
-    chezmoi apply -v
+    chezmoi -S "$EFFECTIVE_SOURCE" apply -v
     success "Dotfiles applied!"
 
     # Step 6b: Bootstrap lazy.nvim if Neovim config is present
