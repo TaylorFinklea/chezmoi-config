@@ -26,6 +26,7 @@ TAPS=(
   "knqyf263/pet"
   "FelixKratz/formulae"
   "nikitabobko/tap"
+  "steipete/tap"
 )
 
 for tap in "${TAPS[@]}"; do
@@ -54,6 +55,7 @@ CASKS=(
   "voiceink"
   "witsy"
   "jan"
+  "codexbar"
 
   # Productivity & Organization
   "raycast"
@@ -110,6 +112,7 @@ BREWS=(
   "uv"
   "git"
   "git-lfs"
+  "chezmoi"
   "tmuxinator"
   "jupyterlab"
 
