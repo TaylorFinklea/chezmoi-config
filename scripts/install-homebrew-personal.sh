@@ -78,6 +78,7 @@ CASKS=(
   # Media & Graphics
   "obs"
   "figma"
+  "inkscape"
 
   # Hardware & Electronics
   "via"
