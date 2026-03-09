@@ -119,6 +119,7 @@ BREWS=(
   "git"
   "git-lfs"
   "fzf"
+  "btop"
   "chezmoi"
   "just"
   "tmuxinator"

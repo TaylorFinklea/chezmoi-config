@@ -98,6 +98,7 @@ BREWS=(
     "git"
     "git-lfs"
     "fzf"
+    "btop"
     "just"
     "tmuxinator"
     "jupyterlab"
