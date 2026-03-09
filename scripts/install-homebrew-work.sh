@@ -44,6 +44,7 @@ CASKS=(
 
     # Productivity & Organization
     "maccy"
+    "espanso"
     #"logseq"
 
     # System Utilities
