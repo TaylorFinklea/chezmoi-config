@@ -56,6 +56,9 @@ CASKS=(
   "witsy"
   "jan"
   "codexbar"
+  "opencode-desktop"
+  "langflow"
+  "block-goose"
 
   # Productivity & Organization
   "raycast"
