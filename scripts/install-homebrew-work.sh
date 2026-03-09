@@ -97,6 +97,7 @@ BREWS=(
     "uv"
     "git"
     "git-lfs"
+    "just"
     "tmuxinator"
     "jupyterlab"
 
