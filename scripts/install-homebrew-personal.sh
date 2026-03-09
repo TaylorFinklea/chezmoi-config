@@ -59,6 +59,7 @@ CASKS=(
 
   # Productivity & Organization
   "raycast"
+  "maccy"
   "logseq"
 
   # System Utilities

@@ -43,6 +43,7 @@ CASKS=(
     #"docker-desktop"
 
     # Productivity & Organization
+    "maccy"
     #"logseq"
 
     # System Utilities
