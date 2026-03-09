@@ -97,6 +97,7 @@ BREWS=(
     "uv"
     "git"
     "git-lfs"
+    "gh"
     "fzf"
     "btop"
     "viddy"
@@ -151,6 +152,10 @@ BREWS=(
     "acli"
 )
 
+GH_EXTENSIONS=(
+    "dlvhdr/gh-dash"
+)
+
 # Install casks
 echo "🖥️  Installing casks..."
 for cask in "${CASKS[@]}"; do
@@ -172,6 +177,21 @@ for formula in "${BREWS[@]}"; do
         brew install "$formula" || echo "  ⚠️  Failed to install $formula (might not be available)"
     fi
 done
+
+# Install GitHub CLI extensions
+if command -v gh &>/dev/null; then
+    echo "🐙 Installing GitHub CLI extensions..."
+    for extension in "${GH_EXTENSIONS[@]}"; do
+        if gh extension list 2>/dev/null | awk '{print $1}' | grep -qx "$extension"; then
+            echo "  ✓ Already installed: $extension"
+        else
+            echo "  Installing GitHub CLI extension: $extension"
+            gh extension install "$extension" || echo "  ⚠️  Failed to install $extension"
+        fi
+    done
+else
+    echo "  ⚠️  Skipping GitHub CLI extensions because gh is not installed"
+fi
 
 # Upgrade existing packages
 echo "⬆️  Upgrading existing packages..."
