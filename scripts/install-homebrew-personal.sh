@@ -55,6 +55,8 @@ CASKS=(
   "voiceink"
   "witsy"
   "jan"
+  "chatgpt"
+  "codex-app"
   "codexbar"
   "opencode-desktop"
   "langflow"

@@ -42,6 +42,10 @@ CASKS=(
     "visual-studio-code"
     #"docker-desktop"
 
+    # AI & Machine Learning
+    "chatgpt"
+    "codex-app"
+
     # Productivity & Organization
     "maccy"
     "espanso"
