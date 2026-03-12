@@ -78,6 +78,18 @@ chezmoi update    # Update dotfiles (pull from git + apply)
 
 To update installed apps, run the Homebrew script again after editing it.
 
+## OpenAI API Key
+
+`OPENAI_API_KEY` is loaded by `zsh` and `fish` from the macOS Keychain. Do not store the actual key in this repo.
+
+Set or update it locally with:
+
+```bash
+security add-generic-password -U -a "$USER" -s OPENAI_API_KEY -w 'your-api-key-here'
+```
+
+After saving it, start a new `zsh` or `fish` shell so the variable is exported automatically.
+
 ## Directory Structure
 
 ```
