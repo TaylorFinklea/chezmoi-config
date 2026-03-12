@@ -180,6 +180,19 @@ end
 # ENVIRONMENT VARIABLES
 # ============================================================================
 
+# Load OpenAI API key from the macOS user environment or Keychain.
+if not set -q OPENAI_API_KEY
+    set -l openai_api_key (/bin/launchctl getenv OPENAI_API_KEY 2>/dev/null)
+
+    if test -z "$openai_api_key"
+        set openai_api_key (/usr/bin/security find-generic-password -a "$USER" -s OPENAI_API_KEY -w 2>/dev/null)
+    end
+
+    if test -n "$openai_api_key"
+        set -gx OPENAI_API_KEY $openai_api_key
+    end
+end
+
 set -gx LANG en_US.UTF-8
 set -gx LC_ALL en_US.UTF-8
 set -gx EDITOR nvim

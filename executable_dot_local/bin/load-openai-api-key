@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -eu
+
+openai_api_key="$(/usr/bin/security find-generic-password -a "$USER" -s OPENAI_API_KEY -w 2>/dev/null || true)"
+
+if [ -z "$openai_api_key" ]; then
+    exit 0
+fi
+
+exec /bin/launchctl setenv OPENAI_API_KEY "$openai_api_key"
