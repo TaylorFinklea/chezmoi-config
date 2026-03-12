@@ -180,11 +180,9 @@ end
 # ENVIRONMENT VARIABLES
 # ============================================================================
 
-# Load OpenAI API key from the macOS user environment or Keychain.
+# Load OpenAI API key from the macOS Keychain.
 if not set -q OPENAI_API_KEY
-    set -l openai_api_key (/bin/launchctl getenv OPENAI_API_KEY 2>/dev/null)
-
-    if test -z "$openai_api_key"
+    if test -x /usr/bin/security
         set openai_api_key (/usr/bin/security find-generic-password -a "$USER" -s OPENAI_API_KEY -w 2>/dev/null)
     end
 

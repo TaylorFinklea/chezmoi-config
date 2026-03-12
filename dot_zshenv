@@ -13,11 +13,9 @@ export PATH="$HOME/.local/bin:$PATH"
 # Add go bin if it exists
 [ -d "$HOME/go/bin" ] && export PATH="$HOME/go/bin:$PATH"
 
-# Load OpenAI API key from the macOS user environment or Keychain.
+# Load OpenAI API key from the macOS Keychain.
 if [ -z "${OPENAI_API_KEY:-}" ]; then
-    OPENAI_API_KEY="$(/bin/launchctl getenv OPENAI_API_KEY 2>/dev/null)"
-
-    if [ -z "$OPENAI_API_KEY" ] && [ -x /usr/bin/security ]; then
+    if [ -x /usr/bin/security ]; then
         OPENAI_API_KEY="$(/usr/bin/security find-generic-password -a "$USER" -s OPENAI_API_KEY -w 2>/dev/null)"
     fi
 
