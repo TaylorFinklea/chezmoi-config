@@ -53,14 +53,14 @@ CASKS=(
   # AI & Machine Learning
   "ollama-app"
   "voiceink"
-  "witsy"
-  "jan"
   "chatgpt"
   "codex-app"
   "codexbar"
   "opencode-desktop"
   "langflow"
   "block-goose"
+  "warp"
+  "antigravity"
 
   # Productivity & Organization
   "raycast"
@@ -71,32 +71,24 @@ CASKS=(
   # System Utilities
   "aerospace"
   "lunar"
-  "kindavim"
-  "wooshy"
-  "shortcat"
-  "superkey"
-  "scrolla"
+  # "kindavim"
+  # "wooshy"
+  # "shortcat"
+  # "superkey"
+  # "scrolla"
   "shottr"
-  "vmware-fusion"
 
   # Browsers
-  "firefox@developer-edition"
+  # "firefox@developer-edition"
+  "google-chrome"
 
   # Media & Graphics
   "obs"
   "figma"
   "inkscape"
 
-  # Hardware & Electronics
-  "via"
-
-  # Security & Network
-  "lastpass"
-  "qmk-toolbox"
-
   # Utilities
   "xbar"
-  "karabiner-elements"
 
   # Fonts
   "font-fira-mono-nerd-font"
@@ -134,8 +126,6 @@ BREWS=(
   # AI & Machine Learning
   "promptfoo"
   "codex"
-  "llm"
-  "tmuxai"
   "opencode"
   "claude-code"
 
