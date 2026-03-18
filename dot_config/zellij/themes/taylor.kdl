@@ -3,13 +3,13 @@ themes {
         fg 169 177 214
         bg 26 27 38
         black 56 62 90
-        red "#A220EA"
+        red "#FF5F3D"
         green "#18CAE6"
         yellow 224 175 104
-        blue "#7D26EA"
+        blue 122 162 247
         magenta 187 154 247
-        cyan 42 195 222
+        cyan "#18CAE6"
         white 192 202 245
-        orange "#FF8616"
+        orange "#FF8A3D"
     }
 }
