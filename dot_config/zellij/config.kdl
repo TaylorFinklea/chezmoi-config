@@ -5,7 +5,7 @@ keybinds {
         // bind "Alt c" { Copy; }
     }
     locked {
-        bind "Ctrl g" { SwitchToMode "Normal"; }
+        bind "Alt g" { SwitchToMode "Normal"; }
     }
     resize {
         bind "Ctrl n" { SwitchToMode "Normal"; }
@@ -67,7 +67,7 @@ keybinds {
         bind "Tab" { ToggleTab; }
     }
     scroll {
-        bind "Ctrl s" { SwitchToMode "Normal"; }
+        bind "Alt s" { SwitchToMode "Normal"; }
         bind "e" { EditScrollback; SwitchToMode "Normal"; }
         bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
         bind "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
@@ -81,7 +81,7 @@ keybinds {
         // bind "Alt c" { Copy; }
     }
     search {
-        bind "Ctrl s" { SwitchToMode "Normal"; }
+        bind "Alt s" { SwitchToMode "Normal"; }
         bind "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
         bind "j" "Down" { ScrollDown; }
         bind "k" "Up" { ScrollUp; }
@@ -109,7 +109,7 @@ keybinds {
     }
     session {
         bind "Ctrl o" { SwitchToMode "Normal"; }
-        bind "Ctrl s" { SwitchToMode "Scroll"; }
+        bind "Alt s" { SwitchToMode "Scroll"; }
         bind "d" { Detach; }
     }
     tmux {
@@ -136,7 +136,7 @@ keybinds {
         bind "x" { CloseFocus; SwitchToMode "Normal"; }
     }
     shared_except "locked" {
-        bind "Ctrl g" { SwitchToMode "Locked"; }
+        bind "Alt g" { SwitchToMode "Locked"; }
         bind "Ctrl q" { Quit; }
         bind "Alt n" { NewPane; }
         bind "Ctrl n" "Alt Left" { MoveFocusOrTab "Left"; }
@@ -158,7 +158,7 @@ keybinds {
         bind "Ctrl r" { SwitchToMode "Resize"; }
     }
     shared_except "scroll" "locked" {
-        bind "Ctrl s" { SwitchToMode "Scroll"; }
+        bind "Alt s" { SwitchToMode "Scroll"; }
     }
     shared_except "session" "locked" {
         bind "Ctrl o" { SwitchToMode "Session"; }
