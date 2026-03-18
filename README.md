@@ -32,6 +32,7 @@ cd ~/git/chezmoi-config
 This will:
 - Install chezmoi if needed
 - Initialize your dotfiles
+- Write `~/.config/chezmoi/chezmoi.toml` so `chezmoi update` points at this clone
 - Auto-detect work vs personal computer
 - Optionally install packages
 
@@ -41,6 +42,16 @@ This will:
 # If this is your first time setting up chezmoi with this config
 cd ~/git/chezmoi-config
 chezmoi init --source=$PWD
+
+# Keep chezmoi update pointed at this clone
+mkdir -p ~/.config/chezmoi
+cat > ~/.config/chezmoi/chezmoi.toml <<EOF
+sourceDir = "$PWD"
+
+[update]
+    apply = true
+    recurseSubmodules = true
+EOF
 
 # Apply the dotfiles
 chezmoi apply -v
@@ -77,6 +88,8 @@ chezmoi update    # Update dotfiles (pull from git + apply)
 ```
 
 To update installed apps, run the Homebrew script again after editing it.
+
+`chezmoi update` works because this repo manages `~/.config/chezmoi/chezmoi.toml` with the active `sourceDir`. If that file is missing or points at a deleted path, re-run `./scripts/install.sh` or `chezmoi init --source=$HOME/git/chezmoi-config --force`.
 
 ## OpenAI API Key
 
@@ -231,6 +244,13 @@ Then use in templates:
 ```bash
 chezmoi status
 chezmoi diff
+```
+
+### Fix `chezmoi update` if it points at a missing source directory
+```bash
+cd ~/git/chezmoi-config
+chezmoi init --source=$PWD --force
+chezmoi apply -v
 ```
 
 ### Verify what chezmoi would do

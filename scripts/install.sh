@@ -64,6 +64,19 @@ fi
 # Step 3: Determine the source directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CHEZMOI_SOURCE_DIR="$(dirname "$SCRIPT_DIR")"
+CHEZMOI_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/chezmoi"
+CHEZMOI_CONFIG_FILE="$CHEZMOI_CONFIG_DIR/chezmoi.toml"
+
+write_bootstrap_config() {
+    mkdir -p "$CHEZMOI_CONFIG_DIR"
+    cat > "$CHEZMOI_CONFIG_FILE" <<EOF
+sourceDir = "$1"
+
+[update]
+    apply = true
+    recurseSubmodules = true
+EOF
+}
 
 info "Chezmoi source directory: $CHEZMOI_SOURCE_DIR"
 
@@ -84,6 +97,7 @@ fi
 
 if [ -n "$CURRENT_SOURCE" ]; then
     if [ "$CURRENT_SOURCE" = "$CHEZMOI_SOURCE_DIR" ]; then
+        write_bootstrap_config "$CHEZMOI_SOURCE_DIR"
         success "Chezmoi already initialized with this source"
         EFFECTIVE_SOURCE="$CHEZMOI_SOURCE_DIR"
     else
@@ -91,6 +105,7 @@ if [ -n "$CURRENT_SOURCE" ]; then
         read -p "Reinitialize to use $CHEZMOI_SOURCE_DIR? (y/N) " -n 1 -r
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]; then
+            write_bootstrap_config "$CHEZMOI_SOURCE_DIR"
             chezmoi init --source="$CHEZMOI_SOURCE_DIR" --force
             success "Chezmoi reinitialized with source: $CHEZMOI_SOURCE_DIR"
             EFFECTIVE_SOURCE="$CHEZMOI_SOURCE_DIR"
@@ -100,6 +115,7 @@ if [ -n "$CURRENT_SOURCE" ]; then
         fi
     fi
 else
+    write_bootstrap_config "$CHEZMOI_SOURCE_DIR"
     chezmoi init --source="$CHEZMOI_SOURCE_DIR"
     success "Chezmoi initialized with source: $CHEZMOI_SOURCE_DIR"
     EFFECTIVE_SOURCE="$CHEZMOI_SOURCE_DIR"

@@ -27,6 +27,7 @@ cd ~/git/chezmoi-config
 The installation script will:
 - Install chezmoi
 - Initialize your dotfiles
+- Write `~/.config/chezmoi/chezmoi.toml` so `chezmoi update` uses this clone
 - Auto-detect work vs personal computer
 - Optionally install packages (work or personal configuration)
 
@@ -118,7 +119,9 @@ exec zsh  # Restart the shell
 
 ### Chezmoi not finding source
 ```bash
-chezmoi init --source=$HOME/git/chezmoi-config
+cd ~/git/chezmoi-config
+chezmoi init --source=$PWD --force
+chezmoi apply -v
 ```
 
 ### Reset a specific file
