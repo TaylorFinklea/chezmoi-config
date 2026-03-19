@@ -1,0 +1,25 @@
+;; Kanata navigation layer:
+;; tap Caps for normal Caps Lock, hold Caps and use h/j/k/l as arrow keys.
+
+(defcfg
+  process-unmapped-keys yes
+)
+
+(defsrc
+  caps
+  h j k l
+)
+
+(deflayer base
+  @caps-nav
+  _ _ _ _
+)
+
+(deflayer nav
+  _
+  left down up rght
+)
+
+(defalias
+  caps-nav (tap-hold-press 200 200 caps (layer-while-held nav))
+)
