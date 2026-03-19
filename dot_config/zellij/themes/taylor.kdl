@@ -4,7 +4,7 @@ themes {
         bg 26 27 38
         black 56 62 90
         red "#FF5F3D"
-        green "#18CAE6"
+        green "#9ECE6A"
         yellow 224 175 104
         blue 122 162 247
         magenta 187 154 247
@@ -37,7 +37,7 @@ themes {
             emphasis_3 "#7AA2F7"
         }
         ribbon_selected {
-            base "#1A1B26"
+            base "#C0CAF5"
             background "#18CAE6"
             emphasis_0 "#FF5F3D"
             emphasis_1 "#1A1B26"
