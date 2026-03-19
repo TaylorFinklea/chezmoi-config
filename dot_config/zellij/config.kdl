@@ -264,11 +264,13 @@ default_layout "welcome"
 // Toggle enabling the mouse mode.
 // On certain configurations, or terminals this could
 // potentially interfere with copying text.
+// Keep this disabled so inline apps like Codex can use terminal scrollback
+// instead of having wheel events intercepted by Zellij.
 // Options:
 //   - true (default)
 //   - false
 //
-// mouse_mode false
+mouse_mode false
 
 // Configure the scroll back buffer size
 // This is the number of lines zellij stores for each pane in the scroll back
