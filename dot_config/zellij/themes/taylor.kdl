@@ -38,11 +38,11 @@ themes {
         }
         ribbon_selected {
             base "#C0CAF5"
-            background "#18CAE6"
+            background "#2A3047"
             emphasis_0 "#FF5F3D"
-            emphasis_1 "#1A1B26"
+            emphasis_1 "#18CAE6"
             emphasis_2 "#FF8A3D"
-            emphasis_3 "#7D26EA"
+            emphasis_3 "#7AA2F7"
         }
     }
 }
