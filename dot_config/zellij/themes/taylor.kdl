@@ -2,14 +2,47 @@ themes {
     taylor {
         fg 169 177 214
         bg 26 27 38
-        black "#24283B"
+        black 56 62 90
         red "#FF5F3D"
         green "#18CAE6"
         yellow 224 175 104
         blue 122 162 247
         magenta 187 154 247
         cyan "#18CAE6"
-        white "#414868"
+        white 192 202 245
         orange "#FF8A3D"
+
+        text_unselected {
+            base "#A9B1D6"
+            background "#1F2335"
+            emphasis_0 "#FF5F3D"
+            emphasis_1 "#18CAE6"
+            emphasis_2 "#FF8A3D"
+            emphasis_3 "#7AA2F7"
+        }
+        text_selected {
+            base "#C0CAF5"
+            background "#24283B"
+            emphasis_0 "#FF5F3D"
+            emphasis_1 "#18CAE6"
+            emphasis_2 "#FF8A3D"
+            emphasis_3 "#BB9AF7"
+        }
+        ribbon_unselected {
+            base "#A9B1D6"
+            background "#24283B"
+            emphasis_0 "#FF5F3D"
+            emphasis_1 "#18CAE6"
+            emphasis_2 "#FF8A3D"
+            emphasis_3 "#7AA2F7"
+        }
+        ribbon_selected {
+            base "#1A1B26"
+            background "#18CAE6"
+            emphasis_0 "#FF5F3D"
+            emphasis_1 "#1A1B26"
+            emphasis_2 "#FF8A3D"
+            emphasis_3 "#7D26EA"
+        }
     }
 }
