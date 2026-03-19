@@ -3,46 +3,13 @@ themes {
         fg 169 177 214
         bg 26 27 38
         black 56 62 90
-        red "#FF5F3D"
-        green "#9ECE6A"
+        red 249 51 87
+        green 158 206 106
         yellow 224 175 104
         blue 122 162 247
         magenta 187 154 247
-        cyan "#18CAE6"
+        cyan 42 195 222
         white 192 202 245
-        orange "#FF8A3D"
-
-        text_unselected {
-            base "#A9B1D6"
-            background "#1F2335"
-            emphasis_0 "#FF5F3D"
-            emphasis_1 "#18CAE6"
-            emphasis_2 "#FF8A3D"
-            emphasis_3 "#7AA2F7"
-        }
-        text_selected {
-            base "#C0CAF5"
-            background "#24283B"
-            emphasis_0 "#FF5F3D"
-            emphasis_1 "#18CAE6"
-            emphasis_2 "#FF8A3D"
-            emphasis_3 "#BB9AF7"
-        }
-        ribbon_unselected {
-            base "#A9B1D6"
-            background "#24283B"
-            emphasis_0 "#FF5F3D"
-            emphasis_1 "#18CAE6"
-            emphasis_2 "#FF8A3D"
-            emphasis_3 "#7AA2F7"
-        }
-        ribbon_selected {
-            base "#C0CAF5"
-            background "#2A3047"
-            emphasis_0 "#FF5F3D"
-            emphasis_1 "#18CAE6"
-            emphasis_2 "#FF8A3D"
-            emphasis_3 "#7AA2F7"
-        }
+        orange 255 158 100
     }
 }
