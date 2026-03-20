@@ -71,6 +71,7 @@ CASKS=(
   # System Utilities
   "aerospace"
   "lunar"
+  "kanata"
   # "kindavim"
   # "wooshy"
   # "shortcat"
