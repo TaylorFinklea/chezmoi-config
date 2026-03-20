@@ -105,6 +105,11 @@ alias cza="chezmoi apply -v"       # Apply changes
 alias cze="chezmoi edit"           # Edit a managed file
 alias czs="chezmoi status"         # Check status
 
+# Claude shortcuts
+alias c="claude"
+alias ccr="claude --resume --model opusplan --effort auto --chrome"
+alias ccc="claude -c --model opusplan --effort auto --chrome"
+
 # ============================================================================
 # FUNCTIONS
 # ============================================================================
