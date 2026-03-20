@@ -12,6 +12,10 @@
     "https://github.com": {
       "approveRequest": false,
       "approveResponse": true
+    },
+    "https://code.visualstudio.com": {
+      "approveRequest": false,
+      "approveResponse": true
     }
   },
   "chat.tools.terminal.autoApprove": {
@@ -21,7 +25,9 @@
     },
     "mkdir": true,
     "mv": true,
-    "cp": true
+    "cp": true,
+    "uv": true,
+    "pytest": true
   },
   "git.autofetch": true,
   "simpleBrowser.useIntegratedBrowser": true,
@@ -30,5 +36,21 @@
   "workbench.colorTheme": "Tokyo Night",
   "terminal.integrated.fontFamily": "FiraCode Nerd Font",
   "chat.customAgentInSubagent.enabled": true,
-  "github.copilot.chat.copilotMemory.enabled": true
+  "github.copilot.chat.copilotMemory.enabled": true,
+  "workbench.editor.languageDetection": false,
+  "chat.agent.thinking.collapsedTools": "off",
+  "diffEditor.maxComputationTime": 0,
+  "json.schemaDownload.trustedDomains": {
+    "https://schemastore.azurewebsites.net/": true,
+    "https://raw.githubusercontent.com/": true,
+    "https://www.schemastore.org/": true,
+    "https://json.schemastore.org/": true,
+    "https://json-schema.org/": true,
+    "https://biomejs.dev": true
+  },
+  "chat.mcp.gallery.enabled": true,
+  "chat.agent.maxRequests": 100,
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  }
 }
