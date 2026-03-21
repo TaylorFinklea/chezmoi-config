@@ -1,3 +1,13 @@
 theme = tokyonight
 font-family = "FiraCode Nerd Font"
 macos-option-as-alt = true
+
+# Navigate splits with Cmd+hjkl
+keybind = cmd+h=goto_split:left
+keybind = cmd+j=goto_split:bottom
+keybind = cmd+k=goto_split:top
+keybind = cmd+l=goto_split:right
+
+# Create splits
+keybind = cmd+d=new_split:right
+keybind = cmd+shift+d=new_split:down
