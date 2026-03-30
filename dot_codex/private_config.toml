@@ -1,9 +1,10 @@
 model = "gpt-5.4"
 model_reasoning_effort = "high"
 personality = "pragmatic"
-approvals_reviewer = "guardian_subagent"
+approvals_reviewer = "user"
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
+plan_mode_reasoning_effort = "high"
 [projects."/Users/tfinklea/git/nixos-config"]
 trust_level = "trusted"
 
@@ -29,6 +30,24 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/tfinklea/codex"]
+trust_level = "trusted"
+
+[projects."/Users/tfinklea/z-temp"]
+trust_level = "trusted"
+
+[projects."/Users/tfinklea/git/mealplanner"]
+trust_level = "trusted"
+
+[projects."/Users/tfinklea/git/finclaide"]
+trust_level = "trusted"
+
+[projects."/Users/tfinklea/git/larkline"]
+trust_level = "trusted"
+
+[projects."/Users/tfinklea/git/simmersmith"]
+trust_level = "trusted"
+
+[projects."/Users/tfinklea/git"]
 trust_level = "trusted"
 
 [mcp_servers.playwright]
@@ -61,6 +80,10 @@ url = "https://builds.mcp.cloudflare.com/mcp"
 [mcp_servers.cloudflare-observability]
 url = "https://observability.mcp.cloudflare.com/mcp"
 
+[mcp_servers.simmersmith]
+command = "/Users/tfinklea/git/simmersmith/.venv/bin/python"
+args = ["/Users/tfinklea/git/simmersmith/scripts/run_simmersmith_mcp.py"]
+
 [features]
 multi_agent = true
 apps = true
@@ -71,3 +94,27 @@ alternate_screen = "never"
 
 [sandbox_workspace_write]
 network_access = true
+
+[notice]
+hide_rate_limit_model_nudge = true
+
+[plugins."google-calendar@openai-curated"]
+enabled = true
+
+[plugins."gmail@openai-curated"]
+enabled = true
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."google-drive@openai-curated"]
+enabled = true
+
+[plugins."cloudflare@openai-curated"]
+enabled = true
+
+[plugins."build-ios-apps@openai-curated"]
+enabled = true
+
+[plugins."build-web-apps@openai-curated"]
+enabled = true
