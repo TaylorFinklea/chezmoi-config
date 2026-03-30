@@ -61,17 +61,20 @@ CASKS=(
   "block-goose"
   "warp"
   "antigravity"
+  "mstystudio"
+  "lmstudio"
 
   # Productivity & Organization
   "raycast"
   "maccy"
   "espanso"
   "logseq"
+  "handy"
 
   # System Utilities
   "aerospace"
   "lunar"
-  "kanata"
+  "hammerspoon"
   # "kindavim"
   # "wooshy"
   # "shortcat"
@@ -152,6 +155,8 @@ BREWS=(
   "pngpaste"
   "navi"
   "pet"
+  "ical-buddy"
+  "libqalculate"
 
   # Window Management
   "borders"

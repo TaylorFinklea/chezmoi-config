@@ -49,6 +49,7 @@ CASKS=(
   # Productivity & Organization
   "maccy"
   "espanso"
+  "handy"
   #"logseq"
 
   # System Utilities
@@ -130,6 +131,9 @@ BREWS=(
   "git-crypt"
   "pngpaste"
   "navi"
+  "pet"
+  "ical-buddy"
+  "libqalculate"
 
   # Window Management
   "borders"
