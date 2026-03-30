@@ -1,6 +1,7 @@
 local navMode = hs.hotkey.modal.new()
 local holdDelaySeconds = 0.06
-local escapeTimer = nil
+local capsLockKeyCode = hs.keycodes.map.capslock or 57
+local capsLockTimer = nil
 local navModeActive = false
 
 local function sendNavigationKey(key)
@@ -15,25 +16,41 @@ navMode:bind({}, "k", sendNavigationKey("up"))
 navMode:bind({}, "l", sendNavigationKey("right"))
 navMode:bind({}, "i", sendNavigationKey("home"))
 navMode:bind({}, "o", sendNavigationKey("end"))
+navMode:bind({}, "f", sendNavigationKey("escape"))
 
-hs.hotkey.bind({}, "escape", function()
-  navModeActive = false
+local capsLockLayer = hs.eventtap.new({ hs.eventtap.event.types.keyDown, hs.eventtap.event.types.keyUp }, function(event)
+  if event:getKeyCode() ~= capsLockKeyCode then
+    return false
+  end
 
-  escapeTimer = hs.timer.doAfter(holdDelaySeconds, function()
-    navModeActive = true
-    navMode:enter()
-  end)
-end, function()
-  if escapeTimer then
-    escapeTimer:stop()
-    escapeTimer = nil
+  local eventType = event:getType()
+
+  if eventType == hs.eventtap.event.types.keyDown then
+    navModeActive = false
+
+    if capsLockTimer then
+      capsLockTimer:stop()
+    end
+
+    capsLockTimer = hs.timer.doAfter(holdDelaySeconds, function()
+      navModeActive = true
+      navMode:enter()
+    end)
+
+    return true
+  end
+
+  if capsLockTimer then
+    capsLockTimer:stop()
+    capsLockTimer = nil
   end
 
   if navModeActive then
     navMode:exit()
-  else
-    hs.eventtap.keyStroke({}, "escape", 0)
   end
 
   navModeActive = false
+  return true
 end)
+
+capsLockLayer:start()
