@@ -1,5 +1,5 @@
 local navMode = hs.hotkey.modal.new()
-local holdDelaySeconds = 0.15
+local holdDelaySeconds = 0.06
 local escapeTimer = nil
 local navModeActive = false
 
