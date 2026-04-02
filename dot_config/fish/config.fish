@@ -196,6 +196,17 @@ if not set -q OPENAI_API_KEY
     end
 end
 
+# Load GitHub PAT for Codex from the macOS Keychain.
+if not set -q GITHUB_PAT_TOKEN
+    if test -x /usr/bin/security
+        set github_pat_token (/usr/bin/security find-generic-password -a "$USER" -s codex-github-pat -w 2>/dev/null)
+    end
+
+    if test -n "$github_pat_token"
+        set -gx GITHUB_PAT_TOKEN $github_pat_token
+    end
+end
+
 set -gx LANG en_US.UTF-8
 set -gx LC_ALL en_US.UTF-8
 set -gx EDITOR nvim
