@@ -39,13 +39,13 @@ trust_level = "trusted"
 [projects."/Users/tfinklea/git/ai-scorecard"]
 trust_level = "trusted"
 
+[projects."/Users/tfinklea/git"]
+trust_level = "trusted"
+
 [projects."/Users/tfinklea/git/pos"]
 trust_level = "trusted"
 
 [projects."/Users/tfinklea/git/personal-github-runners"]
-trust_level = "trusted"
-
-[projects."/Users/tfinklea/git"]
 trust_level = "trusted"
 
 [mcp_servers.playwright]
