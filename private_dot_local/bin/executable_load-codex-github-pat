@@ -1,0 +1,8 @@
+#!/bin/zsh
+set -euo pipefail
+
+pat="$(/usr/bin/security find-generic-password -a "$USER" -s codex-github-pat -w 2>/dev/null || true)"
+if [[ -n "$pat" ]]; then
+    launchctl setenv GITHUB_PAT_TOKEN "$pat"
+fi
+unset pat

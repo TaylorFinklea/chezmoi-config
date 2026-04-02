@@ -21,3 +21,13 @@ if [ -z "${OPENAI_API_KEY:-}" ]; then
 
     [ -n "$OPENAI_API_KEY" ] && export OPENAI_API_KEY
 fi
+
+
+# Load GitHub PAT for Codex from the macOS Keychain.
+if [ -z "${GITHUB_PAT_TOKEN:-}" ]; then
+    if [ -x /usr/bin/security ]; then
+        GITHUB_PAT_TOKEN="$(/usr/bin/security find-generic-password -a "$USER" -s codex-github-pat -w 2>/dev/null)"
+    fi
+
+    [ -n "$GITHUB_PAT_TOKEN" ] && export GITHUB_PAT_TOKEN
+fi
