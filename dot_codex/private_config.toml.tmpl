@@ -1,0 +1,5 @@
+{{- if eq .chezmoi.hostname "it-tfinklea-primary" -}}
+{{- template "codex/work.toml" . -}}
+{{- else -}}
+{{- template "codex/personal.toml" . -}}
+{{- end -}}
