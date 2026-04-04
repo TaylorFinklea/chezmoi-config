@@ -1,7 +1,7 @@
 model = "gpt-5.4"
 model_reasoning_effort = "high"
 personality = "pragmatic"
-approvals_reviewer = "user"
+approvals_reviewer = "guardian_subagent"
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 plan_mode_reasoning_effort = "high"
@@ -50,6 +50,15 @@ trust_level = "trusted"
 [projects."/Users/tfinklea/git"]
 trust_level = "trusted"
 
+[projects."/Users/tfinklea/git/layerkeys"]
+trust_level = "trusted"
+
+[projects."/Users/tfinklea/git/joji"]
+trust_level = "trusted"
+
+[projects."/Users/tfinklea/git/tesela"]
+trust_level = "trusted"
+
 [mcp_servers.playwright]
 command = "npx"
 args = ["@playwright/mcp@latest"]
@@ -83,6 +92,48 @@ url = "https://observability.mcp.cloudflare.com/mcp"
 [mcp_servers.simmersmith]
 command = "/Users/tfinklea/git/simmersmith/.venv/bin/python"
 args = ["/Users/tfinklea/git/simmersmith/scripts/run_simmersmith_mcp.py"]
+
+[mcp_servers.simmersmith.tools.health]
+approval_mode = "approve"
+
+[mcp_servers.simmersmith.tools.recipes_list]
+approval_mode = "approve"
+
+[mcp_servers.simmersmith.tools.profile_get]
+approval_mode = "approve"
+
+[mcp_servers.simmersmith.tools.preferences_get]
+approval_mode = "approve"
+
+[mcp_servers.simmersmith.tools.weeks_get_current]
+approval_mode = "approve"
+
+[mcp_servers.simmersmith.tools.weeks_get_by_start]
+approval_mode = "approve"
+
+[mcp_servers.simmersmith.tools.weeks_create]
+approval_mode = "approve"
+
+[mcp_servers.simmersmith.tools.preferences_score_meal]
+approval_mode = "approve"
+
+[mcp_servers.simmersmith.tools.weeks_update_meals]
+approval_mode = "approve"
+
+[mcp_servers.simmersmith.tools.weeks_regenerate_grocery]
+approval_mode = "approve"
+
+[mcp_servers.simmersmith.tools.assistant_create_thread]
+approval_mode = "approve"
+
+[mcp_servers.simmersmith.tools.assistant_respond]
+approval_mode = "approve"
+
+[mcp_servers.simmersmith.tools.assistant_get_thread]
+approval_mode = "approve"
+
+[mcp_servers.simmersmith.tools.assistant_list_threads]
+approval_mode = "approve"
 
 [features]
 multi_agent = true

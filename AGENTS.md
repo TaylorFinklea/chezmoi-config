@@ -1,13 +1,68 @@
-# Repo Notes
+# AGENTS.md
 
-## OPENAI_API_KEY
+Global agent instructions (applies to Codex, Gemini CLI, GPT, and any non-Claude AI coding agent).
 
-This repo expects `OPENAI_API_KEY` to be stored in the macOS Keychain, not in source control.
+## Handoff State
 
-Set or update it locally with:
+Cross-session state lives in `.docs/ai/` (or `docs/ai/` in older repos). Read before starting:
+- `.docs/ai/roadmap.md` — milestones + tiered backlog
+- `.docs/ai/current-state.md` — last session summary
+- `.docs/ai/next-steps.md` — what to work on
 
-```bash
-security add-generic-password -U -a "$USER" -s OPENAI_API_KEY -w 'your-api-key-here'
+Update before ending:
+- `.docs/ai/current-state.md` — what you did, build status
+- `.docs/ai/next-steps.md` — check off completed items
+
+## Tiered Backlog System
+
+The roadmap contains a `## Backlog` section with items organized into three tiers:
+
+| Tier | Who can do it | Scope |
+|------|--------------|-------|
+| **Haiku** | Any agent | Mechanical fixes: empty catch blocks, doc comments, a11y labels, linter issues, hardcoded values |
+| **Sonnet** | Mid-tier+ agents | Refactoring, utility extraction, type safety, component extraction (multi-file, needs some judgment) |
+| **Opus** | Tier 3 owner only | Unit tests, integration tests, API design, complex refactors, architecture decisions |
+
+### Tier ownership
+
+The backlog header may include a `tier3_owner` field:
+```markdown
+<!-- tier3_owner: claude -->
 ```
 
-New `zsh` and `fish` shells load it automatically from Keychain.
+**If `tier3_owner` is set, non-owner agents MUST NOT work on Tier 3 (Opus) items.** This prevents cheaper agents from making design decisions that conflict with the primary architect's vision.
+
+To check: `grep 'tier3_owner' .docs/ai/roadmap.md` (or `docs/ai/roadmap.md`).
+
+### What you can work on
+
+1. **Always safe**: Haiku-tier items — they're mechanical and independent.
+2. **Usually safe**: Sonnet-tier items — but read the item carefully. If it says "needs discussion" or "design TBD", skip it.
+3. **Only if you're the owner**: Opus-tier items.
+4. **Never**: Milestone work (M1, M2, etc.) unless the user explicitly assigns it to you.
+
+### How to work backlog items
+
+1. Pick unchecked items (`- [ ]`) from your allowed tiers.
+2. Read the referenced files before editing.
+3. Make one commit per item (or group related items into one commit).
+4. Verify the build passes after each change.
+5. Mark the item `[x]` in the roadmap.
+6. Do not push. The user will review and push.
+
+## Rules
+
+- Read files before editing them.
+- Do not change anything beyond what the backlog item describes.
+- Do not add comments, docstrings, or type annotations to code you didn't change.
+- Do not refactor surrounding code.
+- Stop and report if you get stuck — don't guess.
+- Do not push to remote.
+
+## API Keys
+
+`OPENAI_API_KEY` is stored in the macOS Keychain, not in source control.
+
+```bash
+security find-generic-password -a "$USER" -s OPENAI_API_KEY -w
+```

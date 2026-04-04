@@ -1,0 +1,3 @@
+interface:
+  display_name: "Weekly Meal Planner"
+  short_description: "Operate the local meal planner app and pricing runs"
