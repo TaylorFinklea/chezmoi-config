@@ -50,6 +50,10 @@ To check: `grep 'tier3_owner' .docs/ai/roadmap.md` (or `docs/ai/roadmap.md`).
 5. Mark the item `[x]` in the roadmap.
 6. Do not push. The user will review and push.
 
+### Claim protocol
+
+Before starting an item, change `- [ ]` to `- [~]` and commit the roadmap. This signals to other agents that the item is in progress. On completion, mark `- [x]`. If you fail or get stuck, revert to `- [ ]` and add a `<!-- build-failed: YYYY-MM-DD [error] -->` comment. Always skip `- [~]` items — another agent is working on them.
+
 ## Rules
 
 - Read files before editing them.

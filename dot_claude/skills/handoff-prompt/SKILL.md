@@ -12,8 +12,8 @@ Generate a prompt to hand off backlog work to a cheaper/less sophisticated AI ag
 ## Usage
 
 `/handoff-prompt` — pick remaining backlog items automatically
-`/handoff-prompt trivial` — only trivial-tier items
-`/handoff-prompt minor` — only minor-tier items
+`/handoff-prompt haiku` — only Haiku-tier items
+`/handoff-prompt sonnet` — only Sonnet-tier items
 `/handoff-prompt 3` — limit to N items
 
 ## What to Do
@@ -25,9 +25,9 @@ Generate a prompt to hand off backlog work to a cheaper/less sophisticated AI ag
 3. **Check recent git history** — run `git log --oneline -10` to see what was recently committed. If any commits look like they completed backlog items that aren't marked done in the roadmap, note them.
 
 4. **Select items** based on the argument:
-   - Default: pick up to 4 items, trivial first, then minor
-   - `trivial`: only `[trivial]` items
-   - `minor`: only `[minor]` items
+   - Default: pick up to 4 items, Haiku first, then Sonnet
+   - `haiku`: only Haiku-tier items
+   - `sonnet`: only Sonnet-tier items
    - A number: limit to that many items
 
 5. **For each item**, read the referenced files to gather:
@@ -75,7 +75,7 @@ After completing items, report what you did and what (if anything) you couldn't 
 
 - **Self-contained**: The prompt must include ALL context the agent needs. It cannot read CLAUDE.md, roadmap, or other docs — everything must be inline.
 - **Explicit file paths**: Always use absolute paths or paths relative to the repo root.
-- **Code templates**: For trivial items, include the exact code to write. For minor items, include the pattern to follow.
+- **Code templates**: For Haiku items, include the exact code to write. For Sonnet items, include the pattern to follow.
 - **One commit per item**: Each item should be independently committable.
 - **Verify command**: Always include the build/test command.
 - **Read-first**: Always tell the agent to read files before editing.

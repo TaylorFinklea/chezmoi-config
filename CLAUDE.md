@@ -71,9 +71,30 @@ When auditing or finishing a milestone, scan for tech debt and tag each item wit
 - Opus tier: 1 at a time, only by the tier3_owner (needs full codebase understanding)
 - After each batch: verify the build, mark items `[x]` in the roadmap
 
+### Claim protocol
+
+Before starting an item, change `- [ ]` to `- [~]` and commit the roadmap. This signals to other agents that the item is in progress. On completion, mark `- [x]`. If you fail or get stuck, revert to `- [ ]` and add a `<!-- build-failed: YYYY-MM-DD [error] -->` comment. Always skip `- [~]` items — another agent is working on them.
+
 ### Handoff to external agents
 
 Use `/handoff-prompt` to generate self-contained prompts for Gemini/GPT/other agents when Claude is rate-limited. The prompt includes all context inline — the external agent doesn't read CLAUDE.md or roadmap.
+
+## Common Working Style
+
+These apply to all repos unless a repo's own CLAUDE.md overrides them.
+
+### Shell commands
+
+Run one command per Bash tool call unless you genuinely need to pipe output between two commands. Do not chain unrelated commands with `&&` or `;`. Use `git -C <path>` instead of `cd <path> && git`.
+
+### Commits and pushes
+
+- After code changes, make a small descriptive commit by default.
+- Do **not** push unless the user explicitly asks.
+
+### Task tracking
+
+Use `TaskCreate` / `TaskUpdate` to build a todo list when working on any non-trivial task. Mark tasks `in_progress` when starting and `completed` when done.
 
 ## API Keys
 

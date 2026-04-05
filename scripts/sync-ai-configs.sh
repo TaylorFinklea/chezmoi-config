@@ -107,6 +107,15 @@ sync_file "$HOME/AGENTS.md" "$REPO_ROOT/AGENTS.md"
 sync_file "$HOME/CLAUDE.md" "$REPO_ROOT/CLAUDE.md"
 sync_file "$CODEX_ROOT/AGENTS.md" "$REPO_ROOT/dot_codex/AGENTS.md"
 sync_file "$CODEX_ROOT/config.toml" "$REPO_ROOT/dot_codex/private_config.toml"
+sync_file \
+    "$CODEX_ROOT/skills/spreadsheet/references/examples/openpyxl/basic_spreadsheet.py" \
+    "$REPO_ROOT/dot_codex/skills/spreadsheet/references/examples/openpyxl/create_basic_spreadsheet.py"
+sync_file \
+    "$CODEX_ROOT/skills/spreadsheet/references/examples/openpyxl/spreadsheet_with_styling.py" \
+    "$REPO_ROOT/dot_codex/skills/spreadsheet/references/examples/openpyxl/create_spreadsheet_with_styling.py"
+sync_file \
+    "$CODEX_ROOT/skills/weekly-meal-planner/scripts/template.py" \
+    "$REPO_ROOT/dot_codex/skills/weekly-meal-planner/scripts/create_template.py"
 
 sync_dir "$CLAUDE_ROOT/agents" "$REPO_ROOT/dot_claude/agents"
 sync_dir "$CLAUDE_ROOT/skills" "$REPO_ROOT/dot_claude/skills" \
@@ -123,6 +132,10 @@ sync_dir "$CLAUDE_ROOT/templates" "$REPO_ROOT/dot_claude/templates" \
 sync_dir "$CODEX_ROOT/skills" "$REPO_ROOT/dot_codex/skills" \
     --delete-excluded \
     --exclude '.system/' \
+    --exclude 'security-ownership-map/' \
+    --exclude 'spreadsheet/references/examples/openpyxl/basic_spreadsheet.py' \
+    --exclude 'spreadsheet/references/examples/openpyxl/spreadsheet_with_styling.py' \
+    --exclude 'weekly-meal-planner/scripts/template.py' \
     --exclude '__pycache__/' \
     --exclude '*.pyc' \
     --exclude '*.pyo'
