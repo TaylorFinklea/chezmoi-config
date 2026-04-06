@@ -96,6 +96,8 @@ js_repl = true
 
 [tui]
 alternate_screen = "never"
+notifications = ["agent-turn-complete", "approval-requested"]
+notification_method = "osc9"
 
 [sandbox_workspace_write]
 network_access = true

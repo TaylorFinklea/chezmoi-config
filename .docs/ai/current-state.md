@@ -10,6 +10,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Recent Progress
 
+- Made `~/.codex/config.toml` intentionally repo-managed again through the existing host-aware chezmoi split, and added Codex TUI notifications plus `osc9` delivery to both the personal and work templates.
 - Bootstrapped `./.docs/ai/` from `~/.codex/templates/docs-ai/` for repo-local AI handoff state.
 - Synced the tracked chezmoi source for `~/.codex/AGENTS.md` with the current home-directory file contents.
 - Added repo documentation for the GitHub PAT bootstrap flow in `README.md`, `CLAUDE.md`, and `AGENTS.md`, including the Keychain service name `codex-github-pat`, the exported variable `GITHUB_PAT_TOKEN`, and the `launchd` loader command.
@@ -29,6 +30,8 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Changed Files
 
+- `.chezmoitemplates/codex/personal.toml`
+- `.chezmoitemplates/codex/work.toml`
 - `.docs/ai/current-state.md`
 - `.docs/ai/decisions.md`
 - `.docs/ai/next-steps.md`
@@ -78,6 +81,8 @@ Living snapshot of the project. Update before ending each AI session.
 ## Validation / Test Status
 
 ```
+Verified the host-aware Codex config split still renders from `dot_codex/private_config.toml.tmpl` into `.chezmoitemplates/codex/personal.toml` and `.chezmoitemplates/codex/work.toml`.
+Confirmed both Codex templates now include `[tui]` notifications for `agent-turn-complete` and `approval-requested`, with `notification_method = "osc9"`.
 Verified all four workflow skill names exist under Claude, Codex, Copilot, and generic agent skill trees.
 Ran ./scripts/sync-ai-configs.sh --dry-run successfully after adding Copilot skill sync and excluding the repo-managed workflow skills from imported home skill directories.
 Restored the repo after an unsafe full sync attempt, then reran ./scripts/sync-ai-configs.sh --dry-run successfully with the hardened additive-only import behavior.
