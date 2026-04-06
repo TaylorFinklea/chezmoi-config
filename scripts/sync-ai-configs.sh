@@ -5,6 +5,9 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
+# shellcheck source=_shared-exclusions.sh
+source "$SCRIPT_DIR/_shared-exclusions.sh"
+
 DRY_RUN=0
 
 usage() {
@@ -108,20 +111,16 @@ sync_additive_dir() {
         local -a rsync_args
         base="$(basename "$child")"
 
-        case "$base" in
-            audit-backlog|process-backlog|process-backlog-opus|resume-and-continue|import-ai-config-changes)
-                echo "Skip managed path: ${src#$HOME/}/$base"
-                continue
-                ;;
+        # Determine root_key so is_managed_skill can apply codex-specific skips.
+        local root_key
+        case "$src" in
+            "$CODEX_ROOT/skills") root_key="codex-skills" ;;
+            *) root_key="other" ;;
         esac
 
-        if [[ "$src" == "$CODEX_ROOT/skills" ]]; then
-            case "$base" in
-                .system|security-ownership-map)
-                    echo "Skip managed path: ${src#$HOME/}/$base"
-                    continue
-                    ;;
-            esac
+        if is_managed_skill "$root_key" "$base"; then
+            echo "Skip managed path: ${src#$HOME/}/$base"
+            continue
         fi
 
         if [[ -e "$dest/$base" ]]; then

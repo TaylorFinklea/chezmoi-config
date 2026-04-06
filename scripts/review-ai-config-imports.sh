@@ -5,6 +5,9 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
+# shellcheck source=_shared-exclusions.sh
+source "$SCRIPT_DIR/_shared-exclusions.sh"
+
 REPORT_PATH="$REPO_ROOT/.docs/ai/import-review.md"
 
 usage() {
@@ -37,6 +40,13 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
+REPORT_DIR="$(dirname "$REPORT_PATH")"
+mkdir -p "$REPORT_DIR" 2>/dev/null || { echo "Cannot create report directory: $REPORT_DIR" >&2; exit 1; }
+if [[ ! -w "$REPORT_DIR" ]]; then
+    echo "Report directory is not writable: $REPORT_DIR" >&2
+    exit 1
+fi
 
 CLAUDE_ROOT="$HOME/.claude"
 CODEX_ROOT="$HOME/.codex"
@@ -81,7 +91,7 @@ display_repo_path() {
 same_content() {
     local src="$1"
     local dest="$2"
-    diff -qr "$src" "$dest" >/dev/null 2>&1
+    diff -qrL "$src" "$dest" >/dev/null 2>&1
 }
 
 review_repo_managed_file() {
@@ -107,23 +117,7 @@ note_machine_local_file() {
 should_skip_top_level() {
     local root_key="$1"
     local name="$2"
-    case "$name" in
-        audit-backlog|process-backlog|process-backlog-opus|resume-and-continue|import-ai-config-changes)
-            return 0
-            ;;
-    esac
-
-    case "$root_key" in
-        codex-skills)
-            case "$name" in
-                .system|security-ownership-map)
-                    return 0
-                    ;;
-            esac
-            ;;
-    esac
-
-    return 1
+    is_managed_skill "$root_key" "$name"
 }
 
 review_additive_dir() {
@@ -195,8 +189,6 @@ render_section() {
     echo
 }
 
-mkdir -p "$(dirname "$REPORT_PATH")"
-
 review_repo_managed_file "$HOME/AGENTS.md" "$REPO_ROOT/AGENTS.md" "Repo-managed shared agent instructions"
 review_repo_managed_file "$HOME/CLAUDE.md" "$REPO_ROOT/CLAUDE.md" "Repo-managed Claude instructions"
 review_repo_managed_file "$CODEX_ROOT/AGENTS.md" "$REPO_ROOT/dot_codex/AGENTS.md" "Repo-managed Codex instructions"
@@ -233,10 +225,10 @@ review_mapped_file \
     echo "- Blocked: ${#BLOCKED_ITEMS[@]}"
     echo "- Ignored: ${#IGNORED_ITEMS[@]}"
     echo
-    render_section "Safe Additions" "${SAFE_ITEMS[@]}"
-    render_section "Review Required" "${REVIEW_ITEMS[@]}"
-    render_section "Blocked" "${BLOCKED_ITEMS[@]}"
-    render_section "Ignored" "${IGNORED_ITEMS[@]}"
+    render_section "Safe Additions" ${SAFE_ITEMS[@]+"${SAFE_ITEMS[@]}"}
+    render_section "Review Required" ${REVIEW_ITEMS[@]+"${REVIEW_ITEMS[@]}"}
+    render_section "Blocked" ${BLOCKED_ITEMS[@]+"${BLOCKED_ITEMS[@]}"}
+    render_section "Ignored" ${IGNORED_ITEMS[@]+"${IGNORED_ITEMS[@]}"}
     echo "## Recommended Next Step"
     echo
     if [[ ${#BLOCKED_ITEMS[@]} -gt 0 || ${#REVIEW_ITEMS[@]} -gt 0 ]]; then

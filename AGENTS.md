@@ -29,7 +29,7 @@ The roadmap contains a `## Backlog` section with items organized into three tier
 
 The backlog header may include a `tier3_owner` field:
 ```markdown
-<!-- tier3_owner: codex -->
+<!-- tier3_owner: claude|codex|copilot|unassigned -->
 ```
 
 Valid values are `claude`, `codex`, `copilot`, and `unassigned`.
