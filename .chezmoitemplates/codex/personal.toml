@@ -63,6 +63,10 @@ trust_level = "trusted"
 command = "npx"
 args = ["@playwright/mcp@latest"]
 
+[mcp_servers.chrome-devtools]
+command = "npx"
+args = ["chrome-devtools-mcp@latest"]
+
 [mcp_servers.figma]
 url = "https://mcp.figma.com/mcp"
 

@@ -26,6 +26,10 @@ Living snapshot of the project. Update before ending each AI session.
 - Added `docs/ai-config-import-policy.md`, a canonical `import-ai-config-changes` workflow doc, and matching Claude/Codex skills so future home-directory imports are reviewed for safety before sync.
 - Added `scripts/review-ai-config-imports.sh` to classify home-directory changes as safe additions, review-required tracked diffs, blocked repo-managed conflicts, or ignored machine-local paths.
 - Tightened `scripts/sync-ai-configs.sh` again so it imports only brand-new top-level additions from home skill, agent, and template trees, and skips existing tracked paths entirely.
+- Added Chrome DevTools MCP as a repo-managed browser-debugging server:
+  - Codex via the managed `~/.codex/config.toml` template
+  - Copilot CLI via managed `~/.copilot/mcp-config.json`
+  - Claude Code via the repo-scoped `.mcp.json`
 
 ## Changed Files
 
@@ -34,6 +38,7 @@ Living snapshot of the project. Update before ending each AI session.
 - `.docs/ai/next-steps.md`
 - `.docs/ai/roadmap.md`
 - `.gitignore`
+- `.mcp.json`
 - `docs/ai-config-import-policy.md`
 - `docs/ai-roadmap-system.md`
 - `docs/ai-workflows/audit-backlog.md`
@@ -51,11 +56,14 @@ Living snapshot of the project. Update before ending each AI session.
 - `dot_claude/skills/resume-and-continue/SKILL.md`
 - `dot_claude/skills/import-ai-config-changes/SKILL.md`
 - `dot_codex/AGENTS.md`
+- `.chezmoitemplates/codex/personal.toml`
+- `.chezmoitemplates/codex/work.toml`
 - `dot_codex/skills/audit-backlog/SKILL.md`
 - `dot_codex/skills/import-ai-config-changes/SKILL.md`
 - `dot_codex/skills/process-backlog/SKILL.md`
 - `dot_codex/skills/process-backlog-opus/SKILL.md`
 - `dot_codex/skills/resume-and-continue/SKILL.md`
+- `dot_copilot/mcp-config.json.tmpl`
 - `dot_copilot/copilot-instructions.md`
 - `dot_copilot/skills/audit-backlog/SKILL.md`
 - `dot_copilot/skills/process-backlog/SKILL.md`
@@ -84,4 +92,6 @@ Restored the repo after an unsafe full sync attempt, then reran ./scripts/sync-a
 Ran bash -n successfully for scripts/review-ai-config-imports.sh and scripts/sync-ai-configs.sh.
 Ran ./scripts/review-ai-config-imports.sh successfully; the current report shows 55 safe additions, 3 review-required tracked path diffs, 3 blocked repo-managed instruction conflicts, and 3 ignored machine-local or managed paths.
 Confirmed the importer dry run now skips repo-managed files and existing tracked paths, and only proposes additive top-level imports.
+Validated `.mcp.json` and `dot_copilot/mcp-config.json.tmpl` with `jq empty`.
+Rendered `dot_codex/private_config.toml.tmpl` through `chezmoi execute-template` and confirmed the `mcp_servers.chrome-devtools` entry appears in the active host config.
 ```

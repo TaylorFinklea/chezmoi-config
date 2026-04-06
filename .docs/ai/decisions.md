@@ -25,3 +25,5 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 2026-04-06: Require an explicit review step before importing home-directory AI changes by adding `docs/ai-config-import-policy.md`, `scripts/review-ai-config-imports.sh`, and the `import-ai-config-changes` workflow/skills for Claude and Codex.
 
 2026-04-06: Allow the reviewed safe subset of home-directory AI changes to be imported only after `./scripts/sync-ai-configs.sh --dry-run` confirms the importer skips blocked repo-managed files and review-required tracked paths.
+
+2026-04-06: Manage Chrome DevTools MCP from this repo as shared tooling: Codex gets it through the host-aware `~/.codex/config.toml` template, Copilot CLI gets it through managed `~/.copilot/mcp-config.json`, and Claude Code uses the repo-scoped `.mcp.json`.
