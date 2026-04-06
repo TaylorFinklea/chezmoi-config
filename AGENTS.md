@@ -70,3 +70,23 @@ Before starting an item, change `- [ ]` to `- [~]` and commit the roadmap. This 
 ```bash
 security find-generic-password -a "$USER" -s OPENAI_API_KEY -w
 ```
+
+`GITHUB_PAT_TOKEN` is also stored in the macOS Keychain, not in source control. This repo expects the PAT under the Keychain service `codex-github-pat`, and shell/bootstrap code exports it as `GITHUB_PAT_TOKEN`.
+
+Set or update it locally with:
+
+```bash
+security add-generic-password -U -a "$USER" -s codex-github-pat -w 'your-github-pat-here'
+```
+
+After saving it:
+- Open a new `zsh` or `fish` shell so the variable is exported automatically.
+- Run `~/.local/bin/load-codex-github-pat` if you want to load it into the `launchd` environment immediately for GUI-launched tools.
+
+Verify with:
+
+```bash
+security find-generic-password -a "$USER" -s codex-github-pat -w
+echo $GITHUB_PAT_TOKEN
+launchctl getenv GITHUB_PAT_TOKEN
+```

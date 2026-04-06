@@ -12,6 +12,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 - Bootstrapped `./.docs/ai/` from `~/.codex/templates/docs-ai/` for repo-local AI handoff state.
 - Synced the tracked chezmoi source for `~/.codex/AGENTS.md` with the current home-directory file contents.
+- Added repo documentation for the GitHub PAT bootstrap flow in `README.md`, `CLAUDE.md`, and `AGENTS.md`, including the Keychain service name `codex-github-pat`, the exported variable `GITHUB_PAT_TOKEN`, and the `launchd` loader command.
 
 ## Changed Files
 
@@ -21,6 +22,9 @@ Living snapshot of the project. Update before ending each AI session.
 - `.docs/ai/next-steps.md`
 - `.docs/ai/roadmap.md`
 - `dot_codex/AGENTS.md`
+- `AGENTS.md`
+- `CLAUDE.md`
+- `README.md`
 
 ## Blockers
 
@@ -33,5 +37,5 @@ Living snapshot of the project. Update before ending each AI session.
 ## Validation / Test Status
 
 ```
-Not run; content sync only.
+Not run; documentation-only change.
 ```

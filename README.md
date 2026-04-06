@@ -103,6 +103,32 @@ security add-generic-password -U -a "$USER" -s OPENAI_API_KEY -w 'your-api-key-h
 
 After saving it, start a new `zsh` or `fish` shell so the variable is exported automatically.
 
+## GitHub PAT
+
+`GITHUB_PAT_TOKEN` is loaded by `zsh` and `fish` from the macOS Keychain, and a LaunchAgent loads the same value into the `launchd` environment for GUI-launched tools. Do not store the actual PAT in this repo.
+
+Set or update it locally with:
+
+```bash
+security add-generic-password -U -a "$USER" -s codex-github-pat -w 'your-github-pat-here'
+```
+
+This repo expects:
+- Keychain service: `codex-github-pat`
+- Environment variable: `GITHUB_PAT_TOKEN`
+
+After saving it:
+- Open a new `zsh` or `fish` shell so the shell variable is exported automatically.
+- Run `~/.local/bin/load-codex-github-pat` if you want to load it into `launchd` immediately without logging out.
+
+Useful checks:
+
+```bash
+security find-generic-password -a "$USER" -s codex-github-pat -w
+echo $GITHUB_PAT_TOKEN
+launchctl getenv GITHUB_PAT_TOKEN
+```
+
 ## Directory Structure
 
 ```
