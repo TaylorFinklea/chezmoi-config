@@ -129,6 +129,27 @@ echo $GITHUB_PAT_TOKEN
 launchctl getenv GITHUB_PAT_TOKEN
 ```
 
+## AI Roadmap Ownership
+
+This repo treats `.docs/ai/roadmap.md` as the source of truth for which AI tool owns Opus/T3 architectural work in a project.
+
+The roadmap uses:
+
+```markdown
+<!-- tier3_owner: claude|codex|copilot|unassigned -->
+```
+
+Rules:
+- `claude`, `codex`, and `copilot` mean that named tool owns Opus/T3 work for that project.
+- `unassigned` means no tool should start Opus/T3 work automatically.
+- Haiku and Sonnet remain available to non-owner agents unless a roadmap item is explicitly flagged as needing discussion.
+
+This repo now manages instruction surfaces for all three tools:
+- `AGENTS.md` for shared non-Claude agent rules
+- `CLAUDE.md` for Claude-specific behavior
+- `dot_codex/AGENTS.md` for Codex home-level defaults
+- `dot_copilot/copilot-instructions.md` for GitHub Copilot CLI home-level defaults
+
 ## Directory Structure
 
 ```

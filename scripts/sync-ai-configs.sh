@@ -9,7 +9,7 @@ DRY_RUN=0
 
 usage() {
     cat <<'EOF'
-Sync global Claude and Codex instruction/config content into this chezmoi repo.
+Sync global Claude, Codex, and Copilot instruction/config content into this chezmoi repo.
 
 Usage:
   ./scripts/sync-ai-configs.sh [--dry-run]
@@ -61,15 +61,13 @@ fi
 
 CLAUDE_ROOT="$HOME/.claude"
 CODEX_ROOT="$HOME/.codex"
+COPILOT_ROOT="$HOME/.copilot"
 AGENTS_ROOT="$HOME/.agents"
 
 require_file "$HOME/AGENTS.md"
 require_file "$HOME/CLAUDE.md"
 require_file "$CODEX_ROOT/AGENTS.md"
 require_file "$CODEX_ROOT/config.toml"
-require_dir "$CLAUDE_ROOT/agents"
-require_dir "$CLAUDE_ROOT/skills"
-require_dir "$CLAUDE_ROOT/templates"
 require_dir "$CODEX_ROOT/skills"
 require_dir "$AGENTS_ROOT/skills"
 
@@ -84,6 +82,27 @@ sync_file() {
     mkdir -p "$(dirname "$dest")"
     echo "Sync file: ${src#$HOME/} -> ${dest#$REPO_ROOT/}"
     rsync "${RSYNC_BASE[@]}" "$src" "$dest"
+}
+
+sync_optional_file() {
+    local src="$1"
+    local dest="$2"
+    if [[ ! -f "$src" ]]; then
+        echo "Skip file: ${src#$HOME/} (not found)"
+        return 0
+    fi
+    sync_file "$src" "$dest"
+}
+
+sync_optional_dir() {
+    local src="$1"
+    local dest="$2"
+    shift 2
+    if [[ ! -d "$src" ]]; then
+        echo "Skip dir: ${src#$HOME/} (not found)"
+        return 0
+    fi
+    sync_dir "$src" "$dest" "$@"
 }
 
 sync_dir() {
@@ -106,25 +125,26 @@ echo
 sync_file "$HOME/AGENTS.md" "$REPO_ROOT/AGENTS.md"
 sync_file "$HOME/CLAUDE.md" "$REPO_ROOT/CLAUDE.md"
 sync_file "$CODEX_ROOT/AGENTS.md" "$REPO_ROOT/dot_codex/AGENTS.md"
+sync_optional_file "$COPILOT_ROOT/copilot-instructions.md" "$REPO_ROOT/dot_copilot/copilot-instructions.md"
 sync_file "$CODEX_ROOT/config.toml" "$REPO_ROOT/dot_codex/private_config.toml"
-sync_file \
+sync_optional_file \
     "$CODEX_ROOT/skills/spreadsheet/references/examples/openpyxl/basic_spreadsheet.py" \
     "$REPO_ROOT/dot_codex/skills/spreadsheet/references/examples/openpyxl/create_basic_spreadsheet.py"
-sync_file \
+sync_optional_file \
     "$CODEX_ROOT/skills/spreadsheet/references/examples/openpyxl/spreadsheet_with_styling.py" \
     "$REPO_ROOT/dot_codex/skills/spreadsheet/references/examples/openpyxl/create_spreadsheet_with_styling.py"
-sync_file \
+sync_optional_file \
     "$CODEX_ROOT/skills/weekly-meal-planner/scripts/template.py" \
     "$REPO_ROOT/dot_codex/skills/weekly-meal-planner/scripts/create_template.py"
 
-sync_dir "$CLAUDE_ROOT/agents" "$REPO_ROOT/dot_claude/agents"
-sync_dir "$CLAUDE_ROOT/skills" "$REPO_ROOT/dot_claude/skills" \
+sync_optional_dir "$CLAUDE_ROOT/agents" "$REPO_ROOT/dot_claude/agents"
+sync_optional_dir "$CLAUDE_ROOT/skills" "$REPO_ROOT/dot_claude/skills" \
     -L \
     --delete-excluded \
     --exclude '__pycache__/' \
     --exclude '*.pyc' \
     --exclude '*.pyo'
-sync_dir "$CLAUDE_ROOT/templates" "$REPO_ROOT/dot_claude/templates" \
+sync_optional_dir "$CLAUDE_ROOT/templates" "$REPO_ROOT/dot_claude/templates" \
     --delete-excluded \
     --exclude '__pycache__/' \
     --exclude '*.pyc' \

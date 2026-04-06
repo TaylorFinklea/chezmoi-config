@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Global agent instructions (applies to Codex, Gemini CLI, GPT, and any non-Claude AI coding agent).
+Global agent instructions (applies to Codex, GitHub Copilot CLI, Gemini CLI, GPT, and any non-Claude AI coding agent).
 
 ## Handoff State
 
@@ -27,10 +27,14 @@ The roadmap contains a `## Backlog` section with items organized into three tier
 
 The backlog header may include a `tier3_owner` field:
 ```markdown
-<!-- tier3_owner: claude -->
+<!-- tier3_owner: codex -->
 ```
 
-**If `tier3_owner` is set, non-owner agents MUST NOT work on Tier 3 (Opus) items.** This prevents cheaper agents from making design decisions that conflict with the primary architect's vision.
+Valid values are `claude`, `codex`, `copilot`, and `unassigned`.
+
+**If `tier3_owner` is set to a different tool, non-owner agents MUST NOT work on Tier 3 (Opus) items.** This prevents cheaper agents from making design decisions that conflict with the primary architect's vision.
+
+**If `tier3_owner: unassigned`, no agent should start Opus work automatically.** Only lower-tier work is safe until the project explicitly assigns an architect.
 
 To check: `grep 'tier3_owner' .docs/ai/roadmap.md` (or `docs/ai/roadmap.md`).
 
@@ -38,7 +42,7 @@ To check: `grep 'tier3_owner' .docs/ai/roadmap.md` (or `docs/ai/roadmap.md`).
 
 1. **Always safe**: Haiku-tier items — they're mechanical and independent.
 2. **Usually safe**: Sonnet-tier items — but read the item carefully. If it says "needs discussion" or "design TBD", skip it.
-3. **Only if you're the owner**: Opus-tier items.
+3. **Only if you're the named owner**: Opus-tier items.
 4. **Never**: Milestone work (M1, M2, etc.) unless the user explicitly assigns it to you.
 
 ### How to work backlog items

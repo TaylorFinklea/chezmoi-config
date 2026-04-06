@@ -7,7 +7,7 @@ description: Process Haiku and Sonnet tier backlog items from the roadmap. Picks
 
 Execute Haiku-tier (T1) and Sonnet-tier (T2) backlog items from the roadmap. These are mechanical fixes and moderate refactors that don't require design decisions.
 
-**You must NEVER work on Opus-tier items.** Those are reserved for the tier3_owner (typically Claude).
+**You must NEVER work on Opus-tier items through this skill.** Those are reserved for the named `tier3_owner`. If the roadmap says `tier3_owner: codex`, use the Codex Opus-specific backlog skill instead.
 
 ## Usage
 
@@ -22,7 +22,7 @@ Check for the roadmap in this order:
 - `.docs/ai/roadmap.md`
 - `docs/ai/roadmap.md`
 
-Read the `## Backlog` section. Confirm that a `<!-- tier3_owner: ... -->` comment exists — this means Opus items are off-limits.
+Read the `## Backlog` section. Confirm that a `<!-- tier3_owner: ... -->` comment exists and treat that as the source of truth for Opus ownership.
 
 ## Step 2: Select Items
 
@@ -112,5 +112,5 @@ Sonnet remaining: N items
 - One commit per item (claim commit + completion commit).
 - **Do not push.** The user will review and push.
 - Stop and report if you get stuck — do not guess.
-- **Never touch Opus-tier items**, regardless of what they say.
+- **Never touch Opus-tier items** through this skill, even if Codex is the owner.
 - If all items are done, report "Backlog empty for Haiku/Sonnet tiers" and stop.

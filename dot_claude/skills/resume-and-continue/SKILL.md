@@ -12,8 +12,9 @@ Pick up where other AI agents left off. Review their work in the background whil
 ## Step 1: Assess the Situation
 
 1. Read `.docs/ai/roadmap.md` (or the unified roadmap if the repo references one in another repo).
-2. Run `git log --oneline -15` in each repo to see recent commits.
-3. Count:
+2. Read `<!-- tier3_owner: ... -->` from the roadmap.
+3. Run `git log --oneline -15` in each repo to see recent commits.
+4. Count:
    - **Uncommitted phase items** — unchecked items under the current active phase (M2, M3, etc.)
    - **Uncommitted backlog items** — unchecked items in the Backlog section
    - **Recent non-Claude commits** — commits without "Co-Authored-By: Claude" in the last 15
@@ -41,7 +42,7 @@ Spawn a background Agent (general-purpose) with this prompt:
 > 5. Update `.docs/ai/roadmap.md` — mark completed items with strikethrough (~text~).
 > 6. Report: list of commits reviewed, issues found (if any), build result.
 
-**B. Start the next Opus-tier phase** (see "Work on Next Phase" below)
+**B. Start the next Opus-tier phase** only if `tier3_owner: claude` (see "Work on Next Phase" below)
 
 ### If the roadmap is running low → Planning Session
 
@@ -64,15 +65,16 @@ Do NOT start coding. Instead, run a planning session:
 
 ### If there are no external commits and plenty of work → Just Work
 
-Skip the review subagent. Go directly to "Work on Next Phase."
+Skip the review subagent. If `tier3_owner: claude`, go directly to "Work on Next Phase." Otherwise, stop after summarizing the state and note that Opus work belongs to the named owner.
 
 ## Work on Next Phase
 
-1. Identify the current active phase (first non-complete phase in the roadmap).
-2. Read `.docs/ai/next-steps.md` for the immediate action items.
-3. Pick the first unchecked item in the phase.
-4. Begin implementation. Follow the repo's CLAUDE.md for build commands, coding patterns, and commit expectations.
-5. After completing work, update handoff docs.
+1. Confirm `tier3_owner: claude`. If not, stop and report the current owner instead of starting Opus work.
+2. Identify the current active phase (first non-complete phase in the roadmap).
+3. Read `.docs/ai/next-steps.md` for the immediate action items.
+4. Pick the first unchecked item in the phase.
+5. Begin implementation. Follow the repo's CLAUDE.md for build commands, coding patterns, and commit expectations.
+6. After completing work, update handoff docs.
 
 ## After the Review Subagent Returns
 

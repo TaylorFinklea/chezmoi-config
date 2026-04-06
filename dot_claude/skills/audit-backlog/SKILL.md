@@ -116,6 +116,8 @@ For each finding, record:
 
 Read the roadmap's `## Backlog` section. If it doesn't exist, create it using the template from `~/.claude/templates/handoff/roadmap.md`.
 
+Preserve the current `tier3_owner` value if the roadmap already has one. Do not switch owners during backlog audit work unless the user explicitly asks for an ownership change.
+
 Append new items under the appropriate tier heading. Use this format:
 ```markdown
 - [ ] [description] (file:line)

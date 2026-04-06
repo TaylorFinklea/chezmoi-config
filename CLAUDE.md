@@ -58,7 +58,15 @@ Maintain a `## Backlog` section in `roadmap.md` with items tiered by required mo
 
 ### Tier 3 ownership
 
-Add `<!-- tier3_owner: claude -->` to the backlog section header in `roadmap.md`. This tells external agents (Codex, Gemini, GPT) that Opus-tier items are reserved for Claude. They will only work Haiku and Sonnet tiers. See `~/AGENTS.md` for the full external agent protocol.
+Use `<!-- tier3_owner: ... -->` in the backlog section header in `roadmap.md` to declare the architect for Opus-tier work.
+
+Valid values are `claude`, `codex`, `copilot`, and `unassigned`.
+
+- If `tier3_owner: claude`, Claude may execute Opus-tier work.
+- If `tier3_owner` names a different tool, Claude must treat Opus-tier work as off-limits by default.
+- If `tier3_owner: unassigned`, no tool should start Opus-tier work automatically until the project explicitly assigns an architect.
+
+This lets different projects be Claude-first, Codex-first, or Copilot-first while sharing the same roadmap protocol. See `~/AGENTS.md` for the non-Claude side of the contract.
 
 ### How to populate
 
@@ -68,7 +76,7 @@ When auditing or finishing a milestone, scan for tech debt and tag each item wit
 
 - Haiku tier: dispatch up to 4 agents in parallel (different files)
 - Sonnet tier: dispatch up to 2 in parallel (may touch shared files)
-- Opus tier: 1 at a time, only by the tier3_owner (needs full codebase understanding)
+- Opus tier: 1 at a time, only when `tier3_owner: claude` (otherwise Claude must not execute Opus)
 - After each batch: verify the build, mark items `[x]` in the roadmap
 
 ### Claim protocol

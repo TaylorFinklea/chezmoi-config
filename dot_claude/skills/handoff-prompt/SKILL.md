@@ -20,22 +20,24 @@ Generate a prompt to hand off backlog work to a cheaper/less sophisticated AI ag
 
 1. **Read the roadmap** at `.docs/ai/roadmap.md` (or the path specified in the repo's CLAUDE.md). If the repo's roadmap references a unified roadmap in another repo, read that instead.
 
-2. **Identify remaining backlog items** — items that are NOT struck through (~text~) or marked [x].
+2. **Read `tier3_owner`** from the backlog header and carry that owner forward into the generated prompt.
 
-3. **Check recent git history** — run `git log --oneline -10` to see what was recently committed. If any commits look like they completed backlog items that aren't marked done in the roadmap, note them.
+3. **Identify remaining backlog items** — items that are NOT struck through (~text~) or marked [x].
 
-4. **Select items** based on the argument:
+4. **Check recent git history** — run `git log --oneline -10` to see what was recently committed. If any commits look like they completed backlog items that aren't marked done in the roadmap, note them.
+
+5. **Select items** based on the argument:
    - Default: pick up to 4 items, Haiku first, then Sonnet
    - `haiku`: only Haiku-tier items
    - `sonnet`: only Sonnet-tier items
    - A number: limit to that many items
 
-5. **For each item**, read the referenced files to gather:
+6. **For each item**, read the referenced files to gather:
    - Exact file paths (verify they exist)
    - Current content around the lines that need to change
    - Any patterns the agent should follow (look at recent commits for style)
 
-6. **Generate the prompt** using this structure:
+7. **Generate the prompt** using this structure:
 
 ```
 You are working on [project name] — [one-line description].
@@ -50,6 +52,7 @@ You are working on [project name] — [one-line description].
 - Do not change anything beyond what the item describes.
 - Do not add comments, docstrings, or type annotations to code you didn't change.
 - Run one shell command at a time. Never chain with &&.
+- Respect `tier3_owner: [value from roadmap]`. Do not touch Opus/T3 items unless you are that named owner.
 
 ## Verify changes with:
 [build/test command from CLAUDE.md]
@@ -69,7 +72,7 @@ Repo: [which repo]
 After completing items, report what you did and what (if anything) you couldn't finish.
 ```
 
-7. **Output the prompt** as a fenced code block so the user can copy-paste it directly into another agent.
+8. **Output the prompt** as a fenced code block so the user can copy-paste it directly into another agent.
 
 ## Key Principles
 

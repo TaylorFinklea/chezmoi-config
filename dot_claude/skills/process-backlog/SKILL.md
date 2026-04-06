@@ -7,7 +7,7 @@ disable-model-invocation: true
 
 # Process Backlog (Opus Tier)
 
-Execute Opus-tier (T3) backlog items — the design-heavy, cross-cutting work that cheaper models can't do well. If T3 items are running low, switch to planning mode to populate more.
+Execute Opus-tier (T3) backlog items when Claude is the named roadmap owner. If T3 items are running low, switch to planning mode to populate more.
 
 ## Usage
 
@@ -19,8 +19,10 @@ Execute Opus-tier (T3) backlog items — the design-heavy, cross-cutting work th
 
 1. Find the roadmap: `.docs/ai/roadmap.md` or `docs/ai/roadmap.md`
 2. Read the `## Backlog` section
-3. Count unchecked T3 items: lines matching `- [ ]` under `### Opus`
-4. Skip claimed items: `- [~]` means another agent is working on it
+3. Read `<!-- tier3_owner: ... -->` and confirm it is `claude`
+4. If the owner is `codex`, `copilot`, or `unassigned`, stop and report that Claude must not execute Opus work for this repo
+5. Count unchecked T3 items: lines matching `- [ ]` under `### Opus`
+6. Skip claimed items: `- [~]` means another agent is working on it
 
 ## Step 2: Branch Based on T3 State
 
@@ -100,8 +102,9 @@ If yes, invoke the `audit-backlog` skill.
 #### Planning Step 5: Write and Execute
 
 1. Add the new T3 items to `### Opus` in the roadmap with descriptive text
-2. Commit: `docs: process-backlog planning — added N Opus-tier items`
-3. Begin executing the first new T3 item (switch to Execute Mode)
+2. Preserve the existing `tier3_owner` value unless the user explicitly asked to change the architect
+3. Commit: `docs: process-backlog planning — added N Opus-tier items`
+4. Begin executing the first new T3 item (switch to Execute Mode)
 
 ## After All Items Are Done
 

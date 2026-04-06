@@ -17,7 +17,8 @@
 
 ## Backlog (parallel, tiered by model capability)
 
-<!-- tier3_owner: claude -->
+<!-- tier3_owner: unassigned -->
+<!-- Valid values: claude, codex, copilot, unassigned -->
 <!-- Populate during milestones or audits. Include file paths. Items must be independent. -->
 
 ### Haiku (mechanical, no judgment)

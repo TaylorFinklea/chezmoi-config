@@ -13,3 +13,13 @@
 - Keep handoff entries concise, actionable, and focused on the next assistant.
 - Treat repo-level AGENTS files as exception/override layers, not the default place to define this workflow.
 - Preferred bootstrap source for a missing `./.docs/ai/` folder is the template set under `~/.codex/templates/docs-ai/`.
+
+## Tiered Roadmap Contract
+
+- Expect the roadmap to include a `## Backlog` section with `Haiku`, `Sonnet`, and `Opus` tiers.
+- Read the roadmap owner comment before starting architectural work:
+  `<!-- tier3_owner: claude|codex|copilot|unassigned -->`
+- If `tier3_owner: codex`, Codex may work Opus/T3 items.
+- If `tier3_owner` names another tool, Codex must not work Opus/T3 items.
+- If `tier3_owner: unassigned`, Codex must not start Opus/T3 work automatically.
+- Haiku and Sonnet items remain safe by default unless the roadmap item is flagged `<!-- needs-discussion -->` or `<!-- design-TBD -->`.
