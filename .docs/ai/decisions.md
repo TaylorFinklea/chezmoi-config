@@ -21,3 +21,7 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 2026-04-06: Treat the four shared workflow skills as repo-managed content in this chezmoi repo and exclude them from imported home-directory skill syncs so local skill drift cannot overwrite the source-of-truth copies.
 
 2026-04-06: Make `scripts/sync-ai-configs.sh` an additive importer instead of a mirror operation so it no longer overwrites repo-managed root docs or imports machine-specific `~/.codex/config.toml`; shared instructions flow out with `chezmoi apply`, while home-created skills/templates can be reviewed and imported intentionally.
+
+2026-04-06: Require an explicit review step before importing home-directory AI changes by adding `docs/ai-config-import-policy.md`, `scripts/review-ai-config-imports.sh`, and the `import-ai-config-changes` workflow/skills for Claude and Codex.
+
+2026-04-06: Allow the reviewed safe subset of home-directory AI changes to be imported only after `./scripts/sync-ai-configs.sh --dry-run` confirms the importer skips blocked repo-managed files and review-required tracked paths.

@@ -6,7 +6,9 @@ Exact next actions for the incoming assistant. Keep this short, ordered, and act
 
 - [ ] Apply this repo and verify the managed workflow skills install to `~/.claude/skills/`, `~/.codex/skills/`, `~/.copilot/skills/`, and `~/.agents/skills/` as expected.
 - [ ] Decide whether `~/.codex/config.toml` should become a host-aware chezmoi template or remain intentionally unmanaged across work/personal machines.
-- [ ] If you want to import the large new home skill additions shown by `./scripts/sync-ai-configs.sh --dry-run`, review and stage them intentionally instead of treating sync as a mirror operation.
+- [ ] Decide whether to import any of the 55 currently safe additive home skill additions surfaced by `./scripts/review-ai-config-imports.sh`, or leave them untracked for now.
+- [ ] Inspect the 3 review-required tracked path diffs before importing anything from those paths: `~/.codex/skills/playwright`, `~/.codex/skills/chatgpt-apps`, and `~/.agents/skills/find-skills`.
+- [ ] Keep the 3 blocked repo-managed instruction files source-of-truth here in the repo unless you intentionally want to port specific changes back by hand: `~/AGENTS.md`, `~/CLAUDE.md`, and `~/.codex/AGENTS.md`.
 - [ ] Verify in a real repo that Claude, Codex, and Copilot all interpret the normalized command set the same way, especially the `/process-backlog` vs `/process-backlog-opus` split.
 - [ ] Update downstream project roadmaps from the old simple template to the tiered template and set `tier3_owner` explicitly per project.
 - [ ] If the GitHub PAT bootstrap flow changes, update all three root docs together: `README.md`, `CLAUDE.md`, and `AGENTS.md`.

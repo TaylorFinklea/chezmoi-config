@@ -159,7 +159,8 @@ This repo now manages instruction and skill surfaces for all three tools plus th
 
 Sync strategy:
 - Edit repo-managed docs, instructions, and tracked workflow skills here, then distribute them to machines with `chezmoi apply`.
-- Use `./scripts/sync-ai-configs.sh` only to import optional home-created skills, agents, and templates back into this repo without deleting tracked repo content.
+- Run `./scripts/review-ai-config-imports.sh` before importing home-created AI changes back into this repo.
+- Use `./scripts/sync-ai-configs.sh` only to import safe additive home-created skills, agents, and templates back into this repo without deleting or overwriting tracked repo content.
 - Do not use the sync script to mirror `~/.codex/config.toml`; work and personal machines may legitimately need different Codex config.
 
 ## Directory Structure

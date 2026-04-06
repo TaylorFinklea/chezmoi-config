@@ -22,8 +22,9 @@ Options:
 Notes:
   - Repo-managed source-of-truth files such as AGENTS/CLAUDE/Codex instructions
     are edited in this repo and pushed to machines with `chezmoi apply`.
-  - This script is intentionally conservative: it imports optional home-created
-    skills, agents, and templates without deleting tracked repo content.
+  - This script is intentionally conservative: it imports only brand-new
+    top-level skills, agents, and templates from home directories.
+  - Run ./scripts/review-ai-config-imports.sh before applying imports.
   - `~/.codex/config.toml` is not imported here because work/home machines may
     legitimately differ.
 EOF
@@ -62,6 +63,12 @@ if [[ $DRY_RUN -eq 1 ]]; then
     RSYNC_BASE+=(-n)
 fi
 
+CONTENT_EXCLUDES=(
+    --exclude '__pycache__/'
+    --exclude '*.pyc'
+    --exclude '*.pyo'
+)
+
 sync_file() {
     local src="$1"
     local dest="$2"
@@ -70,41 +77,66 @@ sync_file() {
     rsync "${RSYNC_BASE[@]}" "$src" "$dest"
 }
 
-sync_optional_file() {
+sync_optional_additive_file() {
     local src="$1"
     local dest="$2"
     if [[ ! -f "$src" ]]; then
         echo "Skip file: ${src#$HOME/} (not found)"
         return 0
     fi
+    if [[ -e "$dest" ]]; then
+        echo "Skip existing file: ${dest#$REPO_ROOT/}"
+        return 0
+    fi
     sync_file "$src" "$dest"
 }
 
-sync_optional_dir() {
+sync_additive_dir() {
     local src="$1"
     local dest="$2"
-    shift 2
+    local follow_symlinks="$3"
+    shift 3
     if [[ ! -d "$src" ]]; then
         echo "Skip dir: ${src#$HOME/} (not found)"
         return 0
     fi
-    sync_dir "$src" "$dest" "$@"
-}
-
-WORKFLOW_EXCLUDES=(
-    --exclude 'audit-backlog/'
-    --exclude 'process-backlog/'
-    --exclude 'process-backlog-opus/'
-    --exclude 'resume-and-continue/'
-)
-
-sync_dir() {
-    local src="$1"
-    local dest="$2"
-    shift 2
     mkdir -p "$dest"
-    echo "Sync dir: ${src#$HOME/} -> ${dest#$REPO_ROOT/}"
-    rsync "${RSYNC_BASE[@]}" "$@" "$src/" "$dest/"
+
+    local child
+    while IFS= read -r -d '' child; do
+        local base
+        local -a rsync_args
+        base="$(basename "$child")"
+
+        case "$base" in
+            audit-backlog|process-backlog|process-backlog-opus|resume-and-continue|import-ai-config-changes)
+                echo "Skip managed path: ${src#$HOME/}/$base"
+                continue
+                ;;
+        esac
+
+        if [[ "$src" == "$CODEX_ROOT/skills" ]]; then
+            case "$base" in
+                .system|security-ownership-map)
+                    echo "Skip managed path: ${src#$HOME/}/$base"
+                    continue
+                    ;;
+            esac
+        fi
+
+        if [[ -e "$dest/$base" ]]; then
+            echo "Skip existing path: ${dest#$REPO_ROOT/}/$base"
+            continue
+        fi
+
+        echo "Import path: ${src#$HOME/}/$base -> ${dest#$REPO_ROOT/}/$base"
+        rsync_args=("${RSYNC_BASE[@]}")
+        if [[ "$follow_symlinks" == "follow" ]]; then
+            rsync_args+=(-L)
+        fi
+        rsync_args+=("${CONTENT_EXCLUDES[@]}" "$child" "$dest/")
+        rsync "${rsync_args[@]}"
+    done < <(find "$src" -mindepth 1 -maxdepth 1 -print0)
 }
 
 echo "Repo root: $REPO_ROOT"
@@ -119,47 +151,22 @@ echo "Repo-managed docs and instructions are not imported by this script."
 echo "Use chezmoi apply to sync repo-managed files out to each machine."
 echo
 
-sync_optional_file \
+sync_optional_additive_file \
     "$CODEX_ROOT/skills/spreadsheet/references/examples/openpyxl/basic_spreadsheet.py" \
     "$REPO_ROOT/dot_codex/skills/spreadsheet/references/examples/openpyxl/create_basic_spreadsheet.py"
-sync_optional_file \
+sync_optional_additive_file \
     "$CODEX_ROOT/skills/spreadsheet/references/examples/openpyxl/spreadsheet_with_styling.py" \
     "$REPO_ROOT/dot_codex/skills/spreadsheet/references/examples/openpyxl/create_spreadsheet_with_styling.py"
-sync_optional_file \
+sync_optional_additive_file \
     "$CODEX_ROOT/skills/weekly-meal-planner/scripts/template.py" \
     "$REPO_ROOT/dot_codex/skills/weekly-meal-planner/scripts/create_template.py"
 
-sync_optional_dir "$CLAUDE_ROOT/agents" "$REPO_ROOT/dot_claude/agents"
-sync_optional_dir "$CLAUDE_ROOT/skills" "$REPO_ROOT/dot_claude/skills" \
-    -L \
-    "${WORKFLOW_EXCLUDES[@]}" \
-    --exclude '__pycache__/' \
-    --exclude '*.pyc' \
-    --exclude '*.pyo'
-sync_optional_dir "$CLAUDE_ROOT/templates" "$REPO_ROOT/dot_claude/templates" \
-    --exclude '__pycache__/' \
-    --exclude '*.pyc' \
-    --exclude '*.pyo'
-sync_dir "$CODEX_ROOT/skills" "$REPO_ROOT/dot_codex/skills" \
-    "${WORKFLOW_EXCLUDES[@]}" \
-    --exclude '.system/' \
-    --exclude 'security-ownership-map/' \
-    --exclude 'spreadsheet/references/examples/openpyxl/basic_spreadsheet.py' \
-    --exclude 'spreadsheet/references/examples/openpyxl/spreadsheet_with_styling.py' \
-    --exclude 'weekly-meal-planner/scripts/template.py' \
-    --exclude '__pycache__/' \
-    --exclude '*.pyc' \
-    --exclude '*.pyo'
-sync_optional_dir "$COPILOT_ROOT/skills" "$REPO_ROOT/dot_copilot/skills" \
-    "${WORKFLOW_EXCLUDES[@]}" \
-    --exclude '__pycache__/' \
-    --exclude '*.pyc' \
-    --exclude '*.pyo'
-sync_dir "$AGENTS_ROOT/skills" "$REPO_ROOT/dot_agents/skills" \
-    "${WORKFLOW_EXCLUDES[@]}" \
-    --exclude '__pycache__/' \
-    --exclude '*.pyc' \
-    --exclude '*.pyo'
+sync_additive_dir "$CLAUDE_ROOT/agents" "$REPO_ROOT/dot_claude/agents" "plain"
+sync_additive_dir "$CLAUDE_ROOT/skills" "$REPO_ROOT/dot_claude/skills" "follow"
+sync_additive_dir "$CLAUDE_ROOT/templates" "$REPO_ROOT/dot_claude/templates" "plain"
+sync_additive_dir "$CODEX_ROOT/skills" "$REPO_ROOT/dot_codex/skills" "plain"
+sync_additive_dir "$COPILOT_ROOT/skills" "$REPO_ROOT/dot_copilot/skills" "plain"
+sync_additive_dir "$AGENTS_ROOT/skills" "$REPO_ROOT/dot_agents/skills" "plain"
 
 echo
 if [[ $DRY_RUN -eq 1 ]]; then

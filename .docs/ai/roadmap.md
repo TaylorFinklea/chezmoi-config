@@ -14,6 +14,7 @@ Keep personal dotfiles and AI-agent configuration aligned across Claude, Codex, 
 - [x] Add a managed GitHub Copilot CLI instruction surface alongside Claude and Codex
 - [x] Normalize the shared workflow command set to `audit-backlog`, `process-backlog`, `process-backlog-opus`, and `resume-and-continue`
 - [x] Add canonical workflow docs under `docs/` and align Claude, Codex, Copilot, and generic skills to them
+- [x] Add a reviewed import workflow so home-directory AI changes are classified for safety before they are synced back into this repo
 
 ### M2: Downstream project adoption
 - [ ] Apply the owner-neutral roadmap template to active project repos managed from this machine
