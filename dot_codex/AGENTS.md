@@ -13,6 +13,7 @@
 - Keep handoff entries concise, actionable, and focused on the next assistant.
 - Treat repo-level AGENTS files as exception/override layers, not the default place to define this workflow.
 - Preferred bootstrap source for a missing `./.docs/ai/` folder is the template set under `~/.codex/templates/docs-ai/`.
+- If the repo contains `docs/ai-roadmap-system.md`, treat it as the canonical explanation of the shared workflow system and keep Codex behavior aligned to it.
 
 ## Tiered Roadmap Contract
 
@@ -23,3 +24,10 @@
 - If `tier3_owner` names another tool, Codex must not work Opus/T3 items.
 - If `tier3_owner: unassigned`, Codex must not start Opus/T3 work automatically.
 - Haiku and Sonnet items remain safe by default unless the roadmap item is flagged `<!-- needs-discussion -->` or `<!-- design-TBD -->`.
+
+## Standard workflow commands
+
+- `/audit-backlog` — audit and append Haiku/Sonnet items
+- `/process-backlog` — execute only Haiku/Sonnet items
+- `/process-backlog-opus` — execute only Opus/T3 items when `tier3_owner: codex`
+- `/resume-and-continue` — review recent agent work and continue only if Codex owns the next Opus phase

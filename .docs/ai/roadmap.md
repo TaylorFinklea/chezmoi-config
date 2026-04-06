@@ -12,6 +12,8 @@ Keep personal dotfiles and AI-agent configuration aligned across Claude, Codex, 
 - [x] Add repo-local AI handoff docs under `.docs/ai/`
 - [x] Make Opus/T3 architect ownership vendor-neutral
 - [x] Add a managed GitHub Copilot CLI instruction surface alongside Claude and Codex
+- [x] Normalize the shared workflow command set to `audit-backlog`, `process-backlog`, `process-backlog-opus`, and `resume-and-continue`
+- [x] Add canonical workflow docs under `docs/` and align Claude, Codex, Copilot, and generic skills to them
 
 ### M2: Downstream project adoption
 - [ ] Apply the owner-neutral roadmap template to active project repos managed from this machine

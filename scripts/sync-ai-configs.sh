@@ -105,6 +105,13 @@ sync_optional_dir() {
     sync_dir "$src" "$dest" "$@"
 }
 
+WORKFLOW_EXCLUDES=(
+    --exclude 'audit-backlog/'
+    --exclude 'process-backlog/'
+    --exclude 'process-backlog-opus/'
+    --exclude 'resume-and-continue/'
+)
+
 sync_dir() {
     local src="$1"
     local dest="$2"
@@ -140,7 +147,7 @@ sync_optional_file \
 sync_optional_dir "$CLAUDE_ROOT/agents" "$REPO_ROOT/dot_claude/agents"
 sync_optional_dir "$CLAUDE_ROOT/skills" "$REPO_ROOT/dot_claude/skills" \
     -L \
-    --delete-excluded \
+    "${WORKFLOW_EXCLUDES[@]}" \
     --exclude '__pycache__/' \
     --exclude '*.pyc' \
     --exclude '*.pyo'
@@ -150,7 +157,7 @@ sync_optional_dir "$CLAUDE_ROOT/templates" "$REPO_ROOT/dot_claude/templates" \
     --exclude '*.pyc' \
     --exclude '*.pyo'
 sync_dir "$CODEX_ROOT/skills" "$REPO_ROOT/dot_codex/skills" \
-    --delete-excluded \
+    "${WORKFLOW_EXCLUDES[@]}" \
     --exclude '.system/' \
     --exclude 'security-ownership-map/' \
     --exclude 'spreadsheet/references/examples/openpyxl/basic_spreadsheet.py' \
@@ -159,8 +166,13 @@ sync_dir "$CODEX_ROOT/skills" "$REPO_ROOT/dot_codex/skills" \
     --exclude '__pycache__/' \
     --exclude '*.pyc' \
     --exclude '*.pyo'
+sync_optional_dir "$COPILOT_ROOT/skills" "$REPO_ROOT/dot_copilot/skills" \
+    "${WORKFLOW_EXCLUDES[@]}" \
+    --exclude '__pycache__/' \
+    --exclude '*.pyc' \
+    --exclude '*.pyo'
 sync_dir "$AGENTS_ROOT/skills" "$REPO_ROOT/dot_agents/skills" \
-    --delete-excluded \
+    "${WORKFLOW_EXCLUDES[@]}" \
     --exclude '__pycache__/' \
     --exclude '*.pyc' \
     --exclude '*.pyo'

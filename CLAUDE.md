@@ -4,6 +4,8 @@
 
 Cross-session continuity lives in `.docs/ai/` (git-tracked). These docs are the source of truth — not chat memory.
 
+If the repo contains `docs/ai-roadmap-system.md`, treat it as the canonical explanation of the shared workflow system and keep Claude-specific skills aligned to it.
+
 ### Session Start
 
 1. Read (if they exist):
@@ -78,6 +80,15 @@ When auditing or finishing a milestone, scan for tech debt and tag each item wit
 - Sonnet tier: dispatch up to 2 in parallel (may touch shared files)
 - Opus tier: 1 at a time, only when `tier3_owner: claude` (otherwise Claude must not execute Opus)
 - After each batch: verify the build, mark items `[x]` in the roadmap
+
+### Standard workflow commands
+
+Claude repos using the shared workflow system should expose:
+
+- `/audit-backlog` — audit and append Haiku/Sonnet items
+- `/process-backlog` — execute only Haiku/Sonnet items
+- `/process-backlog-opus` — execute only Opus/T3 items when `tier3_owner: claude`
+- `/resume-and-continue` — review recent agent work and continue only if Claude owns the next Opus phase
 
 ### Claim protocol
 

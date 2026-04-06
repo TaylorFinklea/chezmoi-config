@@ -19,5 +19,11 @@ Rules:
 - If `tier3_owner: unassigned`, do not start Opus/T3 work automatically.
 - Haiku and Sonnet tiers remain safe by default unless the roadmap item is flagged `<!-- needs-discussion -->` or `<!-- design-TBD -->`.
 - Do not work milestone items unless the user explicitly assigns them.
+- If the repo contains `docs/ai-roadmap-system.md`, treat it as the canonical workflow reference.
+- Use the normalized workflow names when skills are available:
+  - `/audit-backlog`
+  - `/process-backlog`
+  - `/process-backlog-opus`
+  - `/resume-and-continue`
 - After changes, update `current-state.md`, `next-steps.md`, and `decisions.md` when applicable.
 - Make a small descriptive commit by default. Do not push unless the user explicitly asks.

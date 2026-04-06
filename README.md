@@ -131,7 +131,7 @@ launchctl getenv GITHUB_PAT_TOKEN
 
 ## AI Roadmap Ownership
 
-This repo treats `.docs/ai/roadmap.md` as the source of truth for which AI tool owns Opus/T3 architectural work in a project.
+This repo treats `.docs/ai/roadmap.md` as the source of truth for which AI tool owns Opus/T3 architectural work in a project, and [`docs/ai-roadmap-system.md`](./docs/ai-roadmap-system.md) as the source of truth for the shared workflow protocol itself.
 
 The roadmap uses:
 
@@ -144,11 +144,18 @@ Rules:
 - `unassigned` means no tool should start Opus/T3 work automatically.
 - Haiku and Sonnet remain available to non-owner agents unless a roadmap item is explicitly flagged as needing discussion.
 
-This repo now manages instruction surfaces for all three tools:
+The normalized workflow command set is:
+- `/audit-backlog`
+- `/process-backlog` for Haiku/Sonnet
+- `/process-backlog-opus` for Opus/T3
+- `/resume-and-continue`
+
+This repo now manages instruction and skill surfaces for all three tools plus the generic/open-standard skill set:
 - `AGENTS.md` for shared non-Claude agent rules
 - `CLAUDE.md` for Claude-specific behavior
 - `dot_codex/AGENTS.md` for Codex home-level defaults
 - `dot_copilot/copilot-instructions.md` for GitHub Copilot CLI home-level defaults
+- `dot_claude/skills`, `dot_codex/skills`, `dot_copilot/skills`, and `dot_agents/skills` for aligned workflow skills
 
 ## Directory Structure
 

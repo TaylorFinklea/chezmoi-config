@@ -13,6 +13,8 @@ Update before ending:
 - `.docs/ai/current-state.md` — what you did, build status
 - `.docs/ai/next-steps.md` — check off completed items
 
+If the repo contains `docs/ai-roadmap-system.md`, treat it as the canonical explanation of the shared workflow system and keep tool behavior aligned to it.
+
 ## Tiered Backlog System
 
 The roadmap contains a `## Backlog` section with items organized into three tiers:
@@ -53,6 +55,15 @@ To check: `grep 'tier3_owner' .docs/ai/roadmap.md` (or `docs/ai/roadmap.md`).
 4. Verify the build passes after each change.
 5. Mark the item `[x]` in the roadmap.
 6. Do not push. The user will review and push.
+
+### Standard workflow commands
+
+When a repo ships workflow skills, the command meanings are fixed:
+
+- `/audit-backlog` — audit and append Haiku/Sonnet items
+- `/process-backlog` — execute only Haiku/Sonnet items
+- `/process-backlog-opus` — execute only Opus/T3 items when the active tool matches `tier3_owner`
+- `/resume-and-continue` — review recent agent work and continue only if the active tool owns the next Opus phase
 
 ### Claim protocol
 
