@@ -19,3 +19,5 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 2026-04-06: Normalize the shared workflow command set across Claude, Codex, Copilot, and generic agents so `/process-backlog` always means Haiku/Sonnet and `/process-backlog-opus` always means Opus/T3.
 
 2026-04-06: Treat the four shared workflow skills as repo-managed content in this chezmoi repo and exclude them from imported home-directory skill syncs so local skill drift cannot overwrite the source-of-truth copies.
+
+2026-04-06: Make `scripts/sync-ai-configs.sh` an additive importer instead of a mirror operation so it no longer overwrites repo-managed root docs or imports machine-specific `~/.codex/config.toml`; shared instructions flow out with `chezmoi apply`, while home-created skills/templates can be reviewed and imported intentionally.

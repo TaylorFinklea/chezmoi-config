@@ -157,6 +157,11 @@ This repo now manages instruction and skill surfaces for all three tools plus th
 - `dot_copilot/copilot-instructions.md` for GitHub Copilot CLI home-level defaults
 - `dot_claude/skills`, `dot_codex/skills`, `dot_copilot/skills`, and `dot_agents/skills` for aligned workflow skills
 
+Sync strategy:
+- Edit repo-managed docs, instructions, and tracked workflow skills here, then distribute them to machines with `chezmoi apply`.
+- Use `./scripts/sync-ai-configs.sh` only to import optional home-created skills, agents, and templates back into this repo without deleting tracked repo content.
+- Do not use the sync script to mirror `~/.codex/config.toml`; work and personal machines may legitimately need different Codex config.
+
 ## Directory Structure
 
 ```

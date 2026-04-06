@@ -9,7 +9,8 @@ DRY_RUN=0
 
 usage() {
     cat <<'EOF'
-Sync global Claude, Codex, and Copilot instruction/config content into this chezmoi repo.
+Import additive home-directory skill and template content into this chezmoi repo
+without overwriting repo-managed instruction files or machine-specific config.
 
 Usage:
   ./scripts/sync-ai-configs.sh [--dry-run]
@@ -17,6 +18,14 @@ Usage:
 Options:
   --dry-run   Show what would change without modifying files.
   -h, --help  Show this help text.
+
+Notes:
+  - Repo-managed source-of-truth files such as AGENTS/CLAUDE/Codex instructions
+    are edited in this repo and pushed to machines with `chezmoi apply`.
+  - This script is intentionally conservative: it imports optional home-created
+    skills, agents, and templates without deleting tracked repo content.
+  - `~/.codex/config.toml` is not imported here because work/home machines may
+    legitimately differ.
 EOF
 }
 
@@ -38,22 +47,6 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-require_file() {
-    local path="$1"
-    if [[ ! -f "$path" ]]; then
-        echo "Missing required file: $path" >&2
-        exit 1
-    fi
-}
-
-require_dir() {
-    local path="$1"
-    if [[ ! -d "$path" ]]; then
-        echo "Missing required directory: $path" >&2
-        exit 1
-    fi
-}
-
 if ! command -v rsync >/dev/null 2>&1; then
     echo "rsync is required but not installed." >&2
     exit 1
@@ -64,14 +57,7 @@ CODEX_ROOT="$HOME/.codex"
 COPILOT_ROOT="$HOME/.copilot"
 AGENTS_ROOT="$HOME/.agents"
 
-require_file "$HOME/AGENTS.md"
-require_file "$HOME/CLAUDE.md"
-require_file "$CODEX_ROOT/AGENTS.md"
-require_file "$CODEX_ROOT/config.toml"
-require_dir "$CODEX_ROOT/skills"
-require_dir "$AGENTS_ROOT/skills"
-
-RSYNC_BASE=(-a --checksum --delete --itemize-changes)
+RSYNC_BASE=(-a --checksum --itemize-changes)
 if [[ $DRY_RUN -eq 1 ]]; then
     RSYNC_BASE+=(-n)
 fi
@@ -129,11 +115,10 @@ else
 fi
 echo
 
-sync_file "$HOME/AGENTS.md" "$REPO_ROOT/AGENTS.md"
-sync_file "$HOME/CLAUDE.md" "$REPO_ROOT/CLAUDE.md"
-sync_file "$CODEX_ROOT/AGENTS.md" "$REPO_ROOT/dot_codex/AGENTS.md"
-sync_optional_file "$COPILOT_ROOT/copilot-instructions.md" "$REPO_ROOT/dot_copilot/copilot-instructions.md"
-sync_file "$CODEX_ROOT/config.toml" "$REPO_ROOT/dot_codex/private_config.toml"
+echo "Repo-managed docs and instructions are not imported by this script."
+echo "Use chezmoi apply to sync repo-managed files out to each machine."
+echo
+
 sync_optional_file \
     "$CODEX_ROOT/skills/spreadsheet/references/examples/openpyxl/basic_spreadsheet.py" \
     "$REPO_ROOT/dot_codex/skills/spreadsheet/references/examples/openpyxl/create_basic_spreadsheet.py"
@@ -152,7 +137,6 @@ sync_optional_dir "$CLAUDE_ROOT/skills" "$REPO_ROOT/dot_claude/skills" \
     --exclude '*.pyc' \
     --exclude '*.pyo'
 sync_optional_dir "$CLAUDE_ROOT/templates" "$REPO_ROOT/dot_claude/templates" \
-    --delete-excluded \
     --exclude '__pycache__/' \
     --exclude '*.pyc' \
     --exclude '*.pyo'
