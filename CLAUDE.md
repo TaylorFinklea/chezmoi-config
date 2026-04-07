@@ -6,6 +6,8 @@ Cross-session continuity lives in `.docs/ai/` (git-tracked). These docs are the 
 
 If the repo contains `docs/ai-roadmap-system.md`, treat it as the canonical explanation of the shared workflow system and keep Claude-specific skills aligned to it.
 
+This repo also ships a repo-scoped `.mcp.json` with `chrome-devtools`, so Claude Code can use Chrome DevTools MCP while working in this repo.
+
 ### Session Start
 
 1. Read (if they exist):

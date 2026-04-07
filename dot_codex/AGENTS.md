@@ -14,6 +14,7 @@
 - Treat repo-level AGENTS files as exception/override layers, not the default place to define this workflow.
 - Preferred bootstrap source for a missing `./.docs/ai/` folder is the template set under `~/.codex/templates/docs-ai/`.
 - If the repo contains `docs/ai-roadmap-system.md`, treat it as the canonical explanation of the shared workflow system and keep Codex behavior aligned to it.
+- Chrome DevTools MCP is managed through the home-level Codex config template in this chezmoi repo; when available, prefer it for browser debugging and performance investigation.
 
 ## Tiered Roadmap Contract
 

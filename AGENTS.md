@@ -15,6 +15,8 @@ Update before ending:
 
 If the repo contains `docs/ai-roadmap-system.md`, treat it as the canonical explanation of the shared workflow system and keep tool behavior aligned to it.
 
+This repo also ships a repo-scoped `.mcp.json` with `chrome-devtools`, so tools that honor project MCP config can use Chrome DevTools MCP here.
+
 ## Tiered Backlog System
 
 The roadmap contains a `## Backlog` section with items organized into three tiers:

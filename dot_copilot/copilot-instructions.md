@@ -20,6 +20,7 @@ Rules:
 - Haiku and Sonnet tiers remain safe by default unless the roadmap item is flagged `<!-- needs-discussion -->` or `<!-- design-TBD -->`.
 - Do not work milestone items unless the user explicitly assigns them.
 - If the repo contains `docs/ai-roadmap-system.md`, treat it as the canonical workflow reference.
+- Chrome DevTools MCP is managed in this chezmoi repo for Copilot CLI; when available, prefer it for browser debugging and performance investigation.
 - Use the normalized workflow names when skills are available:
   - `/audit-backlog`
   - `/process-backlog`

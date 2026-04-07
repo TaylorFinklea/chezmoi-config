@@ -156,12 +156,37 @@ This repo now manages instruction and skill surfaces for all three tools plus th
 - `dot_codex/AGENTS.md` for Codex home-level defaults
 - `dot_copilot/copilot-instructions.md` for GitHub Copilot CLI home-level defaults
 - `dot_claude/skills`, `dot_codex/skills`, `dot_copilot/skills`, and `dot_agents/skills` for aligned workflow skills
+- `.mcp.json` for repo-scoped MCP servers shared by Claude Code and Copilot-compatible tooling in this repo
+- `dot_codex/private_config.toml.tmpl` and `.chezmoitemplates/codex/*.toml` for Codex home-level MCP/server config
+- `dot_copilot/mcp-config.json.tmpl` for GitHub Copilot CLI user-level MCP server config
 
 Sync strategy:
 - Edit repo-managed docs, instructions, and tracked workflow skills here, then distribute them to machines with `chezmoi apply`.
 - Run `./scripts/review-ai-config-imports.sh` before importing home-created AI changes back into this repo.
 - Use `./scripts/sync-ai-configs.sh` only to import safe additive home-created skills, agents, and templates back into this repo without deleting or overwriting tracked repo content.
 - Do not use the sync script to mirror `~/.codex/config.toml`; work and personal machines may legitimately need different Codex config.
+
+## Shared MCP Servers
+
+This repo manages Chrome DevTools MCP as a standard browser-debugging server across the supported tools:
+
+- Codex gets `chrome-devtools` from the managed `~/.codex/config.toml` template.
+- GitHub Copilot CLI gets `chrome-devtools` from the managed `~/.copilot/mcp-config.json`.
+- Claude Code can use the repo-scoped [`.mcp.json`](./.mcp.json) while working in this repo.
+
+The server definition follows the Chrome DevTools MCP launch pattern:
+
+```json
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["chrome-devtools-mcp@latest"]
+    }
+  }
+}
+```
 
 ## Directory Structure
 
