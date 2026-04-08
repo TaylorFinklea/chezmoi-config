@@ -1,0 +1,4 @@
+interface:
+  display_name: "TherapyNotes IT Change Workflow"
+  short_description: "Drive TherapyNotes IT to ISD workflow"
+  default_prompt: "Use $therapynotes-it-change-workflow to move a TherapyNotes IT ticket through architect review and create its linked ISD change ticket."

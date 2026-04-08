@@ -10,6 +10,12 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Recent Progress
 
+- Replaced hostname-based AI config selection with explicit `data.ai_profile` handling for chezmoi-managed AI configuration.
+- Added `.chezmoidata/ai.json` as the shared AI catalog for scoped MCP servers, OpenCode instruction inputs, discovery roots, and work-only Codex artifact paths.
+- Refactored Codex and Copilot MCP rendering so work/personal differences come from the shared catalog instead of duplicated hand-edited blocks.
+- Added managed OpenCode global config at `dot_config/opencode/opencode.json.tmpl`, including shared `~/AGENTS.md` instructions and scoped MCP server rendering.
+- Converted `.chezmoiignore` into `.chezmoiignore.tmpl` so work-only Codex skills are ignored automatically on personal machines.
+- Replaced `scripts/sync-ai-configs.sh` with a review-only wrapper and added `scripts/promote-ai-config-inbox.sh` plus `.docs/ai/inbox/` for explicit staging/classification of newly discovered local AI artifacts.
 - Bootstrapped `./.docs/ai/` from `~/.codex/templates/docs-ai/` for repo-local AI handoff state.
 - Synced the tracked chezmoi source for `~/.codex/AGENTS.md` with the current home-directory file contents.
 - Added repo documentation for the GitHub PAT bootstrap flow in `README.md`, `CLAUDE.md`, and `AGENTS.md`, including the Keychain service name `codex-github-pat`, the exported variable `GITHUB_PAT_TOKEN`, and the `launchd` loader command.
@@ -72,12 +78,20 @@ Living snapshot of the project. Update before ending each AI session.
 - `AGENTS.md`
 - `CLAUDE.md`
 - `README.md`
+- `.chezmoidata/ai.json`
+- `.chezmoiignore.tmpl`
+- `.docs/ai/inbox/README.md`
 - `scripts/review-ai-config-imports.sh`
 - `scripts/sync-ai-configs.sh`
+- `scripts/promote-ai-config-inbox.sh`
+- `dot_config/chezmoi/chezmoi.toml.tmpl`
+- `dot_config/opencode/opencode.json.tmpl`
+- `dot_config/opencode/README.md`
 
 ## Blockers
 
-- (none)
+- Local `~/.config/chezmoi/chezmoi.toml` on this machine still needs `data.ai_profile` set before the new managed AI config can land via `chezmoi apply`.
+- The worktree still contains many untracked local skill directories created by the old importer run; they were intentionally left untouched until you decide which ones belong in the new inbox/scoped model.
 
 ## Open Questions
 
@@ -94,4 +108,9 @@ Ran ./scripts/review-ai-config-imports.sh successfully; the current report shows
 Confirmed the importer dry run now skips repo-managed files and existing tracked paths, and only proposes additive top-level imports.
 Validated `.mcp.json` and `dot_copilot/mcp-config.json.tmpl` with `jq empty`.
 Rendered `dot_codex/private_config.toml.tmpl` through `chezmoi execute-template` and confirmed the `mcp_servers.chrome-devtools` entry appears in the active host config.
+Ran `bash -n` successfully for `scripts/install.sh`, `scripts/sync-ai-configs.sh`, `scripts/review-ai-config-imports.sh`, and `scripts/promote-ai-config-inbox.sh`.
+Rendered managed Codex config for `work` and `personal` profiles with `chezmoi cat`; confirmed `atlassian_rovo` appears only in `work` and `simmersmith` appears only in `personal`.
+Rendered managed Copilot and OpenCode configs for both profiles and validated the JSON with `jq empty`.
+Verified `.chezmoiignore.tmpl` causes the work-only Codex skill paths to appear in `chezmoi ignored` for the personal profile.
+Ran `CHEZMOI_AI_PROFILE=work ./scripts/sync-ai-configs.sh --report ...` successfully; it now stays review-only and does not import directly into managed trees.
 ```

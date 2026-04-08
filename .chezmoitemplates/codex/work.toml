@@ -48,49 +48,49 @@ trust_level = "trusted"
 [projects."/Users/tfinklea/git/personal-github-runners"]
 trust_level = "trusted"
 
-[mcp_servers.playwright]
-command = "npx"
-args = ["@playwright/mcp@latest"]
+[projects."/Users/tfinklea/git/transcription-agents"]
+trust_level = "trusted"
 
-[mcp_servers.playwright.tools.browser_navigate]
-approval_mode = "approve"
+[projects."/Users/tfinklea/git/worktrack"]
+trust_level = "trusted"
 
-[mcp_servers.playwright.tools.browser_click]
-approval_mode = "approve"
+[projects."/Users/tfinklea/git/ai-compliance"]
+trust_level = "trusted"
 
-[mcp_servers.chrome-devtools]
-command = "npx"
-args = ["chrome-devtools-mcp@latest"]
+[projects."/Users/tfinklea/git/agent-poc"]
+trust_level = "trusted"
 
-[mcp_servers.figma]
-url = "https://mcp.figma.com/mcp"
+{{- $profile := "work" -}}
+{{- range $server := .mcpServers }}
+{{- $enabled := or (eq $server.scope "shared") (and (eq $server.scope "work-only") (eq $profile "work")) (and (eq $server.scope "personal-only") (eq $profile "personal")) -}}
+{{- if and $enabled (has "codex" $server.targets) }}
+{{- $codex := index $server "codex" }}
+[mcp_servers.{{ $server.id }}]
+{{- with index $codex "command" }}
+command = {{ . | quote }}
+{{- end }}
+{{- with index $codex "args" }}
+args = [{{- range $index, $arg := . }}{{ if gt $index 0 }}, {{ end }}{{ $arg | quote }}{{- end }}]
+{{- end }}
+{{- with index $codex "url" }}
+url = {{ . | quote }}
+{{- end }}
+{{- with index $codex "enabled" }}
+enabled = {{ . }}
+{{- end }}
+{{- with index $codex "bearer_token_env_var" }}
+bearer_token_env_var = {{ . | quote }}
+{{- end }}
+{{- with index $codex "toolApprovals" }}
+{{- range $toolName, $approval := . }}
 
-[mcp_servers.shadcn]
-command = "npx"
-args = ["shadcn@latest", "mcp"]
+[mcp_servers.{{ $server.id }}.tools.{{ $toolName }}]
+approval_mode = {{ $approval | quote }}
+{{- end }}
+{{- end }}
 
-[mcp_servers.excalidraw]
-url = "https://mcp.excalidraw.com"
-
-[mcp_servers.github]
-url = "https://api.githubcopilot.com/mcp/"
-bearer_token_env_var = "GITHUB_PAT_TOKEN"
-
-[mcp_servers.cloudflare-docs]
-url = "https://docs.mcp.cloudflare.com/mcp"
-
-[mcp_servers.cloudflare-bindings]
-url = "https://bindings.mcp.cloudflare.com/mcp"
-
-[mcp_servers.cloudflare-builds]
-url = "https://builds.mcp.cloudflare.com/mcp"
-
-[mcp_servers.cloudflare-observability]
-url = "https://observability.mcp.cloudflare.com/mcp"
-
-[mcp_servers.atlassian_rovo]
-enabled = true
-url = "https://mcp.atlassian.com/v1/mcp"
+{{- end }}
+{{- end }}
 
 [features]
 multi_agent = true

@@ -1,0 +1,36 @@
+{{- $profile := coalesce (env "CHEZMOI_AI_PROFILE") (index .chezmoi.config.data "ai_profile") -}}
+{{- if not (or (eq $profile "work") (eq $profile "personal")) -}}
+{{- fail "Set data.ai_profile to \"work\" or \"personal\" in ~/.config/chezmoi/chezmoi.toml, or export CHEZMOI_AI_PROFILE for one-off renders." -}}
+{{- end -}}
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [
+{{- range $index, $path := .opencode.instructions }}
+    {{- if gt $index 0 }},{{ end }}
+    {{ $path | quote }}
+{{- end }}
+  ],
+  "mcp": {
+{{- $first := true -}}
+{{- range $server := .mcpServers }}
+{{- $enabled := or (eq $server.scope "shared") (and (eq $server.scope "work-only") (eq $profile "work")) (and (eq $server.scope "personal-only") (eq $profile "personal")) -}}
+{{- if and $enabled (has "opencode" $server.targets) }}
+{{- $opencode := index $server "opencode" }}
+{{- if not $first }},{{ end }}
+    "{{ if eq $server.id "atlassian_rovo" }}atlassian{{ else }}{{ $server.id }}{{ end }}": {
+      "type": {{ index $opencode "type" | quote }}{{- if or (index $opencode "command") (index $opencode "url") (index $opencode "enabled") }},{{ end }}
+{{- with index $opencode "command" }}
+      "command": [{{- range $index, $part := . }}{{ if gt $index 0 }}, {{ end }}{{ $part | quote }}{{- end }}]{{- if or (index $opencode "url") (index $opencode "enabled") }},{{ end }}
+{{- end }}
+{{- with index $opencode "url" }}
+      "url": {{ . | quote }}{{- if (index $opencode "enabled") }},{{ end }}
+{{- end }}
+{{- with index $opencode "enabled" }}
+      "enabled": {{ . }}
+{{- end }}
+    }
+{{- $first = false }}
+{{- end }}
+{{- end }}
+  }
+}

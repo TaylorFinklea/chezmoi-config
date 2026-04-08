@@ -27,3 +27,9 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 2026-04-06: Allow the reviewed safe subset of home-directory AI changes to be imported only after `./scripts/sync-ai-configs.sh --dry-run` confirms the importer skips blocked repo-managed files and review-required tracked paths.
 
 2026-04-06: Manage Chrome DevTools MCP from this repo as shared tooling: Codex gets it through the host-aware `~/.codex/config.toml` template, Copilot CLI gets it through managed `~/.copilot/mcp-config.json`, and Claude Code uses the repo-scoped `.mcp.json`.
+
+2026-04-08: Replace hostname-based AI config selection with an explicit local `data.ai_profile` value in chezmoi so work/personal behavior is intentional and shared across Codex, Copilot, and OpenCode.
+
+2026-04-08: Replace direct AI config imports with a review-only discovery step plus an inbox staging workflow; `scripts/sync-ai-configs.sh` no longer mutates managed trees.
+
+2026-04-08: Manage OpenCode as a first-class user-level AI tool in this repo through `~/.config/opencode/opencode.json`, using shared `~/AGENTS.md` instructions and the same scoped MCP catalog that drives Codex and Copilot.

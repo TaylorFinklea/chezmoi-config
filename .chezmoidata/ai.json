@@ -1,0 +1,302 @@
+{
+  "mcpServers": [
+    {
+      "id": "microsoft-learn",
+      "scope": "shared",
+      "targets": ["copilot"],
+      "copilot": {
+        "type": "http",
+        "url": "https://learn.microsoft.com/api/mcp"
+      }
+    },
+    {
+      "id": "playwright",
+      "scope": "shared",
+      "targets": ["codex", "copilot", "opencode"],
+      "codex": {
+        "command": "npx",
+        "args": ["@playwright/mcp@latest"],
+        "toolApprovals": {
+          "browser_navigate": "approve",
+          "browser_click": "approve"
+        }
+      },
+      "copilot": {
+        "type": "stdio",
+        "command": "npx",
+        "args": ["@playwright/mcp@latest"]
+      },
+      "opencode": {
+        "type": "local",
+        "command": ["npx", "@playwright/mcp@latest"],
+        "enabled": true
+      }
+    },
+    {
+      "id": "chrome-devtools",
+      "scope": "shared",
+      "targets": ["codex", "copilot", "opencode"],
+      "codex": {
+        "command": "npx",
+        "args": ["chrome-devtools-mcp@latest"]
+      },
+      "copilot": {
+        "type": "stdio",
+        "command": "npx",
+        "args": ["chrome-devtools-mcp@latest"]
+      },
+      "opencode": {
+        "type": "local",
+        "command": ["npx", "chrome-devtools-mcp@latest"],
+        "enabled": true
+      }
+    },
+    {
+      "id": "figma",
+      "scope": "shared",
+      "targets": ["codex", "copilot", "opencode"],
+      "codex": {
+        "url": "https://mcp.figma.com/mcp"
+      },
+      "copilot": {
+        "type": "http",
+        "url": "https://mcp.figma.com/mcp"
+      },
+      "opencode": {
+        "type": "remote",
+        "url": "https://mcp.figma.com/mcp",
+        "enabled": true
+      }
+    },
+    {
+      "id": "shadcn",
+      "scope": "shared",
+      "targets": ["codex"],
+      "codex": {
+        "command": "npx",
+        "args": ["shadcn@latest", "mcp"]
+      }
+    },
+    {
+      "id": "excalidraw",
+      "scope": "shared",
+      "targets": ["codex", "opencode"],
+      "codex": {
+        "url": "https://mcp.excalidraw.com"
+      },
+      "opencode": {
+        "type": "remote",
+        "url": "https://mcp.excalidraw.com",
+        "enabled": true
+      }
+    },
+    {
+      "id": "github",
+      "scope": "shared",
+      "targets": ["codex"],
+      "codex": {
+        "url": "https://api.githubcopilot.com/mcp/",
+        "bearer_token_env_var": "GITHUB_PAT_TOKEN"
+      }
+    },
+    {
+      "id": "cloudflare-docs",
+      "scope": "shared",
+      "targets": ["codex"],
+      "codex": {
+        "url": "https://docs.mcp.cloudflare.com/mcp"
+      }
+    },
+    {
+      "id": "cloudflare-bindings",
+      "scope": "shared",
+      "targets": ["codex"],
+      "codex": {
+        "url": "https://bindings.mcp.cloudflare.com/mcp"
+      }
+    },
+    {
+      "id": "cloudflare-builds",
+      "scope": "shared",
+      "targets": ["codex"],
+      "codex": {
+        "url": "https://builds.mcp.cloudflare.com/mcp"
+      }
+    },
+    {
+      "id": "cloudflare-observability",
+      "scope": "shared",
+      "targets": ["codex"],
+      "codex": {
+        "url": "https://observability.mcp.cloudflare.com/mcp"
+      }
+    },
+    {
+      "id": "atlassian_rovo",
+      "scope": "work-only",
+      "targets": ["codex", "copilot", "opencode"],
+      "codex": {
+        "enabled": true,
+        "url": "https://mcp.atlassian.com/v1/mcp"
+      },
+      "copilot": {
+        "type": "http",
+        "url": "https://mcp.atlassian.com/v1/mcp"
+      },
+      "opencode": {
+        "type": "remote",
+        "url": "https://mcp.atlassian.com/v1/mcp",
+        "enabled": true
+      }
+    },
+    {
+      "id": "simmersmith",
+      "scope": "personal-only",
+      "targets": ["codex"],
+      "codex": {
+        "command": "/Users/tfinklea/git/simmersmith/.venv/bin/python",
+        "args": ["/Users/tfinklea/git/simmersmith/scripts/run_simmersmith_mcp.py"],
+        "toolApprovals": {
+          "health": "approve",
+          "recipes_list": "approve",
+          "profile_get": "approve",
+          "preferences_get": "approve",
+          "weeks_get_current": "approve",
+          "weeks_get_by_start": "approve",
+          "weeks_create": "approve",
+          "preferences_score_meal": "approve",
+          "weeks_update_meals": "approve",
+          "weeks_regenerate_grocery": "approve",
+          "assistant_create_thread": "approve",
+          "assistant_respond": "approve",
+          "assistant_get_thread": "approve",
+          "assistant_list_threads": "approve"
+        }
+      }
+    }
+  ],
+  "opencode": {
+    "instructions": ["~/AGENTS.md"]
+  },
+  "scopedArtifacts": [
+    {
+      "id": "codex-skill-pm-sprint-management-close-sprint",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/pm-sprint-management-close-sprint"
+    },
+    {
+      "id": "codex-skill-pm-sprint-management-create-future-sprints",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/pm-sprint-management-create-future-sprints"
+    },
+    {
+      "id": "codex-skill-pm-sprint-management-start-sprint",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/pm-sprint-management-start-sprint"
+    },
+    {
+      "id": "codex-skill-slack-firefighters-huddle-import",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/slack-firefighters-huddle-import"
+    },
+    {
+      "id": "codex-skill-teams-stream-transcript-import",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/teams-stream-transcript-import"
+    },
+    {
+      "id": "codex-skill-therapynotes-grc-ai-adoption-workflow",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/therapynotes-grc-ai-adoption-workflow"
+    },
+    {
+      "id": "codex-skill-therapynotes-grc-ai-model-workflow",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/therapynotes-grc-ai-model-workflow"
+    },
+    {
+      "id": "codex-skill-therapynotes-it-change-workflow",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/therapynotes-it-change-workflow"
+    },
+    {
+      "id": "codex-skill-therapynotes-ticket-intake",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/therapynotes-ticket-intake"
+    }
+  ],
+  "discoveryRoots": [
+    {
+      "id": "claude-agents",
+      "kind": "agent",
+      "path": "~/.claude/agents",
+      "repoPath": "dot_claude/agents"
+    },
+    {
+      "id": "claude-skills",
+      "kind": "skill",
+      "path": "~/.claude/skills",
+      "repoPath": "dot_claude/skills"
+    },
+    {
+      "id": "claude-templates",
+      "kind": "template",
+      "path": "~/.claude/templates",
+      "repoPath": "dot_claude/templates"
+    },
+    {
+      "id": "codex-skills",
+      "kind": "skill",
+      "path": "~/.codex/skills",
+      "repoPath": "dot_codex/skills"
+    },
+    {
+      "id": "copilot-skills",
+      "kind": "skill",
+      "path": "~/.copilot/skills",
+      "repoPath": "dot_copilot/skills"
+    },
+    {
+      "id": "agents-skills",
+      "kind": "skill",
+      "path": "~/.agents/skills",
+      "repoPath": "dot_agents/skills"
+    },
+    {
+      "id": "opencode-agents",
+      "kind": "agent",
+      "path": "~/.config/opencode/agent",
+      "repoPath": "dot_config/opencode/agent"
+    },
+    {
+      "id": "opencode-commands",
+      "kind": "command",
+      "path": "~/.config/opencode/command",
+      "repoPath": "dot_config/opencode/command"
+    },
+    {
+      "id": "opencode-modes",
+      "kind": "mode",
+      "path": "~/.config/opencode/mode",
+      "repoPath": "dot_config/opencode/mode"
+    }
+  ]
+}

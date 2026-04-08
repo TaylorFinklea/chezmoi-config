@@ -1,0 +1,4 @@
+interface:
+  display_name: "GRC AI Copilot Workflow"
+  short_description: "Turn GRC AI model requests into Copilot IT and change tickets"
+  default_prompt: "Use $therapynotes-grc-ai-model-workflow to turn this GRC AI model request into the required GitHub Copilot IT and change tickets."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "PM - Sprint Management - Start Sprint"
+  short_description: "Stage the next IT sprint start safely."
+  default_prompt: "Use $pm-sprint-management-start-sprint to identify the next IT sprint, navigate to the Backlog start flow, and stop before the final Start Sprint click unless I explicitly approve it in this turn."

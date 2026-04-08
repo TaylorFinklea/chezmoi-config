@@ -66,6 +66,42 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CHEZMOI_SOURCE_DIR="$(dirname "$SCRIPT_DIR")"
 CHEZMOI_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/chezmoi"
 CHEZMOI_CONFIG_FILE="$CHEZMOI_CONFIG_DIR/chezmoi.toml"
+AI_PROFILE="${CHEZMOI_AI_PROFILE:-}"
+
+prompt_ai_profile() {
+    local default_profile="$1"
+    local reply=""
+    while true; do
+        echo ""
+        echo "Choose the AI config profile for this machine:"
+        echo "  1) work"
+        echo "  2) personal"
+        if [ -n "$default_profile" ]; then
+            read -p "Choose [1-2] (default: $default_profile): " -r reply
+        else
+            read -p "Choose [1-2]: " -r reply
+        fi
+
+        if [ -z "$reply" ] && [ -n "$default_profile" ]; then
+            AI_PROFILE="$default_profile"
+            return 0
+        fi
+
+        case "$reply" in
+            1|work)
+                AI_PROFILE="work"
+                return 0
+                ;;
+            2|personal)
+                AI_PROFILE="personal"
+                return 0
+                ;;
+            *)
+                warn "Enter 1/work or 2/personal."
+                ;;
+        esac
+    done
+}
 
 write_bootstrap_config() {
     mkdir -p "$CHEZMOI_CONFIG_DIR"
@@ -75,10 +111,25 @@ sourceDir = "$1"
 [update]
     apply = true
     recurseSubmodules = true
+
+[data]
+    ai_profile = "$2"
 EOF
 }
 
 info "Chezmoi source directory: $CHEZMOI_SOURCE_DIR"
+
+if [ -z "$AI_PROFILE" ] && [ -f "$CHEZMOI_CONFIG_FILE" ]; then
+    AI_PROFILE="$(awk -F'"' '/ai_profile/ { print $2; exit }' "$CHEZMOI_CONFIG_FILE" || true)"
+fi
+
+if [[ "$AI_PROFILE" != "work" && "$AI_PROFILE" != "personal" ]]; then
+    prompt_ai_profile ""
+else
+    prompt_ai_profile "$AI_PROFILE"
+fi
+
+info "Using AI config profile: $AI_PROFILE"
 
 # Step 4: Initialize chezmoi with this directory as source
 info "Initializing chezmoi with local source..."
@@ -97,7 +148,7 @@ fi
 
 if [ -n "$CURRENT_SOURCE" ]; then
     if [ "$CURRENT_SOURCE" = "$CHEZMOI_SOURCE_DIR" ]; then
-        write_bootstrap_config "$CHEZMOI_SOURCE_DIR"
+        write_bootstrap_config "$CHEZMOI_SOURCE_DIR" "$AI_PROFILE"
         success "Chezmoi already initialized with this source"
         EFFECTIVE_SOURCE="$CHEZMOI_SOURCE_DIR"
     else
@@ -105,7 +156,7 @@ if [ -n "$CURRENT_SOURCE" ]; then
         read -p "Reinitialize to use $CHEZMOI_SOURCE_DIR? (y/N) " -n 1 -r
         echo
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-            write_bootstrap_config "$CHEZMOI_SOURCE_DIR"
+            write_bootstrap_config "$CHEZMOI_SOURCE_DIR" "$AI_PROFILE"
             chezmoi init --source="$CHEZMOI_SOURCE_DIR" --force
             success "Chezmoi reinitialized with source: $CHEZMOI_SOURCE_DIR"
             EFFECTIVE_SOURCE="$CHEZMOI_SOURCE_DIR"
@@ -115,7 +166,7 @@ if [ -n "$CURRENT_SOURCE" ]; then
         fi
     fi
 else
-    write_bootstrap_config "$CHEZMOI_SOURCE_DIR"
+    write_bootstrap_config "$CHEZMOI_SOURCE_DIR" "$AI_PROFILE"
     chezmoi init --source="$CHEZMOI_SOURCE_DIR"
     success "Chezmoi initialized with source: $CHEZMOI_SOURCE_DIR"
     EFFECTIVE_SOURCE="$CHEZMOI_SOURCE_DIR"
