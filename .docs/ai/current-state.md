@@ -31,6 +31,7 @@ Living snapshot of the project. Update before ending each AI session.
   - Codex via the managed `~/.codex/config.toml` template
   - Copilot CLI via managed `~/.copilot/mcp-config.json`
   - Claude Code via the repo-scoped `.mcp.json`
+- Added a repo-managed Claude Stop hook script at `dot_claude/hooks/auto-commit-on-stop.sh` and switched it to Anthropic's supported `exit 2 + stderr` blocking flow instead of invalid Stop-hook JSON.
 
 ## Changed Files
 
@@ -58,6 +59,7 @@ Living snapshot of the project. Update before ending each AI session.
 - `dot_claude/skills/process-backlog-opus/SKILL.md`
 - `dot_claude/skills/resume-and-continue/SKILL.md`
 - `dot_claude/skills/import-ai-config-changes/SKILL.md`
+- `dot_claude/hooks/auto-commit-on-stop.sh`
 - `dot_codex/AGENTS.md`
 - `.chezmoitemplates/codex/personal.toml`
 - `.chezmoitemplates/codex/work.toml`
@@ -99,4 +101,5 @@ Ran ./scripts/review-ai-config-imports.sh successfully; the current report shows
 Confirmed the importer dry run now skips repo-managed files and existing tracked paths, and only proposes additive top-level imports.
 Validated `.mcp.json` and `dot_copilot/mcp-config.json.tmpl` with `jq empty`.
 Rendered `dot_codex/private_config.toml.tmpl` through `chezmoi execute-template` and confirmed the `mcp_servers.chrome-devtools` entry appears in the active host config.
+Verified against Anthropic's current hooks reference that `Stop` hooks should block via exit code `2` plus `stderr`, or via JSON with only `decision`/`reason`; `hookSpecificOutput` is not valid for `Stop`.
 ```
