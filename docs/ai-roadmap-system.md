@@ -64,6 +64,18 @@ Failure protocol:
 
 Always skip `- [~]` items because another agent is already working on them.
 
+Build verification command varies per project. Check the project's `CLAUDE.md`, `AGENTS.md`, or `.docs/ai/roadmap.md` for the correct command. Common patterns: `npm test`, `npm run build`, `cargo test`, `make check`.
+
+## Execution concurrency
+
+When working backlog items:
+
+- **Haiku**: up to 4 items in parallel (different files, no shared state).
+- **Sonnet**: up to 2 in parallel (may touch shared files — coordinate).
+- **Opus**: 1 at a time (requires full codebase understanding).
+
+After each batch, verify the build passes before starting the next.
+
 ## Tool parity model
 
 The canonical workflow behavior lives in `docs/ai-workflows/`.
