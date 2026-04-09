@@ -35,6 +35,9 @@ items:
   - name: Popup shell
     key: P
     command: "display-popup -w 90% -h 85% -d #{pane_current_path}"
+  - name: Cheat sheet
+    key: /
+    command: 'display-popup -w 70% -h 80% -E "less -R ~/.config/tmux/cheatsheet.txt"'
   - separator: true
   - name: Split below
     key: "-"
