@@ -1,0 +1,4 @@
+interface:
+  display_name: "TN Ticket Intake"
+  short_description: "Route and create TherapyNotes intake tickets"
+  default_prompt: "Use $tn-ticket-intake to turn this idea into the correct TherapyNotes Jira ticket."

@@ -10,6 +10,11 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Recent Progress
 
+- Added a new chezmoi-managed tmux setup at `dot_tmux.conf` with a lean, window-centric workflow tuned for Claude Code, Codex, Neovim, and other terminal TUIs.
+- Added a small XDG `tmux-which-key` menu config at `dot_config/tmux/plugins/tmux-which-key/config.yaml` so prefix-driven discovery matches the direct bindings in the managed tmux config.
+- Switched the tmux prefix to `C-a`, moved the status bar to the top, enabled mouse + vi copy mode, made splits inherit the current pane path, and added direct bindings for popup shells, choose-tree navigation, zoom, reload, and session save/restore.
+- Kept tmux-resurrect pane-content capture disabled by default so persistence is practical without storing large or sensitive AI scrollback.
+- Added a new chezmoi-managed Karabiner profile at `dot_config/karabiner/karabiner.json` with dual-role `Caps Lock` and two small Control-based layers for navigation and numpad-style entry.
 - Replaced hostname-based AI config selection with explicit `data.ai_profile` handling for chezmoi-managed AI configuration.
 - Added `.chezmoidata/ai.json` as the shared AI catalog for scoped MCP servers, OpenCode instruction inputs, discovery roots, and work-only Codex artifact paths.
 - Refactored Codex and Copilot MCP rendering so work/personal differences come from the shared catalog instead of duplicated hand-edited blocks.
@@ -18,6 +23,8 @@ Living snapshot of the project. Update before ending each AI session.
 - Added `deferredSourcePaths` handling in `.chezmoidata/ai.json` and `.chezmoiignore.tmpl` so old importer-created source directories no longer participate in `chezmoi apply` until explicitly promoted.
 - Added matching root `.gitignore` entries for those deferred source directories so the repo stops reporting a wall of untracked importer leftovers during normal work.
 - Moved Codex plugin enablement into the shared AI catalog and made `build-web-apps@openai-curated` personal-only because that plugin bundles `stripe`, `vercel`, and `supabase` MCP servers through its own plugin-local `.mcp.json`.
+- Renamed the TherapyNotes and PM work skills to a consistent `tn-*` prefix and copied that work-only set into `dot_copilot/skills/` so the same TherapyNotes workflows can land on work Copilot machines.
+- Replaced tool-specific absolute skill cross-links with relative references so the `tn-*` workflows work from both Codex and Copilot skill trees.
 - Replaced `scripts/sync-ai-configs.sh` with a review-only wrapper and added `scripts/promote-ai-config-inbox.sh` plus `.docs/ai/inbox/` for explicit staging/classification of newly discovered local AI artifacts.
 - Bootstrapped `./.docs/ai/` from `~/.codex/templates/docs-ai/` for repo-local AI handoff state.
 - Synced the tracked chezmoi source for `~/.codex/AGENTS.md` with the current home-directory file contents.
@@ -43,6 +50,9 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Changed Files
 
+- `dot_tmux.conf`
+- `dot_config/tmux/plugins/tmux-which-key/config.yaml`
+- `dot_config/karabiner/karabiner.json`
 - `.docs/ai/current-state.md`
 - `.docs/ai/decisions.md`
 - `.docs/ai/next-steps.md`
@@ -104,6 +114,9 @@ Living snapshot of the project. Update before ending each AI session.
 
 ```
 Verified all four workflow skill names exist under Claude, Codex, Copilot, and generic agent skill trees.
+Validated `dot_tmux.conf` syntax with `tmux 3.6a` using `tmux -L codex-tmux-check -f ... start-server`.
+Parsed `dot_config/tmux/plugins/tmux-which-key/config.yaml` successfully with Ruby YAML.
+Validated `dot_config/karabiner/karabiner.json` with `jq empty` and applied it to `~/.config/karabiner/karabiner.json`.
 Ran ./scripts/sync-ai-configs.sh --dry-run successfully after adding Copilot skill sync and excluding the repo-managed workflow skills from imported home skill directories.
 Restored the repo after an unsafe full sync attempt, then reran ./scripts/sync-ai-configs.sh --dry-run successfully with the hardened additive-only import behavior.
 Ran bash -n successfully for scripts/review-ai-config-imports.sh and scripts/sync-ai-configs.sh.
@@ -119,4 +132,5 @@ Ran `CHEZMOI_AI_PROFILE=work ./scripts/sync-ai-configs.sh --report ...` successf
 Verified `CHEZMOI_AI_PROFILE=work chezmoi -S . ignored` includes the deferred source paths and `chezmoi -S . managed` excludes them.
 Ran a full `chezmoi apply -v` successfully after adding deferred source path ignores; the work machine now has the scoped Codex, Copilot, and OpenCode config rendered from this repo.
 Confirmed the lingering work-machine `stripe`, `vercel`, and `supabase` MCPs were coming from the enabled `build-web-apps` Codex plugin rather than `~/.codex/config.toml`.
+Verified the renamed `tn-*` skill set exists under both `dot_codex/skills/` and `dot_copilot/skills/`, with cross-links rewritten away from `~/.codex/skills/...` home paths.
 ```

@@ -1,4 +1,0 @@
-interface:
-  display_name: "PM - Sprint Management - Close Sprint"
-  short_description: "Close sprints and verify post-close carry-over."
-  default_prompt: "Use $pm-sprint-management-close-sprint to close the current IT sprint, release its IT and ISD fix versions as needed, validate carry-over tickets moved to the upcoming sprint, retarget the ISD fix-version automation, refresh easyBI, and stop before starting the next sprint unless I ask."

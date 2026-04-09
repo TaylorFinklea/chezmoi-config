@@ -214,25 +214,46 @@
   ],
   "scopedArtifacts": [
     {
-      "id": "codex-skill-pm-sprint-management-close-sprint",
+      "id": "codex-skill-tn-pm-sprint-management-close-sprint",
       "kind": "skill",
       "scope": "work-only",
       "targets": ["codex"],
-      "path": "dot_codex/skills/pm-sprint-management-close-sprint"
+      "path": "dot_codex/skills/tn-pm-sprint-management-close-sprint"
     },
     {
-      "id": "codex-skill-pm-sprint-management-create-future-sprints",
+      "id": "copilot-skill-tn-pm-sprint-management-close-sprint",
       "kind": "skill",
       "scope": "work-only",
-      "targets": ["codex"],
-      "path": "dot_codex/skills/pm-sprint-management-create-future-sprints"
+      "targets": ["copilot"],
+      "path": "dot_copilot/skills/tn-pm-sprint-management-close-sprint"
     },
     {
-      "id": "codex-skill-pm-sprint-management-start-sprint",
+      "id": "codex-skill-tn-pm-sprint-management-create-future-sprints",
       "kind": "skill",
       "scope": "work-only",
       "targets": ["codex"],
-      "path": "dot_codex/skills/pm-sprint-management-start-sprint"
+      "path": "dot_codex/skills/tn-pm-sprint-management-create-future-sprints"
+    },
+    {
+      "id": "copilot-skill-tn-pm-sprint-management-create-future-sprints",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["copilot"],
+      "path": "dot_copilot/skills/tn-pm-sprint-management-create-future-sprints"
+    },
+    {
+      "id": "codex-skill-tn-pm-sprint-management-start-sprint",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/tn-pm-sprint-management-start-sprint"
+    },
+    {
+      "id": "copilot-skill-tn-pm-sprint-management-start-sprint",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["copilot"],
+      "path": "dot_copilot/skills/tn-pm-sprint-management-start-sprint"
     },
     {
       "id": "codex-skill-slack-firefighters-huddle-import",
@@ -249,32 +270,60 @@
       "path": "dot_codex/skills/teams-stream-transcript-import"
     },
     {
-      "id": "codex-skill-therapynotes-grc-ai-adoption-workflow",
+      "id": "codex-skill-tn-grc-ai-adoption-workflow",
       "kind": "skill",
       "scope": "work-only",
       "targets": ["codex"],
-      "path": "dot_codex/skills/therapynotes-grc-ai-adoption-workflow"
+      "path": "dot_codex/skills/tn-grc-ai-adoption-workflow"
     },
     {
-      "id": "codex-skill-therapynotes-grc-ai-model-workflow",
+      "id": "copilot-skill-tn-grc-ai-adoption-workflow",
       "kind": "skill",
       "scope": "work-only",
-      "targets": ["codex"],
-      "path": "dot_codex/skills/therapynotes-grc-ai-model-workflow"
+      "targets": ["copilot"],
+      "path": "dot_copilot/skills/tn-grc-ai-adoption-workflow"
     },
     {
-      "id": "codex-skill-therapynotes-it-change-workflow",
+      "id": "codex-skill-tn-grc-ai-model-workflow",
       "kind": "skill",
       "scope": "work-only",
       "targets": ["codex"],
-      "path": "dot_codex/skills/therapynotes-it-change-workflow"
+      "path": "dot_codex/skills/tn-grc-ai-model-workflow"
     },
     {
-      "id": "codex-skill-therapynotes-ticket-intake",
+      "id": "copilot-skill-tn-grc-ai-model-workflow",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["copilot"],
+      "path": "dot_copilot/skills/tn-grc-ai-model-workflow"
+    },
+    {
+      "id": "codex-skill-tn-it-change-workflow",
       "kind": "skill",
       "scope": "work-only",
       "targets": ["codex"],
-      "path": "dot_codex/skills/therapynotes-ticket-intake"
+      "path": "dot_codex/skills/tn-it-change-workflow"
+    },
+    {
+      "id": "copilot-skill-tn-it-change-workflow",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["copilot"],
+      "path": "dot_copilot/skills/tn-it-change-workflow"
+    },
+    {
+      "id": "codex-skill-tn-ticket-intake",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/tn-ticket-intake"
+    },
+    {
+      "id": "copilot-skill-tn-ticket-intake",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["copilot"],
+      "path": "dot_copilot/skills/tn-ticket-intake"
     }
   ],
   "deferredSourcePaths": [

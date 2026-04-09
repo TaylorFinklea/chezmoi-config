@@ -1,4 +1,0 @@
-interface:
-  display_name: "GRC AI Adoption Workflow"
-  short_description: "Turn GRC requests into AI Adoption and change tickets"
-  default_prompt: "Use $therapynotes-grc-ai-adoption-workflow to turn this existing GRC or ISD request into the required AI Adoption IT ticket, move it to Architect Review, and create the companion change ticket."
