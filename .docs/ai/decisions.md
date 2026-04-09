@@ -29,3 +29,5 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 2026-04-06: Manage Chrome DevTools MCP from this repo as shared tooling: Codex gets it through the host-aware `~/.codex/config.toml` template, Copilot CLI gets it through managed `~/.copilot/mcp-config.json`, and Claude Code uses the repo-scoped `.mcp.json`.
 
 2026-04-07: Manage the Claude auto-commit Stop hook from this repo and implement it using the documented `exit 2` plus `stderr` blocking flow, because `hookSpecificOutput` is not valid for `Stop` hooks and caused JSON validation failures.
+
+2026-04-09: Treat the canonical AeroSpace and SketchyBar sources in `~/git/nixos-config` as the migration source for the initial chezmoi import, and preserve the source tree layout under `dot_config/sketchybar/` plus the matching root `dot_aerospace.toml`.

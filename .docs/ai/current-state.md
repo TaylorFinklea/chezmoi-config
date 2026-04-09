@@ -10,6 +10,10 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Recent Progress
 
+- Imported the current AeroSpace and SketchyBar setup from `~/git/nixos-config` into chezmoi-managed paths:
+  - `darwin/packages/aerospace/.aerospace.toml` -> `dot_aerospace.toml`
+  - `darwin/packages/sketchybar/sketchybar/` -> `dot_config/sketchybar/`
+  - `darwin/packages/sketchybar/sketchybar-app-font.ttf` -> `dot_Library/Fonts/sketchybar-app-font.ttf`
 - Made `~/.codex/config.toml` intentionally repo-managed again through the existing host-aware chezmoi split, and added Codex TUI notifications plus `osc9` delivery to both the personal and work templates.
 - Bootstrapped `./.docs/ai/` from `~/.codex/templates/docs-ai/` for repo-local AI handoff state.
 - Synced the tracked chezmoi source for `~/.codex/AGENTS.md` with the current home-directory file contents.
@@ -35,6 +39,58 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Changed Files
 
+- `dot_aerospace.toml`
+- `dot_config/sketchybar/colors.sh`
+- `dot_config/sketchybar/helper/clock`
+- `dot_config/sketchybar/helper/cpu.h`
+- `dot_config/sketchybar/helper/helper`
+- `dot_config/sketchybar/helper/helper.c`
+- `dot_config/sketchybar/helper/makefile`
+- `dot_config/sketchybar/helper/sketchybar.h`
+- `dot_config/sketchybar/icons.sh`
+- `dot_config/sketchybar/items/app_space.sh`
+- `dot_config/sketchybar/items/app_space2.sh`
+- `dot_config/sketchybar/items/app_space_old.sh`
+- `dot_config/sketchybar/items/apple.sh`
+- `dot_config/sketchybar/items/battery.sh`
+- `dot_config/sketchybar/items/brew.sh`
+- `dot_config/sketchybar/items/cal.sh`
+- `dot_config/sketchybar/items/calendar.sh`
+- `dot_config/sketchybar/items/clock.sh`
+- `dot_config/sketchybar/items/cpu.sh`
+- `dot_config/sketchybar/items/diskmonitor.sh`
+- `dot_config/sketchybar/items/front_app.sh`
+- `dot_config/sketchybar/items/github.sh`
+- `dot_config/sketchybar/items/media.sh`
+- `dot_config/sketchybar/items/network.sh`
+- `dot_config/sketchybar/items/spotify.sh`
+- `dot_config/sketchybar/items/svim.sh`
+- `dot_config/sketchybar/items/volume.sh`
+- `dot_config/sketchybar/items/weather.sh`
+- `dot_config/sketchybar/items/wifi.sh`
+- `dot_config/sketchybar/items/yabai.sh`
+- `dot_config/sketchybar/plugins/app_icon.sh`
+- `dot_config/sketchybar/plugins/app_space.sh`
+- `dot_config/sketchybar/plugins/app_space2.sh`
+- `dot_config/sketchybar/plugins/app_space_old.sh`
+- `dot_config/sketchybar/plugins/battery.sh`
+- `dot_config/sketchybar/plugins/brew.sh`
+- `dot_config/sketchybar/plugins/cal.sh`
+- `dot_config/sketchybar/plugins/calendar.sh`
+- `dot_config/sketchybar/plugins/clock.sh`
+- `dot_config/sketchybar/plugins/diskmonitor.sh`
+- `dot_config/sketchybar/plugins/github.sh`
+- `dot_config/sketchybar/plugins/media.sh`
+- `dot_config/sketchybar/plugins/network.sh`
+- `dot_config/sketchybar/plugins/spotify.sh`
+- `dot_config/sketchybar/plugins/svim.sh`
+- `dot_config/sketchybar/plugins/volume.sh`
+- `dot_config/sketchybar/plugins/volume_click.sh`
+- `dot_config/sketchybar/plugins/weather.sh`
+- `dot_config/sketchybar/plugins/wifi.sh`
+- `dot_config/sketchybar/plugins/zen.sh`
+- `dot_config/sketchybar/sketchybarrc`
+- `dot_Library/Fonts/sketchybar-app-font.ttf`
 - `.chezmoitemplates/codex/personal.toml`
 - `.chezmoitemplates/codex/work.toml`
 - `.docs/ai/current-state.md`
@@ -91,6 +147,9 @@ Living snapshot of the project. Update before ending each AI session.
 ## Validation / Test Status
 
 ```
+Verified `dot_config/sketchybar/` matches `~/git/nixos-config/darwin/packages/sketchybar/sketchybar/` with `diff -qr`.
+Verified `dot_aerospace.toml` matches `~/git/nixos-config/darwin/packages/aerospace/.aerospace.toml` with `cmp -s`.
+Verified `dot_Library/Fonts/sketchybar-app-font.ttf` matches the source font asset with `cmp -s`.
 Verified the host-aware Codex config split still renders from `dot_codex/private_config.toml.tmpl` into `.chezmoitemplates/codex/personal.toml` and `.chezmoitemplates/codex/work.toml`.
 Confirmed both Codex templates now include `[tui]` notifications for `agent-turn-complete` and `approval-requested`, with `notification_method = "osc9"`.
 Verified all four workflow skill names exist under Claude, Codex, Copilot, and generic agent skill trees.
