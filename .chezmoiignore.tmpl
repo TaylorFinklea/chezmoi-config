@@ -33,3 +33,7 @@ scripts/
 {{ printf ".%s/" (trimPrefix "dot_" $artifact.path) }}
 {{- end }}
 {{- end }}
+
+{{- range $path := .deferredSourcePaths }}
+{{ printf ".%s/" (trimPrefix "dot_" $path) }}
+{{- end }}

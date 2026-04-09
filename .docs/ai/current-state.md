@@ -15,6 +15,8 @@ Living snapshot of the project. Update before ending each AI session.
 - Refactored Codex and Copilot MCP rendering so work/personal differences come from the shared catalog instead of duplicated hand-edited blocks.
 - Added managed OpenCode global config at `dot_config/opencode/opencode.json.tmpl`, including shared `~/AGENTS.md` instructions and scoped MCP server rendering.
 - Converted `.chezmoiignore` into `.chezmoiignore.tmpl` so work-only Codex skills are ignored automatically on personal machines.
+- Added `deferredSourcePaths` handling in `.chezmoidata/ai.json` and `.chezmoiignore.tmpl` so old importer-created source directories no longer participate in `chezmoi apply` until explicitly promoted.
+- Added matching root `.gitignore` entries for those deferred source directories so the repo stops reporting a wall of untracked importer leftovers during normal work.
 - Replaced `scripts/sync-ai-configs.sh` with a review-only wrapper and added `scripts/promote-ai-config-inbox.sh` plus `.docs/ai/inbox/` for explicit staging/classification of newly discovered local AI artifacts.
 - Bootstrapped `./.docs/ai/` from `~/.codex/templates/docs-ai/` for repo-local AI handoff state.
 - Synced the tracked chezmoi source for `~/.codex/AGENTS.md` with the current home-directory file contents.
@@ -36,6 +38,7 @@ Living snapshot of the project. Update before ending each AI session.
   - Codex via the managed `~/.codex/config.toml` template
   - Copilot CLI via managed `~/.copilot/mcp-config.json`
   - Claude Code via the repo-scoped `.mcp.json`
+- Set `data.ai_profile = "work"` in the live `~/.config/chezmoi/chezmoi.toml` on this machine and applied the scoped Codex, Copilot, and OpenCode outputs successfully.
 
 ## Changed Files
 
@@ -90,8 +93,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Blockers
 
-- Local `~/.config/chezmoi/chezmoi.toml` on this machine still needs `data.ai_profile` set before the new managed AI config can land via `chezmoi apply`.
-- The worktree still contains many untracked local skill directories created by the old importer run; they were intentionally left untouched until you decide which ones belong in the new inbox/scoped model.
+- The old importer-created source directories still exist on disk; they are now ignored by both chezmoi and git until you decide which ones should be promoted into the scoped catalog versus deleted locally.
 
 ## Open Questions
 
@@ -113,4 +115,6 @@ Rendered managed Codex config for `work` and `personal` profiles with `chezmoi c
 Rendered managed Copilot and OpenCode configs for both profiles and validated the JSON with `jq empty`.
 Verified `.chezmoiignore.tmpl` causes the work-only Codex skill paths to appear in `chezmoi ignored` for the personal profile.
 Ran `CHEZMOI_AI_PROFILE=work ./scripts/sync-ai-configs.sh --report ...` successfully; it now stays review-only and does not import directly into managed trees.
+Verified `CHEZMOI_AI_PROFILE=work chezmoi -S . ignored` includes the deferred source paths and `chezmoi -S . managed` excludes them.
+Ran a full `chezmoi apply -v` successfully after adding deferred source path ignores; the work machine now has the scoped Codex, Copilot, and OpenCode config rendered from this repo.
 ```

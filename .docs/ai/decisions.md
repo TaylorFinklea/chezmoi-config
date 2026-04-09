@@ -33,3 +33,5 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 2026-04-08: Replace direct AI config imports with a review-only discovery step plus an inbox staging workflow; `scripts/sync-ai-configs.sh` no longer mutates managed trees.
 
 2026-04-08: Manage OpenCode as a first-class user-level AI tool in this repo through `~/.config/opencode/opencode.json`, using shared `~/AGENTS.md` instructions and the same scoped MCP catalog that drives Codex and Copilot.
+
+2026-04-09: Treat old importer-created source directories as deferred local content; keep them on disk for review, but ignore them in both chezmoi and git until they are explicitly promoted into the scoped AI catalog or deleted.
