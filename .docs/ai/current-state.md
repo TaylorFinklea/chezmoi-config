@@ -14,6 +14,7 @@ Living snapshot of the project. Update before ending each AI session.
 - Added a small XDG `tmux-which-key` menu config at `dot_config/tmux/plugins/tmux-which-key/config.yaml` so prefix-driven discovery matches the direct bindings in the managed tmux config.
 - Switched the tmux prefix to `C-a`, moved the status bar to the top, enabled mouse + vi copy mode, made splits inherit the current pane path, and added direct bindings for popup shells, choose-tree navigation, zoom, reload, and session save/restore.
 - Kept tmux-resurrect pane-content capture disabled by default so persistence is practical without storing large or sensitive AI scrollback.
+- Disabled tmux automatic window renaming so manual names set with `C-a ,` persist in the status bar instead of being replaced by the active command name.
 - Added a new chezmoi-managed Karabiner profile at `dot_config/karabiner/karabiner.json` with dual-role `Caps Lock` and two small Control-based layers for navigation and numpad-style entry.
 - Replaced hostname-based AI config selection with explicit `data.ai_profile` handling for chezmoi-managed AI configuration.
 - Added `.chezmoidata/ai.json` as the shared AI catalog for scoped MCP servers, OpenCode instruction inputs, discovery roots, and work-only Codex artifact paths.

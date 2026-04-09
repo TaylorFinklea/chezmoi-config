@@ -42,4 +42,6 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 
 2026-04-09: Manage tmux from this chezmoi repo through `dot_tmux.conf` plus a small XDG `tmux-which-key` config, preferring a lean window-first workflow, TPM plugins, popup utilities, and stable AI-TUI compatibility over a larger tmux framework.
 
+2026-04-09: Keep tmux `automatic-rename` disabled so manually renamed windows remain stable in the top status bar, matching the interactive chooser and a window-centric workflow.
+
 2026-04-09: Manage Karabiner from this chezmoi repo through `dot_config/karabiner/karabiner.json`, using a minimal profile with dual-role `Caps Lock`, a `Ctrl-Space` nav layer, and a `Ctrl-;` numpad layer rather than a broader keyboard remap scheme.
