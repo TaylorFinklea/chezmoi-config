@@ -178,6 +178,40 @@
   "opencode": {
     "instructions": ["~/AGENTS.md"]
   },
+  "codexPlugins": [
+    {
+      "id": "slack@openai-curated",
+      "scope": "work-only"
+    },
+    {
+      "id": "cloudflare@openai-curated",
+      "scope": "shared"
+    },
+    {
+      "id": "build-ios-apps@openai-curated",
+      "scope": "shared"
+    },
+    {
+      "id": "build-web-apps@openai-curated",
+      "scope": "personal-only"
+    },
+    {
+      "id": "google-calendar@openai-curated",
+      "scope": "personal-only"
+    },
+    {
+      "id": "gmail@openai-curated",
+      "scope": "personal-only"
+    },
+    {
+      "id": "github@openai-curated",
+      "scope": "personal-only"
+    },
+    {
+      "id": "google-drive@openai-curated",
+      "scope": "personal-only"
+    }
+  ],
   "scopedArtifacts": [
     {
       "id": "codex-skill-pm-sprint-management-close-sprint",

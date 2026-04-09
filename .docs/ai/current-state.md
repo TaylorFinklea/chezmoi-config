@@ -17,6 +17,7 @@ Living snapshot of the project. Update before ending each AI session.
 - Converted `.chezmoiignore` into `.chezmoiignore.tmpl` so work-only Codex skills are ignored automatically on personal machines.
 - Added `deferredSourcePaths` handling in `.chezmoidata/ai.json` and `.chezmoiignore.tmpl` so old importer-created source directories no longer participate in `chezmoi apply` until explicitly promoted.
 - Added matching root `.gitignore` entries for those deferred source directories so the repo stops reporting a wall of untracked importer leftovers during normal work.
+- Moved Codex plugin enablement into the shared AI catalog and made `build-web-apps@openai-curated` personal-only because that plugin bundles `stripe`, `vercel`, and `supabase` MCP servers through its own plugin-local `.mcp.json`.
 - Replaced `scripts/sync-ai-configs.sh` with a review-only wrapper and added `scripts/promote-ai-config-inbox.sh` plus `.docs/ai/inbox/` for explicit staging/classification of newly discovered local AI artifacts.
 - Bootstrapped `./.docs/ai/` from `~/.codex/templates/docs-ai/` for repo-local AI handoff state.
 - Synced the tracked chezmoi source for `~/.codex/AGENTS.md` with the current home-directory file contents.
@@ -117,4 +118,5 @@ Verified `.chezmoiignore.tmpl` causes the work-only Codex skill paths to appear 
 Ran `CHEZMOI_AI_PROFILE=work ./scripts/sync-ai-configs.sh --report ...` successfully; it now stays review-only and does not import directly into managed trees.
 Verified `CHEZMOI_AI_PROFILE=work chezmoi -S . ignored` includes the deferred source paths and `chezmoi -S . managed` excludes them.
 Ran a full `chezmoi apply -v` successfully after adding deferred source path ignores; the work machine now has the scoped Codex, Copilot, and OpenCode config rendered from this repo.
+Confirmed the lingering work-machine `stripe`, `vercel`, and `supabase` MCPs were coming from the enabled `build-web-apps` Codex plugin rather than `~/.codex/config.toml`.
 ```

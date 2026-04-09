@@ -104,14 +104,11 @@ alternate_screen = "never"
 [sandbox_workspace_write]
 network_access = true
 
-[plugins."slack@openai-curated"]
+{{- range $plugin := .codexPlugins }}
+{{- $enabled := or (eq $plugin.scope "shared") (and (eq $plugin.scope "work-only") (eq $profile "work")) (and (eq $plugin.scope "personal-only") (eq $profile "personal")) -}}
+{{- if $enabled }}
+[plugins.{{ $plugin.id | quote }}]
 enabled = true
 
-[plugins."cloudflare@openai-curated"]
-enabled = true
-
-[plugins."build-ios-apps@openai-curated"]
-enabled = true
-
-[plugins."build-web-apps@openai-curated"]
-enabled = true
+{{- end }}
+{{- end }}

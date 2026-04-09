@@ -105,23 +105,11 @@ network_access = true
 [notice]
 hide_rate_limit_model_nudge = true
 
-[plugins."google-calendar@openai-curated"]
+{{- range $plugin := .codexPlugins }}
+{{- $enabled := or (eq $plugin.scope "shared") (and (eq $plugin.scope "work-only") (eq $profile "work")) (and (eq $plugin.scope "personal-only") (eq $profile "personal")) -}}
+{{- if $enabled }}
+[plugins.{{ $plugin.id | quote }}]
 enabled = true
 
-[plugins."gmail@openai-curated"]
-enabled = true
-
-[plugins."github@openai-curated"]
-enabled = true
-
-[plugins."google-drive@openai-curated"]
-enabled = true
-
-[plugins."cloudflare@openai-curated"]
-enabled = true
-
-[plugins."build-ios-apps@openai-curated"]
-enabled = true
-
-[plugins."build-web-apps@openai-curated"]
-enabled = true
+{{- end }}
+{{- end }}
