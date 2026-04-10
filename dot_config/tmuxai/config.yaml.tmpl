@@ -14,12 +14,12 @@ default_model: "codex"
 models:
   codex:
     provider: "openai"
-    model: "gpt-5-codex"
+    model: "gpt-5.4"
     api_key: "${OPENAI_API_KEY}"
 
   copilot:
     provider: "github-copilot"
-    model: "gpt-4o"
+    model: "claude-sonnet-4.6"
     api_key: "${GITHUB_PAT_TOKEN}"
 
 exec_confirm: true

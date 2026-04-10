@@ -4,8 +4,8 @@ This repo manages `~/.config/tmuxai/config.yaml`.
 
 Configured models:
 
-- `codex` — OpenAI Responses API using `${OPENAI_API_KEY}`
-- `copilot` — GitHub Copilot provider using `${GITHUB_PAT_TOKEN}`
+- `codex` — OpenAI Responses API using `${OPENAI_API_KEY}` with model `gpt-5.4`
+- `copilot` — GitHub Copilot provider using `${GITHUB_PAT_TOKEN}` with model `claude-sonnet-4.6`
 
 Notes:
 
