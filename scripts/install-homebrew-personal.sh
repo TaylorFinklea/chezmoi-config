@@ -41,10 +41,11 @@ done
 # Define casks to install - FULL PERSONAL SUITE
 CASKS=(
   # Development & Programming
-  "wezterm"
   "ghostty"
-  "visual-studio-code"
+  "warp"
   "zed"
+  "antigravity"
+  "visual-studio-code"
   "insomnia"
   "bruno"
   "docker-desktop"
@@ -59,8 +60,6 @@ CASKS=(
   "opencode-desktop"
   "langflow"
   "block-goose"
-  "warp"
-  "antigravity"
   "mstystudio"
   "lmstudio"
 
@@ -74,7 +73,7 @@ CASKS=(
   # System Utilities
   "aerospace"
   "lunar"
-  "hammerspoon"
+  #"hammerspoon"
   # "kindavim"
   # "wooshy"
   # "shortcat"

@@ -13,3 +13,7 @@ keybind = cmd+d=new_split:right
 keybind = cmd+shift+d=new_split:down
 
 keybind = global:cmd+backquote=toggle_quick_terminal
+
+# Notifications from claude and codex
+desktop-notifications = true
+bell-features = system,attention,title,border
