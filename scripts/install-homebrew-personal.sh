@@ -132,6 +132,7 @@ BREWS=(
   "codex"
   "opencode"
   "claude-code"
+  "lmstudio"
 
   # Build Tools
   "qt@6"
