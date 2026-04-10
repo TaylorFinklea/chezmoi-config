@@ -12,6 +12,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 - Added a new chezmoi-managed tmux setup at `dot_tmux.conf` with a lean, window-centric workflow tuned for Claude Code, Codex, Neovim, and other terminal TUIs.
 - Added a small XDG `tmux-which-key` menu config at `dot_config/tmux/plugins/tmux-which-key/config.yaml` so prefix-driven discovery matches the direct bindings in the managed tmux config.
+- Added managed TmuxAI config at `dot_config/tmuxai/config.yaml.tmpl` with `codex` and `copilot` model profiles, plus tmux popup launchers and which-key entries for both.
 - Switched the tmux prefix to `C-a`, moved the status bar to the top, enabled mouse + vi copy mode, made splits inherit the current pane path, and added direct bindings for popup shells, choose-tree navigation, zoom, reload, and session save/restore.
 - Kept tmux-resurrect pane-content capture disabled by default so persistence is practical without storing large or sensitive AI scrollback.
 - Disabled tmux automatic window renaming so manual names set with `C-a ,` persist in the status bar instead of being replaced by the active command name.
@@ -53,6 +54,8 @@ Living snapshot of the project. Update before ending each AI session.
 
 - `dot_tmux.conf`
 - `dot_config/tmux/plugins/tmux-which-key/config.yaml`
+- `dot_config/tmuxai/config.yaml.tmpl`
+- `dot_config/tmuxai/README.md`
 - `dot_config/karabiner/karabiner.json`
 - `.docs/ai/current-state.md`
 - `.docs/ai/decisions.md`
@@ -115,6 +118,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 ```
 Verified all four workflow skill names exist under Claude, Codex, Copilot, and generic agent skill trees.
+Fetched the upstream `tmuxai` `config.example.yaml` and confirmed the supported provider set includes `openai` and `github-copilot`, with `github-copilot` requiring the `copilot` CLI in `PATH`.
 Validated `dot_tmux.conf` syntax with `tmux 3.6a` using `tmux -L codex-tmux-check -f ... start-server`.
 Parsed `dot_config/tmux/plugins/tmux-which-key/config.yaml` successfully with Ruby YAML.
 Validated `dot_config/karabiner/karabiner.json` with `jq empty` and applied it to `~/.config/karabiner/karabiner.json`.

@@ -106,6 +106,7 @@ BREWS=(
   "gum"
   "just"
   "tmuxinator"
+  "tmuxai"
   "jupyterlab"
 
   # AI & Machine Learning

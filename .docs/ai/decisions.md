@@ -40,6 +40,8 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 
 2026-04-09: Standardize TherapyNotes and PM work skills on a `tn-*` prefix and project that same work-only skill set into both Codex and Copilot so the work AI surfaces use the same naming convention.
 
+2026-04-10: Configure TmuxAI as a repo-managed terminal assistant surface with two profiles: `codex` via the OpenAI provider and `copilot` via TmuxAI's native `github-copilot` provider. Launch both from tmux popups rooted in the current pane directory.
+
 2026-04-09: Manage tmux from this chezmoi repo through `dot_tmux.conf` plus a small XDG `tmux-which-key` config, preferring a lean window-first workflow, TPM plugins, popup utilities, and stable AI-TUI compatibility over a larger tmux framework.
 
 2026-04-09: Keep tmux `automatic-rename` disabled so manually renamed windows remain stable in the top status bar, matching the interactive chooser and a window-centric workflow.

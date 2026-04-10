@@ -158,6 +158,7 @@ This repo now manages instruction and skill surfaces for Codex, GitHub Copilot C
 - `CLAUDE.md` for Claude-specific behavior
 - `dot_codex/AGENTS.md` for Codex home-level defaults
 - `dot_copilot/copilot-instructions.md` for GitHub Copilot CLI home-level defaults
+- `dot_config/tmuxai/config.yaml.tmpl` for TmuxAI model/provider config
 - `dot_config/opencode/opencode.json.tmpl` for OpenCode global config
 - `dot_claude/skills`, `dot_codex/skills`, `dot_copilot/skills`, and `dot_agents/skills` for aligned workflow skills
 - `.mcp.json` for repo-scoped MCP servers shared by Claude Code and Copilot-compatible tooling in this repo
@@ -171,6 +172,7 @@ Sync strategy:
 - Use `./scripts/sync-ai-configs.sh` only as a review wrapper; it no longer imports directly into managed trees.
 - Stage new local AI artifacts with `./scripts/promote-ai-config-inbox.sh`, then classify `scope` and `targets` before they become managed.
 - `~/.codex/config.toml`, `~/.copilot/mcp-config.json`, and `~/.config/opencode/opencode.json` are profile-managed via `ai_profile`, not mirrored from a single machine.
+- `~/.config/tmuxai/config.yaml` is managed from this repo and exposes `codex` plus `copilot` model profiles for `tmuxai`.
 
 ## Shared MCP Servers
 

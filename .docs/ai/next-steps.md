@@ -5,6 +5,7 @@ Exact next actions for the incoming assistant. Keep this short, ordered, and act
 ---
 
 - [ ] Run `chezmoi apply` on this machine and bootstrap TPM so the new managed tmux config and which-key menu are active under `~/.tmux.conf` and `~/.config/tmux/plugins/tmux-which-key/config.yaml`.
+- [ ] Apply the new managed `~/.config/tmuxai/config.yaml`, then verify `tmuxai --model codex` and `tmuxai --model copilot` both launch inside tmux popups with the expected credentials on this machine.
 - [ ] Decide whether to keep the powerline glyphs in the tmux status bar as-is or swap them for plain separators on machines without a Nerd Font / Powerline-capable font.
 - [ ] If cross-app `vim-tmux-navigator` `Ctrl-h/j/k/l` behavior collides with any terminal AI TUI, decide whether to keep it enabled or remap it while preserving the prefix-based pane navigation in `dot_tmux.conf`.
 - [ ] Install Karabiner-Elements on this machine, then confirm the new managed `Caps Lock`, `Ctrl-Space`, and `Ctrl-;` layers behave as intended in tmux, shells, Neovim, Claude Code, and Codex.

@@ -125,6 +125,7 @@ BREWS=(
   "chezmoi"
   "just"
   "tmuxinator"
+  "tmuxai"
   "jupyterlab"
 
   # AI & Machine Learning
