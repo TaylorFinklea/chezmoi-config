@@ -10,6 +10,10 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Recent Progress
 
+- Added personal-scope MCP fanout entries in `.chezmoidata/ai.json` for `supabase-personal`, `flyctl`, and `railway`, rendering them into the managed personal Codex and OpenCode configs.
+- Updated the repo-scoped `.mcp.json` used for Claude Code in this repo to expose `supabase-personal`, `flyctl`, and `railway` alongside `chrome-devtools`.
+- Added `flyctl` and `railway` to `scripts/install-homebrew-personal.sh`, then installed both CLIs locally; `supabase`, `flyctl`, and `railway` are now all present under `/opt/homebrew/bin`.
+- Applied the managed personal Codex and OpenCode config files directly with `chezmoi apply ~/.codex/config.toml ~/.config/opencode/opencode.json` after a full `chezmoi apply` stopped on unrelated local drift in `~/.config/fish/config.fish`.
 - Added a new chezmoi-managed tmux setup at `dot_tmux.conf` with a lean, window-centric workflow tuned for Claude Code, Codex, Neovim, and other terminal TUIs.
 - Added direct tmux window cycling on `Alt-h` / `Alt-l` so previous/next window navigation is faster without using the `C-a` prefix, while keeping the existing pane movement fallback on `C-a h/j/k/l`.
 - Added a small XDG `tmux-which-key` menu config at `dot_config/tmux/plugins/tmux-which-key/config.yaml` so prefix-driven discovery matches the direct bindings in the managed tmux config.
@@ -56,6 +60,10 @@ Living snapshot of the project. Update before ending each AI session.
 ## Changed Files
 
 - `dot_tmux.conf`
+- `.chezmoidata/ai.json`
+- `.mcp.json`
+- `README.md`
+- `scripts/install-homebrew-personal.sh`
 - `dot_config/tmux/plugins/tmux-which-key/config.yaml`
 - `dot_config/tmuxai/config.yaml.tmpl`
 - `dot_config/tmuxai/README.md`
@@ -112,6 +120,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Blockers
 
+- A full `chezmoi apply -v` still stops on unrelated drift in `~/.config/fish/config.fish`; targeted applies for the new AI config paths succeeded.
 - The old importer-created source directories still exist on disk; they are now ignored by both chezmoi and git until you decide which ones should be promoted into the scoped catalog versus deleted locally.
 
 ## Open Questions
@@ -144,4 +153,11 @@ Verified `CHEZMOI_AI_PROFILE=work chezmoi -S . ignored` includes the deferred so
 Ran a full `chezmoi apply -v` successfully after adding deferred source path ignores; the work machine now has the scoped Codex, Copilot, and OpenCode config rendered from this repo.
 Confirmed the lingering work-machine `stripe`, `vercel`, and `supabase` MCPs were coming from the enabled `build-web-apps` Codex plugin rather than `~/.codex/config.toml`.
 Verified the renamed `tn-*` skill set exists under both `dot_codex/skills/` and `dot_copilot/skills/`, with cross-links rewritten away from `~/.codex/skills/...` home paths.
+Validated `.chezmoidata/ai.json` and `.mcp.json` with `jq empty`.
+Ran `bash -n scripts/install-homebrew-personal.sh` successfully after adding `flyctl` and `railway`.
+Installed `flyctl 0.4.33` and `railway 4.37.1` with Homebrew; `supabase 2.84.2` was already installed.
+Verified `HOME=/tmp fly mcp server --claude --config /tmp/fly-mcp-config.json` writes a stdio MCP definition using `/opt/homebrew/bin/fly mcp server`, and used that exact shape in the managed configs.
+Verified `railway --help` exposes a first-party `railway mcp` command in CLI v4.37.1, and used `/opt/homebrew/bin/railway mcp` in the managed configs.
+Rendered the personal Codex and OpenCode configs with `chezmoi cat` and confirmed they contain `supabase-personal`, `flyctl`, and `railway`.
+Applied `~/.codex/config.toml` and `~/.config/opencode/opencode.json` successfully with a targeted `chezmoi apply -v` run after a full apply stopped on `~/.config/fish/config.fish` drift.
 ```

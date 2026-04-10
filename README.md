@@ -176,26 +176,18 @@ Sync strategy:
 
 ## Shared MCP Servers
 
-This repo manages Chrome DevTools MCP as a standard browser-debugging server across the supported tools:
+This repo manages MCP fanout in two layers:
 
-- Codex gets `chrome-devtools` from the managed `~/.codex/config.toml` template.
-- GitHub Copilot CLI gets `chrome-devtools` from the managed `~/.copilot/mcp-config.json`.
-- OpenCode gets `chrome-devtools` from the managed `~/.config/opencode/opencode.json`.
-- Claude Code can use the repo-scoped [`.mcp.json`](./.mcp.json) while working in this repo.
+- `shared` servers in `.chezmoidata/ai.json` render into the managed home configs for Codex, GitHub Copilot CLI, and OpenCode.
+- `personal-only` servers in `.chezmoidata/ai.json` render only when `data.ai_profile = "personal"`.
+- Claude Code currently uses the repo-scoped [`.mcp.json`](./.mcp.json) while working in this repo.
 
-The server definition follows the Chrome DevTools MCP launch pattern:
+Today the managed surfaces include:
 
-```json
-{
-  "mcpServers": {
-    "chrome-devtools": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["chrome-devtools-mcp@latest"]
-    }
-  }
-}
-```
+- `chrome-devtools` across Codex, Copilot, OpenCode, and the repo-scoped Claude Code config.
+- `supabase-personal`, `flyctl`, and `railway` on personal Codex/OpenCode renders, plus the repo-scoped Claude Code config in this repo.
+
+The personal Supabase entry is named `supabase-personal` instead of `supabase` so it does not collide with the plugin-bundled `supabase` server from the personal `build-web-apps` Codex plugin.
 
 ## Directory Structure
 

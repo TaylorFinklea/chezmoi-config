@@ -4,6 +4,19 @@
       "type": "stdio",
       "command": "npx",
       "args": ["chrome-devtools-mcp@latest"]
+    },
+    "supabase-personal": {
+      "url": "https://mcp.supabase.com/mcp"
+    },
+    "flyctl": {
+      "type": "stdio",
+      "command": "/opt/homebrew/bin/fly",
+      "args": ["mcp", "server"]
+    },
+    "railway": {
+      "type": "stdio",
+      "command": "/opt/homebrew/bin/railway",
+      "args": ["mcp"]
     }
   }
 }

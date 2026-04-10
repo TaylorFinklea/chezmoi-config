@@ -169,8 +169,10 @@ BREWS=(
 
   # Cloud & Infrastructure
   "azure-cli"
+  "flyctl"
   "opentofu"
   "ansible"
+  "railway"
 
   # Media Tools
   "ffmpeg"

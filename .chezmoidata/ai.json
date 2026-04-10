@@ -173,6 +173,47 @@
           "assistant_list_threads": "approve"
         }
       }
+    },
+    {
+      "id": "supabase-personal",
+      "scope": "personal-only",
+      "targets": ["codex", "opencode"],
+      "codex": {
+        "url": "https://mcp.supabase.com/mcp"
+      },
+      "opencode": {
+        "type": "remote",
+        "url": "https://mcp.supabase.com/mcp",
+        "enabled": true
+      }
+    },
+    {
+      "id": "flyctl",
+      "scope": "personal-only",
+      "targets": ["codex", "opencode"],
+      "codex": {
+        "command": "/opt/homebrew/bin/fly",
+        "args": ["mcp", "server"]
+      },
+      "opencode": {
+        "type": "local",
+        "command": ["/opt/homebrew/bin/fly", "mcp", "server"],
+        "enabled": true
+      }
+    },
+    {
+      "id": "railway",
+      "scope": "personal-only",
+      "targets": ["codex", "opencode"],
+      "codex": {
+        "command": "/opt/homebrew/bin/railway",
+        "args": ["mcp"]
+      },
+      "opencode": {
+        "type": "local",
+        "command": ["/opt/homebrew/bin/railway", "mcp"],
+        "enabled": true
+      }
     }
   ],
   "opencode": {
