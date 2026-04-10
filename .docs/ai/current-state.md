@@ -14,6 +14,7 @@ Living snapshot of the project. Update before ending each AI session.
 - Added a small XDG `tmux-which-key` menu config at `dot_config/tmux/plugins/tmux-which-key/config.yaml` so prefix-driven discovery matches the direct bindings in the managed tmux config.
 - Added managed TmuxAI config at `dot_config/tmuxai/config.yaml.tmpl` with `codex` and `copilot` model profiles, plus tmux popup launchers and which-key entries for both.
 - Updated the managed TmuxAI model selections to use `gpt-5.4` for the Codex/OpenAI profile and `claude-sonnet-4.6` for the Copilot profile.
+- Removed the explicit Copilot auth token from the managed TmuxAI config so the `github-copilot` provider relies on the logged-in `copilot` CLI state, matching the upstream tmuxai docs.
 - Switched the tmux prefix to `C-a`, moved the status bar to the top, enabled mouse + vi copy mode, made splits inherit the current pane path, and added direct bindings for popup shells, choose-tree navigation, zoom, reload, and session save/restore.
 - Kept tmux-resurrect pane-content capture disabled by default so persistence is practical without storing large or sensitive AI scrollback.
 - Disabled tmux automatic window renaming so manual names set with `C-a ,` persist in the status bar instead of being replaced by the active command name.

@@ -44,6 +44,8 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 
 2026-04-10: Set the managed TmuxAI defaults to `gpt-5.4` for the OpenAI-backed Codex profile and `claude-sonnet-4.6` for the GitHub Copilot profile.
 
+2026-04-10: Omit `api_key` from the managed TmuxAI Copilot profile and rely on the authenticated `copilot` CLI session, per the upstream TmuxAI guidance for the `github-copilot` provider.
+
 2026-04-09: Manage tmux from this chezmoi repo through `dot_tmux.conf` plus a small XDG `tmux-which-key` config, preferring a lean window-first workflow, TPM plugins, popup utilities, and stable AI-TUI compatibility over a larger tmux framework.
 
 2026-04-09: Keep tmux `automatic-rename` disabled so manually renamed windows remain stable in the top status bar, matching the interactive chooser and a window-centric workflow.
