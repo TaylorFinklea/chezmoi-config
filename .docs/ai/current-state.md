@@ -11,6 +11,7 @@ Living snapshot of the project. Update before ending each AI session.
 ## Recent Progress
 
 - Added a new chezmoi-managed tmux setup at `dot_tmux.conf` with a lean, window-centric workflow tuned for Claude Code, Codex, Neovim, and other terminal TUIs.
+- Added direct tmux window cycling on `Alt-h` / `Alt-l` so previous/next window navigation is faster without using the `C-a` prefix, while keeping the existing pane movement fallback on `C-a h/j/k/l`.
 - Added a small XDG `tmux-which-key` menu config at `dot_config/tmux/plugins/tmux-which-key/config.yaml` so prefix-driven discovery matches the direct bindings in the managed tmux config.
 - Switched the tmux prefix to `C-a`, moved the status bar to the top, enabled mouse + vi copy mode, made splits inherit the current pane path, and added direct bindings for popup shells, choose-tree navigation, zoom, reload, and session save/restore.
 - Kept tmux-resurrect pane-content capture disabled by default so persistence is practical without storing large or sensitive AI scrollback.
@@ -53,6 +54,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 - `dot_tmux.conf`
 - `dot_config/tmux/plugins/tmux-which-key/config.yaml`
+- `dot_config/tmux/cheatsheet.txt`
 - `dot_config/karabiner/karabiner.json`
 - `.docs/ai/current-state.md`
 - `.docs/ai/decisions.md`
@@ -116,6 +118,7 @@ Living snapshot of the project. Update before ending each AI session.
 ```
 Verified all four workflow skill names exist under Claude, Codex, Copilot, and generic agent skill trees.
 Validated `dot_tmux.conf` syntax with `tmux 3.6a` using `tmux -L codex-tmux-check -f ... start-server`.
+Revalidated `dot_tmux.conf` syntax with `tmux 3.6a` after adding direct `Alt-h` / `Alt-l` previous/next window bindings.
 Parsed `dot_config/tmux/plugins/tmux-which-key/config.yaml` successfully with Ruby YAML.
 Validated `dot_config/karabiner/karabiner.json` with `jq empty` and applied it to `~/.config/karabiner/karabiner.json`.
 Ran ./scripts/sync-ai-configs.sh --dry-run successfully after adding Copilot skill sync and excluding the repo-managed workflow skills from imported home skill directories.

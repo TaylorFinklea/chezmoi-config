@@ -16,6 +16,8 @@ MOVE AROUND
   C-a j   Move to the pane below
   C-a k   Move to the pane above
   C-a l   Move to the pane on the right
+  M-h     Previous window
+  M-l     Next window
   C-a C-a Send a literal Ctrl-a to the running application
 
 RESIZE PANES
