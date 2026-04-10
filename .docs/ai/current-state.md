@@ -14,6 +14,7 @@ Living snapshot of the project. Update before ending each AI session.
 - Updated the repo-scoped `.mcp.json` used for Claude Code in this repo to expose `supabase-personal`, `flyctl`, and `railway` alongside `chrome-devtools`.
 - Added `flyctl` and `railway` to `scripts/install-homebrew-personal.sh`, then installed both CLIs locally; `supabase`, `flyctl`, and `railway` are now all present under `/opt/homebrew/bin`.
 - Applied the managed personal Codex and OpenCode config files directly with `chezmoi apply ~/.codex/config.toml ~/.config/opencode/opencode.json` after a full `chezmoi apply` stopped on unrelated local drift in `~/.config/fish/config.fish`.
+- Moved the LM Studio Fish PATH addition into the managed `dot_config/fish/config.fish` file as `fish_add_path ~/.lmstudio/bin`, then force-applied just `~/.config/fish/config.fish` so the repo now owns that change too.
 - Added a new chezmoi-managed tmux setup at `dot_tmux.conf` with a lean, window-centric workflow tuned for Claude Code, Codex, Neovim, and other terminal TUIs.
 - Added direct tmux window cycling on `Alt-h` / `Alt-l` so previous/next window navigation is faster without using the `C-a` prefix, while keeping the existing pane movement fallback on `C-a h/j/k/l`.
 - Added a small XDG `tmux-which-key` menu config at `dot_config/tmux/plugins/tmux-which-key/config.yaml` so prefix-driven discovery matches the direct bindings in the managed tmux config.
@@ -61,6 +62,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 - `dot_tmux.conf`
 - `.chezmoidata/ai.json`
+- `dot_config/fish/config.fish`
 - `.mcp.json`
 - `README.md`
 - `scripts/install-homebrew-personal.sh`
@@ -120,7 +122,6 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Blockers
 
-- A full `chezmoi apply -v` still stops on unrelated drift in `~/.config/fish/config.fish`; targeted applies for the new AI config paths succeeded.
 - The old importer-created source directories still exist on disk; they are now ignored by both chezmoi and git until you decide which ones should be promoted into the scoped catalog versus deleted locally.
 
 ## Open Questions
@@ -160,4 +161,5 @@ Verified `HOME=/tmp fly mcp server --claude --config /tmp/fly-mcp-config.json` w
 Verified `railway --help` exposes a first-party `railway mcp` command in CLI v4.37.1, and used `/opt/homebrew/bin/railway mcp` in the managed configs.
 Rendered the personal Codex and OpenCode configs with `chezmoi cat` and confirmed they contain `supabase-personal`, `flyctl`, and `railway`.
 Applied `~/.codex/config.toml` and `~/.config/opencode/opencode.json` successfully with a targeted `chezmoi apply -v` run after a full apply stopped on `~/.config/fish/config.fish` drift.
+Updated `dot_config/fish/config.fish` to manage `~/.lmstudio/bin` with `fish_add_path`, then ran `chezmoi apply --force -v ~/.config/fish/config.fish` successfully to remove the local unmanaged LM Studio PATH block.
 ```

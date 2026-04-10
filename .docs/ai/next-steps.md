@@ -5,7 +5,6 @@ Exact next actions for the incoming assistant. Keep this short, ordered, and act
 ---
 
 - [ ] Run `chezmoi apply` on this machine and bootstrap TPM so the new managed tmux config and which-key menu are active under `~/.tmux.conf` and `~/.config/tmux/plugins/tmux-which-key/config.yaml`.
-- [ ] Resolve the local drift in `~/.config/fish/config.fish` so full `chezmoi apply -v` runs stop blocking on an unrelated interactive prompt.
 - [ ] Log in to the newly installed `flyctl` and `railway` CLIs on this personal machine, then verify the managed `flyctl` and `railway` MCP entries connect successfully from Codex and OpenCode.
 - [ ] Verify the new repo-scoped Claude Code MCP entries (`supabase-personal`, `flyctl`, `railway`) connect cleanly in this repo; if you want personal/work scoping there too, introduce a managed home-level Claude MCP surface instead of relying only on `.mcp.json`.
 - [ ] Apply the new managed `~/.config/tmuxai/config.yaml`, then verify `tmuxai --model codex` and `tmuxai --model copilot` both launch inside tmux popups with the expected credentials on this machine.
