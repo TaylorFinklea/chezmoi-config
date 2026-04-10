@@ -27,6 +27,10 @@ scripts/
 .idea/
 *.code-workspace
 
+{{- if eq $profile "personal" }}
+Library/Application Support/espanso/match/base.yml
+{{- end }}
+
 {{- range $artifact := .scopedArtifacts }}
 {{- $enabled := or (eq $artifact.scope "shared") (and (eq $artifact.scope "work-only") (eq $profile "work")) (and (eq $artifact.scope "personal-only") (eq $profile "personal")) -}}
 {{- if not $enabled }}

@@ -10,6 +10,7 @@ Exact next actions for the incoming assistant. Keep this short, ordered, and act
 - [ ] Validate the direct tmux `Alt-h` / `Alt-l` previous/next window bindings in the terminal apps you use most; if `Option`/`Meta` is inconsistent anywhere, decide whether to switch that machine to terminal-native mappings or Karabiner.
 - [ ] If cross-app `vim-tmux-navigator` `Ctrl-h/j/k/l` behavior collides with any terminal AI TUI, decide whether to keep it enabled or remap it while preserving the prefix-based pane navigation in `dot_tmux.conf`.
 - [ ] Install Karabiner-Elements on this machine, then confirm the new managed `Caps Lock`, `Ctrl-Space`, and `Ctrl-;` layers behave as intended in tmux, shells, Neovim, Claude Code, and Codex.
+- [ ] If you want Espanso on personal machines too, add a separate personal-only managed match file or profile-specific snippet path instead of sharing the work `base.yml`.
 - [ ] Roll the same `data.ai_profile` plus `chezmoi apply` verification through a personal machine and confirm the scoped Codex, Copilot, and OpenCode renders match expectations there.
 - [ ] Verify on a work machine that `~/.codex/skills/tn-*` and `~/.copilot/skills/tn-*` both land cleanly and that the old non-`tn-` managed TherapyNotes/PM skill paths are removed.
 - [ ] Decide whether any `build-web-apps` plugin skills need to remain available on work machines; today the whole plugin is personal-only because its bundled plugin MCPs are personal-only.
