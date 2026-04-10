@@ -28,6 +28,20 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 
 2026-04-06: Manage Chrome DevTools MCP from this repo as shared tooling: Codex gets it through the host-aware `~/.codex/config.toml` template, Copilot CLI gets it through managed `~/.copilot/mcp-config.json`, and Claude Code uses the repo-scoped `.mcp.json`.
 
-2026-04-07: Manage the Claude auto-commit Stop hook from this repo and implement it using the documented `exit 2` plus `stderr` blocking flow, because `hookSpecificOutput` is not valid for `Stop` hooks and caused JSON validation failures.
+2026-04-08: Replace hostname-based AI config selection with an explicit local `data.ai_profile` value in chezmoi so work/personal behavior is intentional and shared across Codex, Copilot, and OpenCode.
 
-2026-04-09: Treat the canonical AeroSpace and SketchyBar sources in `~/git/nixos-config` as the migration source for the initial chezmoi import, and preserve the source tree layout under `dot_config/sketchybar/` plus the matching root `dot_aerospace.toml`.
+2026-04-08: Replace direct AI config imports with a review-only discovery step plus an inbox staging workflow; `scripts/sync-ai-configs.sh` no longer mutates managed trees.
+
+2026-04-08: Manage OpenCode as a first-class user-level AI tool in this repo through `~/.config/opencode/opencode.json`, using shared `~/AGENTS.md` instructions and the same scoped MCP catalog that drives Codex and Copilot.
+
+2026-04-09: Treat old importer-created source directories as deferred local content; keep them on disk for review, but ignore them in both chezmoi and git until they are explicitly promoted into the scoped AI catalog or deleted.
+
+2026-04-09: Scope Codex plugins through the shared AI catalog as well; `build-web-apps@openai-curated` is personal-only because it injects `stripe`, `vercel`, and `supabase` via the plugin's own `.mcp.json`, bypassing the main Codex config template.
+
+2026-04-09: Standardize TherapyNotes and PM work skills on a `tn-*` prefix and project that same work-only skill set into both Codex and Copilot so the work AI surfaces use the same naming convention.
+
+2026-04-09: Manage tmux from this chezmoi repo through `dot_tmux.conf` plus a small XDG `tmux-which-key` config, preferring a lean window-first workflow, TPM plugins, popup utilities, and stable AI-TUI compatibility over a larger tmux framework.
+
+2026-04-09: Keep tmux `automatic-rename` disabled so manually renamed windows remain stable in the top status bar, matching the interactive chooser and a window-centric workflow.
+
+2026-04-09: Manage Karabiner from this chezmoi repo through `dot_config/karabiner/karabiner.json`, using a minimal profile with dual-role `Caps Lock`, a `Ctrl-Space` nav layer, and a `Ctrl-;` numpad layer rather than a broader keyboard remap scheme.

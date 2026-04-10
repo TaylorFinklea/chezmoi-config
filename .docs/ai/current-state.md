@@ -10,11 +10,23 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Recent Progress
 
-- Imported the current AeroSpace and SketchyBar setup from `~/git/nixos-config` into chezmoi-managed paths:
-  - `darwin/packages/aerospace/.aerospace.toml` -> `dot_aerospace.toml`
-  - `darwin/packages/sketchybar/sketchybar/` -> `dot_config/sketchybar/`
-  - `darwin/packages/sketchybar/sketchybar-app-font.ttf` -> `dot_Library/Fonts/sketchybar-app-font.ttf`
-- Made `~/.codex/config.toml` intentionally repo-managed again through the existing host-aware chezmoi split, and added Codex TUI notifications plus `osc9` delivery to both the personal and work templates.
+- Added a new chezmoi-managed tmux setup at `dot_tmux.conf` with a lean, window-centric workflow tuned for Claude Code, Codex, Neovim, and other terminal TUIs.
+- Added a small XDG `tmux-which-key` menu config at `dot_config/tmux/plugins/tmux-which-key/config.yaml` so prefix-driven discovery matches the direct bindings in the managed tmux config.
+- Switched the tmux prefix to `C-a`, moved the status bar to the top, enabled mouse + vi copy mode, made splits inherit the current pane path, and added direct bindings for popup shells, choose-tree navigation, zoom, reload, and session save/restore.
+- Kept tmux-resurrect pane-content capture disabled by default so persistence is practical without storing large or sensitive AI scrollback.
+- Disabled tmux automatic window renaming so manual names set with `C-a ,` persist in the status bar instead of being replaced by the active command name.
+- Added a new chezmoi-managed Karabiner profile at `dot_config/karabiner/karabiner.json` with dual-role `Caps Lock` and two small Control-based layers for navigation and numpad-style entry.
+- Replaced hostname-based AI config selection with explicit `data.ai_profile` handling for chezmoi-managed AI configuration.
+- Added `.chezmoidata/ai.json` as the shared AI catalog for scoped MCP servers, OpenCode instruction inputs, discovery roots, and work-only Codex artifact paths.
+- Refactored Codex and Copilot MCP rendering so work/personal differences come from the shared catalog instead of duplicated hand-edited blocks.
+- Added managed OpenCode global config at `dot_config/opencode/opencode.json.tmpl`, including shared `~/AGENTS.md` instructions and scoped MCP server rendering.
+- Converted `.chezmoiignore` into `.chezmoiignore.tmpl` so work-only Codex skills are ignored automatically on personal machines.
+- Added `deferredSourcePaths` handling in `.chezmoidata/ai.json` and `.chezmoiignore.tmpl` so old importer-created source directories no longer participate in `chezmoi apply` until explicitly promoted.
+- Added matching root `.gitignore` entries for those deferred source directories so the repo stops reporting a wall of untracked importer leftovers during normal work.
+- Moved Codex plugin enablement into the shared AI catalog and made `build-web-apps@openai-curated` personal-only because that plugin bundles `stripe`, `vercel`, and `supabase` MCP servers through its own plugin-local `.mcp.json`.
+- Renamed the TherapyNotes and PM work skills to a consistent `tn-*` prefix and copied that work-only set into `dot_copilot/skills/` so the same TherapyNotes workflows can land on work Copilot machines.
+- Replaced tool-specific absolute skill cross-links with relative references so the `tn-*` workflows work from both Codex and Copilot skill trees.
+- Replaced `scripts/sync-ai-configs.sh` with a review-only wrapper and added `scripts/promote-ai-config-inbox.sh` plus `.docs/ai/inbox/` for explicit staging/classification of newly discovered local AI artifacts.
 - Bootstrapped `./.docs/ai/` from `~/.codex/templates/docs-ai/` for repo-local AI handoff state.
 - Synced the tracked chezmoi source for `~/.codex/AGENTS.md` with the current home-directory file contents.
 - Added repo documentation for the GitHub PAT bootstrap flow in `README.md`, `CLAUDE.md`, and `AGENTS.md`, including the Keychain service name `codex-github-pat`, the exported variable `GITHUB_PAT_TOKEN`, and the `launchd` loader command.
@@ -35,64 +47,13 @@ Living snapshot of the project. Update before ending each AI session.
   - Codex via the managed `~/.codex/config.toml` template
   - Copilot CLI via managed `~/.copilot/mcp-config.json`
   - Claude Code via the repo-scoped `.mcp.json`
-- Added a repo-managed Claude Stop hook script at `dot_claude/hooks/auto-commit-on-stop.sh` and switched it to Anthropic's supported `exit 2 + stderr` blocking flow instead of invalid Stop-hook JSON.
+- Set `data.ai_profile = "work"` in the live `~/.config/chezmoi/chezmoi.toml` on this machine and applied the scoped Codex, Copilot, and OpenCode outputs successfully.
 
 ## Changed Files
 
-- `dot_aerospace.toml`
-- `dot_config/sketchybar/colors.sh`
-- `dot_config/sketchybar/helper/clock`
-- `dot_config/sketchybar/helper/cpu.h`
-- `dot_config/sketchybar/helper/helper`
-- `dot_config/sketchybar/helper/helper.c`
-- `dot_config/sketchybar/helper/makefile`
-- `dot_config/sketchybar/helper/sketchybar.h`
-- `dot_config/sketchybar/icons.sh`
-- `dot_config/sketchybar/items/app_space.sh`
-- `dot_config/sketchybar/items/app_space2.sh`
-- `dot_config/sketchybar/items/app_space_old.sh`
-- `dot_config/sketchybar/items/apple.sh`
-- `dot_config/sketchybar/items/battery.sh`
-- `dot_config/sketchybar/items/brew.sh`
-- `dot_config/sketchybar/items/cal.sh`
-- `dot_config/sketchybar/items/calendar.sh`
-- `dot_config/sketchybar/items/clock.sh`
-- `dot_config/sketchybar/items/cpu.sh`
-- `dot_config/sketchybar/items/diskmonitor.sh`
-- `dot_config/sketchybar/items/front_app.sh`
-- `dot_config/sketchybar/items/github.sh`
-- `dot_config/sketchybar/items/media.sh`
-- `dot_config/sketchybar/items/network.sh`
-- `dot_config/sketchybar/items/spotify.sh`
-- `dot_config/sketchybar/items/svim.sh`
-- `dot_config/sketchybar/items/volume.sh`
-- `dot_config/sketchybar/items/weather.sh`
-- `dot_config/sketchybar/items/wifi.sh`
-- `dot_config/sketchybar/items/yabai.sh`
-- `dot_config/sketchybar/plugins/app_icon.sh`
-- `dot_config/sketchybar/plugins/app_space.sh`
-- `dot_config/sketchybar/plugins/app_space2.sh`
-- `dot_config/sketchybar/plugins/app_space_old.sh`
-- `dot_config/sketchybar/plugins/battery.sh`
-- `dot_config/sketchybar/plugins/brew.sh`
-- `dot_config/sketchybar/plugins/cal.sh`
-- `dot_config/sketchybar/plugins/calendar.sh`
-- `dot_config/sketchybar/plugins/clock.sh`
-- `dot_config/sketchybar/plugins/diskmonitor.sh`
-- `dot_config/sketchybar/plugins/github.sh`
-- `dot_config/sketchybar/plugins/media.sh`
-- `dot_config/sketchybar/plugins/network.sh`
-- `dot_config/sketchybar/plugins/spotify.sh`
-- `dot_config/sketchybar/plugins/svim.sh`
-- `dot_config/sketchybar/plugins/volume.sh`
-- `dot_config/sketchybar/plugins/volume_click.sh`
-- `dot_config/sketchybar/plugins/weather.sh`
-- `dot_config/sketchybar/plugins/wifi.sh`
-- `dot_config/sketchybar/plugins/zen.sh`
-- `dot_config/sketchybar/sketchybarrc`
-- `dot_Library/Fonts/sketchybar-app-font.ttf`
-- `.chezmoitemplates/codex/personal.toml`
-- `.chezmoitemplates/codex/work.toml`
+- `dot_tmux.conf`
+- `dot_config/tmux/plugins/tmux-which-key/config.yaml`
+- `dot_config/karabiner/karabiner.json`
 - `.docs/ai/current-state.md`
 - `.docs/ai/decisions.md`
 - `.docs/ai/next-steps.md`
@@ -115,7 +76,6 @@ Living snapshot of the project. Update before ending each AI session.
 - `dot_claude/skills/process-backlog-opus/SKILL.md`
 - `dot_claude/skills/resume-and-continue/SKILL.md`
 - `dot_claude/skills/import-ai-config-changes/SKILL.md`
-- `dot_claude/hooks/auto-commit-on-stop.sh`
 - `dot_codex/AGENTS.md`
 - `.chezmoitemplates/codex/personal.toml`
 - `.chezmoitemplates/codex/work.toml`
@@ -133,12 +93,19 @@ Living snapshot of the project. Update before ending each AI session.
 - `AGENTS.md`
 - `CLAUDE.md`
 - `README.md`
+- `.chezmoidata/ai.json`
+- `.chezmoiignore.tmpl`
+- `.docs/ai/inbox/README.md`
 - `scripts/review-ai-config-imports.sh`
 - `scripts/sync-ai-configs.sh`
+- `scripts/promote-ai-config-inbox.sh`
+- `dot_config/chezmoi/chezmoi.toml.tmpl`
+- `dot_config/opencode/opencode.json.tmpl`
+- `dot_config/opencode/README.md`
 
 ## Blockers
 
-- (none)
+- The old importer-created source directories still exist on disk; they are now ignored by both chezmoi and git until you decide which ones should be promoted into the scoped catalog versus deleted locally.
 
 ## Open Questions
 
@@ -147,12 +114,10 @@ Living snapshot of the project. Update before ending each AI session.
 ## Validation / Test Status
 
 ```
-Verified `dot_config/sketchybar/` matches `~/git/nixos-config/darwin/packages/sketchybar/sketchybar/` with `diff -qr`.
-Verified `dot_aerospace.toml` matches `~/git/nixos-config/darwin/packages/aerospace/.aerospace.toml` with `cmp -s`.
-Verified `dot_Library/Fonts/sketchybar-app-font.ttf` matches the source font asset with `cmp -s`.
-Verified the host-aware Codex config split still renders from `dot_codex/private_config.toml.tmpl` into `.chezmoitemplates/codex/personal.toml` and `.chezmoitemplates/codex/work.toml`.
-Confirmed both Codex templates now include `[tui]` notifications for `agent-turn-complete` and `approval-requested`, with `notification_method = "osc9"`.
 Verified all four workflow skill names exist under Claude, Codex, Copilot, and generic agent skill trees.
+Validated `dot_tmux.conf` syntax with `tmux 3.6a` using `tmux -L codex-tmux-check -f ... start-server`.
+Parsed `dot_config/tmux/plugins/tmux-which-key/config.yaml` successfully with Ruby YAML.
+Validated `dot_config/karabiner/karabiner.json` with `jq empty` and applied it to `~/.config/karabiner/karabiner.json`.
 Ran ./scripts/sync-ai-configs.sh --dry-run successfully after adding Copilot skill sync and excluding the repo-managed workflow skills from imported home skill directories.
 Restored the repo after an unsafe full sync attempt, then reran ./scripts/sync-ai-configs.sh --dry-run successfully with the hardened additive-only import behavior.
 Ran bash -n successfully for scripts/review-ai-config-imports.sh and scripts/sync-ai-configs.sh.
@@ -160,5 +125,13 @@ Ran ./scripts/review-ai-config-imports.sh successfully; the current report shows
 Confirmed the importer dry run now skips repo-managed files and existing tracked paths, and only proposes additive top-level imports.
 Validated `.mcp.json` and `dot_copilot/mcp-config.json.tmpl` with `jq empty`.
 Rendered `dot_codex/private_config.toml.tmpl` through `chezmoi execute-template` and confirmed the `mcp_servers.chrome-devtools` entry appears in the active host config.
-Verified against Anthropic's current hooks reference that `Stop` hooks should block via exit code `2` plus `stderr`, or via JSON with only `decision`/`reason`; `hookSpecificOutput` is not valid for `Stop`.
+Ran `bash -n` successfully for `scripts/install.sh`, `scripts/sync-ai-configs.sh`, `scripts/review-ai-config-imports.sh`, and `scripts/promote-ai-config-inbox.sh`.
+Rendered managed Codex config for `work` and `personal` profiles with `chezmoi cat`; confirmed `atlassian_rovo` appears only in `work` and `simmersmith` appears only in `personal`.
+Rendered managed Copilot and OpenCode configs for both profiles and validated the JSON with `jq empty`.
+Verified `.chezmoiignore.tmpl` causes the work-only Codex skill paths to appear in `chezmoi ignored` for the personal profile.
+Ran `CHEZMOI_AI_PROFILE=work ./scripts/sync-ai-configs.sh --report ...` successfully; it now stays review-only and does not import directly into managed trees.
+Verified `CHEZMOI_AI_PROFILE=work chezmoi -S . ignored` includes the deferred source paths and `chezmoi -S . managed` excludes them.
+Ran a full `chezmoi apply -v` successfully after adding deferred source path ignores; the work machine now has the scoped Codex, Copilot, and OpenCode config rendered from this repo.
+Confirmed the lingering work-machine `stripe`, `vercel`, and `supabase` MCPs were coming from the enabled `build-web-apps` Codex plugin rather than `~/.codex/config.toml`.
+Verified the renamed `tn-*` skill set exists under both `dot_codex/skills/` and `dot_copilot/skills/`, with cross-links rewritten away from `~/.codex/skills/...` home paths.
 ```

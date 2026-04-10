@@ -1,0 +1,9 @@
+interface:
+  display_name: "Slack Firefighters Huddle Import"
+  short_description: "Import unseen #firefighters huddle note canvases"
+  default_prompt: "Use $slack-firefighters-huddle-import to download unseen Slack #firefighters huddle note canvases as PDFs and ingest them into this Codex workspace."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "playwright"
+      description: "Playwright MCP browser automation"

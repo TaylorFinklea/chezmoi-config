@@ -1,26 +1,29 @@
 {
   "mcpServers": {
-    "microsoft-learn": {
-      "type": "http",
-      "url": "https://learn.microsoft.com/api/mcp"
-    },
-    "atlassian": {
-      "type": "http",
-      "url": "https://mcp.atlassian.com/v1/mcp"
-    },
-    "figma": {
-      "type": "http",
-      "url": "https://mcp.figma.com/mcp"
-    },
-    "chrome-devtools": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["chrome-devtools-mcp@latest"]
-    },
-    "playwright": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["@playwright/mcp@latest"]
+{{- $profile := coalesce (env "CHEZMOI_AI_PROFILE") (index .chezmoi.config.data "ai_profile") -}}
+{{- if not (or (eq $profile "work") (eq $profile "personal")) -}}
+{{- fail "Set data.ai_profile to \"work\" or \"personal\" in ~/.config/chezmoi/chezmoi.toml, or export CHEZMOI_AI_PROFILE for one-off renders." -}}
+{{- end -}}
+{{- $first := true -}}
+{{- range $server := .mcpServers }}
+{{- $enabled := or (eq $server.scope "shared") (and (eq $server.scope "work-only") (eq $profile "work")) (and (eq $server.scope "personal-only") (eq $profile "personal")) -}}
+{{- if and $enabled (has "copilot" $server.targets) }}
+{{- $copilot := index $server "copilot" }}
+{{- if not $first }},{{ end }}
+    "{{ if eq $server.id "atlassian_rovo" }}atlassian{{ else }}{{ $server.id }}{{ end }}": {
+      "type": {{ index $copilot "type" | quote }}{{- if or (index $copilot "command") (index $copilot "url") }},{{ end }}
+{{- with index $copilot "command" }}
+      "command": {{ . | quote }}{{- if or (index $copilot "args") (index $copilot "url") }},{{ end }}
+{{- end }}
+{{- with index $copilot "args" }}
+      "args": [{{- range $index, $arg := . }}{{ if gt $index 0 }}, {{ end }}{{ $arg | quote }}{{- end }}]{{- if (index $copilot "url") }},{{ end }}
+{{- end }}
+{{- with index $copilot "url" }}
+      "url": {{ . | quote }}
+{{- end }}
     }
+{{- $first = false }}
+{{- end }}
+{{- end }}
   }
 }

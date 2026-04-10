@@ -1,0 +1,433 @@
+{
+  "mcpServers": [
+    {
+      "id": "microsoft-learn",
+      "scope": "shared",
+      "targets": ["copilot"],
+      "copilot": {
+        "type": "http",
+        "url": "https://learn.microsoft.com/api/mcp"
+      }
+    },
+    {
+      "id": "playwright",
+      "scope": "shared",
+      "targets": ["codex", "copilot", "opencode"],
+      "codex": {
+        "command": "npx",
+        "args": ["@playwright/mcp@latest"],
+        "toolApprovals": {
+          "browser_navigate": "approve",
+          "browser_click": "approve"
+        }
+      },
+      "copilot": {
+        "type": "stdio",
+        "command": "npx",
+        "args": ["@playwright/mcp@latest"]
+      },
+      "opencode": {
+        "type": "local",
+        "command": ["npx", "@playwright/mcp@latest"],
+        "enabled": true
+      }
+    },
+    {
+      "id": "chrome-devtools",
+      "scope": "shared",
+      "targets": ["codex", "copilot", "opencode"],
+      "codex": {
+        "command": "npx",
+        "args": ["chrome-devtools-mcp@latest"]
+      },
+      "copilot": {
+        "type": "stdio",
+        "command": "npx",
+        "args": ["chrome-devtools-mcp@latest"]
+      },
+      "opencode": {
+        "type": "local",
+        "command": ["npx", "chrome-devtools-mcp@latest"],
+        "enabled": true
+      }
+    },
+    {
+      "id": "figma",
+      "scope": "shared",
+      "targets": ["codex", "copilot", "opencode"],
+      "codex": {
+        "url": "https://mcp.figma.com/mcp"
+      },
+      "copilot": {
+        "type": "http",
+        "url": "https://mcp.figma.com/mcp"
+      },
+      "opencode": {
+        "type": "remote",
+        "url": "https://mcp.figma.com/mcp",
+        "enabled": true
+      }
+    },
+    {
+      "id": "shadcn",
+      "scope": "shared",
+      "targets": ["codex"],
+      "codex": {
+        "command": "npx",
+        "args": ["shadcn@latest", "mcp"]
+      }
+    },
+    {
+      "id": "excalidraw",
+      "scope": "shared",
+      "targets": ["codex", "opencode"],
+      "codex": {
+        "url": "https://mcp.excalidraw.com"
+      },
+      "opencode": {
+        "type": "remote",
+        "url": "https://mcp.excalidraw.com",
+        "enabled": true
+      }
+    },
+    {
+      "id": "github",
+      "scope": "shared",
+      "targets": ["codex"],
+      "codex": {
+        "url": "https://api.githubcopilot.com/mcp/",
+        "bearer_token_env_var": "GITHUB_PAT_TOKEN"
+      }
+    },
+    {
+      "id": "cloudflare-docs",
+      "scope": "shared",
+      "targets": ["codex"],
+      "codex": {
+        "url": "https://docs.mcp.cloudflare.com/mcp"
+      }
+    },
+    {
+      "id": "cloudflare-bindings",
+      "scope": "shared",
+      "targets": ["codex"],
+      "codex": {
+        "url": "https://bindings.mcp.cloudflare.com/mcp"
+      }
+    },
+    {
+      "id": "cloudflare-builds",
+      "scope": "shared",
+      "targets": ["codex"],
+      "codex": {
+        "url": "https://builds.mcp.cloudflare.com/mcp"
+      }
+    },
+    {
+      "id": "cloudflare-observability",
+      "scope": "shared",
+      "targets": ["codex"],
+      "codex": {
+        "url": "https://observability.mcp.cloudflare.com/mcp"
+      }
+    },
+    {
+      "id": "atlassian_rovo",
+      "scope": "work-only",
+      "targets": ["codex", "copilot", "opencode"],
+      "codex": {
+        "enabled": true,
+        "url": "https://mcp.atlassian.com/v1/mcp"
+      },
+      "copilot": {
+        "type": "http",
+        "url": "https://mcp.atlassian.com/v1/mcp"
+      },
+      "opencode": {
+        "type": "remote",
+        "url": "https://mcp.atlassian.com/v1/mcp",
+        "enabled": true
+      }
+    },
+    {
+      "id": "simmersmith",
+      "scope": "personal-only",
+      "targets": ["codex"],
+      "codex": {
+        "command": "/Users/tfinklea/git/simmersmith/.venv/bin/python",
+        "args": ["/Users/tfinklea/git/simmersmith/scripts/run_simmersmith_mcp.py"],
+        "toolApprovals": {
+          "health": "approve",
+          "recipes_list": "approve",
+          "profile_get": "approve",
+          "preferences_get": "approve",
+          "weeks_get_current": "approve",
+          "weeks_get_by_start": "approve",
+          "weeks_create": "approve",
+          "preferences_score_meal": "approve",
+          "weeks_update_meals": "approve",
+          "weeks_regenerate_grocery": "approve",
+          "assistant_create_thread": "approve",
+          "assistant_respond": "approve",
+          "assistant_get_thread": "approve",
+          "assistant_list_threads": "approve"
+        }
+      }
+    }
+  ],
+  "opencode": {
+    "instructions": ["~/AGENTS.md"]
+  },
+  "codexPlugins": [
+    {
+      "id": "slack@openai-curated",
+      "scope": "work-only"
+    },
+    {
+      "id": "cloudflare@openai-curated",
+      "scope": "shared"
+    },
+    {
+      "id": "build-ios-apps@openai-curated",
+      "scope": "shared"
+    },
+    {
+      "id": "build-web-apps@openai-curated",
+      "scope": "personal-only"
+    },
+    {
+      "id": "google-calendar@openai-curated",
+      "scope": "personal-only"
+    },
+    {
+      "id": "gmail@openai-curated",
+      "scope": "personal-only"
+    },
+    {
+      "id": "github@openai-curated",
+      "scope": "personal-only"
+    },
+    {
+      "id": "google-drive@openai-curated",
+      "scope": "personal-only"
+    }
+  ],
+  "scopedArtifacts": [
+    {
+      "id": "codex-skill-tn-pm-sprint-management-close-sprint",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/tn-pm-sprint-management-close-sprint"
+    },
+    {
+      "id": "copilot-skill-tn-pm-sprint-management-close-sprint",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["copilot"],
+      "path": "dot_copilot/skills/tn-pm-sprint-management-close-sprint"
+    },
+    {
+      "id": "codex-skill-tn-pm-sprint-management-create-future-sprints",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/tn-pm-sprint-management-create-future-sprints"
+    },
+    {
+      "id": "copilot-skill-tn-pm-sprint-management-create-future-sprints",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["copilot"],
+      "path": "dot_copilot/skills/tn-pm-sprint-management-create-future-sprints"
+    },
+    {
+      "id": "codex-skill-tn-pm-sprint-management-start-sprint",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/tn-pm-sprint-management-start-sprint"
+    },
+    {
+      "id": "copilot-skill-tn-pm-sprint-management-start-sprint",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["copilot"],
+      "path": "dot_copilot/skills/tn-pm-sprint-management-start-sprint"
+    },
+    {
+      "id": "codex-skill-slack-firefighters-huddle-import",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/slack-firefighters-huddle-import"
+    },
+    {
+      "id": "codex-skill-teams-stream-transcript-import",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/teams-stream-transcript-import"
+    },
+    {
+      "id": "codex-skill-tn-grc-ai-adoption-workflow",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/tn-grc-ai-adoption-workflow"
+    },
+    {
+      "id": "copilot-skill-tn-grc-ai-adoption-workflow",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["copilot"],
+      "path": "dot_copilot/skills/tn-grc-ai-adoption-workflow"
+    },
+    {
+      "id": "codex-skill-tn-grc-ai-model-workflow",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/tn-grc-ai-model-workflow"
+    },
+    {
+      "id": "copilot-skill-tn-grc-ai-model-workflow",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["copilot"],
+      "path": "dot_copilot/skills/tn-grc-ai-model-workflow"
+    },
+    {
+      "id": "codex-skill-tn-it-change-workflow",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/tn-it-change-workflow"
+    },
+    {
+      "id": "copilot-skill-tn-it-change-workflow",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["copilot"],
+      "path": "dot_copilot/skills/tn-it-change-workflow"
+    },
+    {
+      "id": "codex-skill-tn-ticket-intake",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["codex"],
+      "path": "dot_codex/skills/tn-ticket-intake"
+    },
+    {
+      "id": "copilot-skill-tn-ticket-intake",
+      "kind": "skill",
+      "scope": "work-only",
+      "targets": ["copilot"],
+      "path": "dot_copilot/skills/tn-ticket-intake"
+    }
+  ],
+  "deferredSourcePaths": [
+    "dot_agents/skills/agent-development",
+    "dot_agents/skills/algorithmic-art",
+    "dot_agents/skills/audit-context-building",
+    "dot_agents/skills/audit-prep-assistant",
+    "dot_agents/skills/canvas-design",
+    "dot_agents/skills/code-maturity-assessor",
+    "dot_agents/skills/codeql",
+    "dot_agents/skills/command-development",
+    "dot_agents/skills/constant-time-analysis",
+    "dot_agents/skills/constant-time-testing",
+    "dot_agents/skills/coverage-analysis",
+    "dot_agents/skills/designing-workflow-skills",
+    "dot_agents/skills/doc-coauthoring",
+    "dot_agents/skills/docx",
+    "dot_agents/skills/frontend-design",
+    "dot_agents/skills/gh-cli",
+    "dot_agents/skills/guidelines-advisor",
+    "dot_agents/skills/hook-development",
+    "dot_agents/skills/internal-comms",
+    "dot_agents/skills/mcp-builder",
+    "dot_agents/skills/mcp-integration",
+    "dot_agents/skills/pdf",
+    "dot_agents/skills/playground",
+    "dot_agents/skills/pptx",
+    "dot_agents/skills/semgrep",
+    "dot_agents/skills/semgrep-rule-creator",
+    "dot_agents/skills/semgrep-rule-variant-creator",
+    "dot_agents/skills/skill-creator",
+    "dot_agents/skills/skill-development",
+    "dot_agents/skills/slack-gif-creator",
+    "dot_agents/skills/spec-to-code-compliance",
+    "dot_agents/skills/supply-chain-risk-auditor",
+    "dot_agents/skills/template-skill",
+    "dot_agents/skills/terraform-skill",
+    "dot_agents/skills/testing-handbook-generator",
+    "dot_agents/skills/theme-factory",
+    "dot_agents/skills/token-integration-analyzer",
+    "dot_agents/skills/variant-analysis",
+    "dot_agents/skills/web-artifacts-builder",
+    "dot_agents/skills/webapp-testing",
+    "dot_agents/skills/xlsx",
+    "dot_agents/skills/zeroize-audit",
+    "dot_codex/skills/atlas",
+    "dot_codex/skills/azure-ai-foundry-quota-request",
+    "dot_codex/skills/figma-create-new-file",
+    "dot_codex/skills/playwright-interactive"
+  ],
+  "discoveryRoots": [
+    {
+      "id": "claude-agents",
+      "kind": "agent",
+      "path": "~/.claude/agents",
+      "repoPath": "dot_claude/agents"
+    },
+    {
+      "id": "claude-skills",
+      "kind": "skill",
+      "path": "~/.claude/skills",
+      "repoPath": "dot_claude/skills"
+    },
+    {
+      "id": "claude-templates",
+      "kind": "template",
+      "path": "~/.claude/templates",
+      "repoPath": "dot_claude/templates"
+    },
+    {
+      "id": "codex-skills",
+      "kind": "skill",
+      "path": "~/.codex/skills",
+      "repoPath": "dot_codex/skills"
+    },
+    {
+      "id": "copilot-skills",
+      "kind": "skill",
+      "path": "~/.copilot/skills",
+      "repoPath": "dot_copilot/skills"
+    },
+    {
+      "id": "agents-skills",
+      "kind": "skill",
+      "path": "~/.agents/skills",
+      "repoPath": "dot_agents/skills"
+    },
+    {
+      "id": "opencode-agents",
+      "kind": "agent",
+      "path": "~/.config/opencode/agent",
+      "repoPath": "dot_config/opencode/agent"
+    },
+    {
+      "id": "opencode-commands",
+      "kind": "command",
+      "path": "~/.config/opencode/command",
+      "repoPath": "dot_config/opencode/command"
+    },
+    {
+      "id": "opencode-modes",
+      "kind": "mode",
+      "path": "~/.config/opencode/mode",
+      "repoPath": "dot_config/opencode/mode"
+    }
+  ]
+}

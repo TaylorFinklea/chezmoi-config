@@ -1,4 +1,8 @@
-{{- if eq .chezmoi.hostname "it-tfinklea-primary" -}}
+{{- $profile := coalesce (env "CHEZMOI_AI_PROFILE") (index .chezmoi.config.data "ai_profile") -}}
+{{- if not (or (eq $profile "work") (eq $profile "personal")) -}}
+{{- fail "Set data.ai_profile to \"work\" or \"personal\" in ~/.config/chezmoi/chezmoi.toml, or export CHEZMOI_AI_PROFILE for one-off renders." -}}
+{{- end -}}
+{{- if eq $profile "work" -}}
 {{- template "codex/work.toml" . -}}
 {{- else -}}
 {{- template "codex/personal.toml" . -}}
