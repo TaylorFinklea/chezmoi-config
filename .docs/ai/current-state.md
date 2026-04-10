@@ -17,6 +17,7 @@ Living snapshot of the project. Update before ending each AI session.
 - Updated the managed TmuxAI model selections to use `gpt-5.4` for the Codex/OpenAI profile and `claude-sonnet-4.6` for the Copilot profile.
 - Removed the explicit Copilot auth token from the managed TmuxAI config so the `github-copilot` provider relies on the logged-in `copilot` CLI state, matching the upstream tmuxai docs.
 - Added a work-only chezmoi-managed Espanso base match file at `private_Library/private_Application Support/espanso/match/base.yml` and applied it on this machine so `kub` expands to `Kubernetes` without affecting personal machines.
+- Added a separate personal-only Espanso match file at `private_Library/private_Application Support/espanso/match/personal-email.yml` so personal machines can map `,,em` to `taylor.finklea@gmail.com` without sharing the work snippet set.
 - Switched the tmux prefix to `C-a`, moved the status bar to the top, enabled mouse + vi copy mode, made splits inherit the current pane path, and added direct bindings for popup shells, choose-tree navigation, zoom, reload, and session save/restore.
 - Kept tmux-resurrect pane-content capture disabled by default so persistence is practical without storing large or sensitive AI scrollback.
 - Disabled tmux automatic window renaming so manual names set with `C-a ,` persist in the status bar instead of being replaced by the active command name.
@@ -62,6 +63,7 @@ Living snapshot of the project. Update before ending each AI session.
 - `dot_config/tmuxai/README.md`
 - `dot_config/tmux/cheatsheet.txt`
 - `private_Library/private_Application Support/espanso/match/base.yml`
+- `private_Library/private_Application Support/espanso/match/personal-email.yml`
 - `dot_config/karabiner/karabiner.json`
 - `.docs/ai/current-state.md`
 - `.docs/ai/decisions.md`
