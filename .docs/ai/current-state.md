@@ -15,6 +15,8 @@ Living snapshot of the project. Update before ending each AI session.
 - Added `flyctl` and `railway` to `scripts/install-homebrew-personal.sh`, then installed both CLIs locally; `supabase`, `flyctl`, and `railway` are now all present under `/opt/homebrew/bin`.
 - Applied the managed personal Codex and OpenCode config files directly with `chezmoi apply ~/.codex/config.toml ~/.config/opencode/opencode.json` after a full `chezmoi apply` stopped on unrelated local drift in `~/.config/fish/config.fish`.
 - Moved the LM Studio Fish PATH addition into the managed `dot_config/fish/config.fish` file as `fish_add_path ~/.lmstudio/bin`, then force-applied just `~/.config/fish/config.fish` so the repo now owns that change too.
+- Updated the managed Claude shell aliases in both `dot_zshrc` and `dot_config/fish/config.fish` so `c` runs `claude --permission-mode bypassPermissions` and `ccc` runs `claude -c --permission-mode bypassPermissions`, while leaving `ccr` unchanged.
+- Restored the LM Studio zsh PATH entry as managed repo content in `dot_zshrc` after a targeted force-apply exposed that `~/.zshrc` had the same old unmanaged local edit as Fish.
 - Added a new chezmoi-managed tmux setup at `dot_tmux.conf` with a lean, window-centric workflow tuned for Claude Code, Codex, Neovim, and other terminal TUIs.
 - Added direct tmux window cycling on `Alt-h` / `Alt-l` so previous/next window navigation is faster without using the `C-a` prefix, while keeping the existing pane movement fallback on `C-a h/j/k/l`.
 - Added a small XDG `tmux-which-key` menu config at `dot_config/tmux/plugins/tmux-which-key/config.yaml` so prefix-driven discovery matches the direct bindings in the managed tmux config.
@@ -63,6 +65,7 @@ Living snapshot of the project. Update before ending each AI session.
 - `dot_tmux.conf`
 - `.chezmoidata/ai.json`
 - `dot_config/fish/config.fish`
+- `dot_zshrc`
 - `.mcp.json`
 - `README.md`
 - `scripts/install-homebrew-personal.sh`
@@ -162,4 +165,6 @@ Verified `railway --help` exposes a first-party `railway mcp` command in CLI v4.
 Rendered the personal Codex and OpenCode configs with `chezmoi cat` and confirmed they contain `supabase-personal`, `flyctl`, and `railway`.
 Applied `~/.codex/config.toml` and `~/.config/opencode/opencode.json` successfully with a targeted `chezmoi apply -v` run after a full apply stopped on `~/.config/fish/config.fish` drift.
 Updated `dot_config/fish/config.fish` to manage `~/.lmstudio/bin` with `fish_add_path`, then ran `chezmoi apply --force -v ~/.config/fish/config.fish` successfully to remove the local unmanaged LM Studio PATH block.
+Updated the managed `c` and `ccc` aliases in both Zsh and Fish, applied `~/.config/fish/config.fish` with `chezmoi apply --force -v`, and applied `~/.zshrc` with `chezmoi apply -v`.
+Restored the LM Studio zsh PATH by adding `export PATH="$PATH:$HOME/.lmstudio/bin"` to `dot_zshrc`, then reapplied `~/.zshrc`.
 ```

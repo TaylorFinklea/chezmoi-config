@@ -103,9 +103,9 @@ alias cze="chezmoi edit"          # Edit a managed file
 alias czs="chezmoi status"        # Check status
 
 # Claude shortcuts
-alias c="claude"
+alias c="claude --permission-mode bypassPermissions"
 alias ccr="claude --resume --model opusplan --effort auto"
-alias ccc="claude -c --model opusplan --effort auto"
+alias ccc="claude -c --permission-mode bypassPermissions"
 
 # ============================================================================
 # FUNCTIONS
