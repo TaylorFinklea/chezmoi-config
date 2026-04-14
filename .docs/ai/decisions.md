@@ -52,6 +52,8 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 
 2026-04-09: Use direct `Alt-h` / `Alt-l` tmux bindings for previous/next window cycling, keeping `C-a h/j/k/l` as the safe pane-navigation fallback instead of overloading more plain `Ctrl` combinations.
 
+2026-04-13: Keep the tmux previous/next window bindings on `Meta-h` / `Meta-l`, but remap Ghostty `Cmd-h` / `Cmd-l` to emit those sequences so AeroSpace can own the desktop-level left/right shortcuts without changing tmux itself.
+
 2026-04-09: Manage Karabiner from this chezmoi repo through `dot_config/karabiner/karabiner.json`, using a minimal profile with dual-role `Caps Lock`, a `Ctrl-Space` nav layer, and a `Ctrl-;` numpad layer rather than a broader keyboard remap scheme.
 
 2026-04-10: Add personal-only Supabase, Fly.io, and Railway MCP entries through the shared AI catalog, but name the Supabase server `supabase-personal` so the managed Codex config does not collide with the plugin-bundled `supabase` server from `build-web-apps@openai-curated`.

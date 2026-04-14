@@ -11,7 +11,7 @@ Exact next actions for the incoming assistant. Keep this short, ordered, and act
 - [ ] Verify the new repo-scoped Claude Code MCP entries (`supabase-personal`, `flyctl`, `railway`) connect cleanly in this repo; if you want personal/work scoping there too, introduce a managed home-level Claude MCP surface instead of relying only on `.mcp.json`.
 - [ ] Apply the new managed `~/.config/tmuxai/config.yaml`, then verify `tmuxai --model codex` and `tmuxai --model copilot` both launch inside tmux popups with the expected credentials on this machine.
 - [ ] Decide whether to keep the powerline glyphs in the tmux status bar as-is or swap them for plain separators on machines without a Nerd Font / Powerline-capable font.
-- [ ] Validate the direct tmux `Alt-h` / `Alt-l` previous/next window bindings in the terminal apps you use most; if `Option`/`Meta` is inconsistent anywhere, decide whether to switch that machine to terminal-native mappings or Karabiner.
+- [ ] Validate the new Ghostty `Cmd-h` / `Cmd-l` tmux window navigation on this machine and confirm AeroSpace keeps the desired left/right focus behavior everywhere else.
 - [ ] If cross-app `vim-tmux-navigator` `Ctrl-h/j/k/l` behavior collides with any terminal AI TUI, decide whether to keep it enabled or remap it while preserving the prefix-based pane navigation in `dot_tmux.conf`.
 - [ ] Install Karabiner-Elements on this machine, then confirm the new managed `Caps Lock`, `Ctrl-Space`, and `Ctrl-;` layers behave as intended in tmux, shells, Neovim, Claude Code, and Codex.
 - [ ] If you want Espanso on personal machines too, add a separate personal-only managed match file or profile-specific snippet path instead of sharing the work `base.yml`.

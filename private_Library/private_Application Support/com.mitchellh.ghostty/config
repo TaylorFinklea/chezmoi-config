@@ -2,11 +2,11 @@ theme = tokyonight
 font-family = "FiraCode Nerd Font"
 macos-option-as-alt = true
 
-# Navigate splits with Cmd+hjkl
-keybind = cmd+h=goto_split:left
+# Send tmux window navigation on Cmd+h/l so Alt+h/l stays free for AeroSpace.
+keybind = cmd+h=esc:h
 keybind = cmd+j=goto_split:bottom
 keybind = cmd+k=goto_split:top
-keybind = cmd+l=goto_split:right
+keybind = cmd+l=esc:l
 
 # Create splits
 keybind = cmd+d=new_split:right

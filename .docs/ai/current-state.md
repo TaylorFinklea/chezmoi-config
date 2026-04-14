@@ -19,7 +19,7 @@ Living snapshot of the project. Update before ending each AI session.
 - Updated the managed Claude shell aliases in both `dot_zshrc` and `dot_config/fish/config.fish` so `c` runs `claude --permission-mode bypassPermissions` and `ccc` runs `claude -c --permission-mode bypassPermissions`, while leaving `ccr` unchanged.
 - Restored the LM Studio zsh PATH entry as managed repo content in `dot_zshrc` after a targeted force-apply exposed that `~/.zshrc` had the same old unmanaged local edit as Fish.
 - Added a new chezmoi-managed tmux setup at `dot_tmux.conf` with a lean, window-centric workflow tuned for Claude Code, Codex, Neovim, and other terminal TUIs.
-- Added direct tmux window cycling on `Alt-h` / `Alt-l` so previous/next window navigation is faster without using the `C-a` prefix, while keeping the existing pane movement fallback on `C-a h/j/k/l`.
+- Added direct tmux window cycling on `Alt-h` / `Alt-l`, then remapped the primary desktop shortcut path to Ghostty `Cmd-h` / `Cmd-l` sending `Meta-h` / `Meta-l` so AeroSpace can own directional movement without changing the tmux bindings themselves.
 - Added a small XDG `tmux-which-key` menu config at `dot_config/tmux/plugins/tmux-which-key/config.yaml` so prefix-driven discovery matches the direct bindings in the managed tmux config.
 - Added managed TmuxAI config at `dot_config/tmuxai/config.yaml.tmpl` with `codex` and `copilot` model profiles, plus tmux popup launchers and which-key entries for both.
 - Updated the managed TmuxAI model selections to use `gpt-5.4` for the Codex/OpenAI profile and `claude-sonnet-4.6` for the Copilot profile.
@@ -76,6 +76,7 @@ Living snapshot of the project. Update before ending each AI session.
 - `dot_config/tmuxai/config.yaml.tmpl`
 - `dot_config/tmuxai/README.md`
 - `dot_config/tmux/cheatsheet.txt`
+- `private_Library/private_Application Support/com.mitchellh.ghostty/config`
 - `private_Library/private_Application Support/espanso/match/base.yml`
 - `private_Library/private_Application Support/espanso/match/personal-email.yml`
 - `dot_config/karabiner/karabiner.json`
@@ -144,6 +145,7 @@ Fetched the upstream `tmuxai` `config.example.yaml` and confirmed the supported 
 Verified from GitHub Docs on 2026-04-10 that GitHub Copilot currently lists both `Claude Sonnet 4.6` and `GPT-5.4` as supported models.
 Validated `dot_tmux.conf` syntax with `tmux 3.6a` using `tmux -L codex-tmux-check -f ... start-server`.
 Revalidated `dot_tmux.conf` syntax with `tmux 3.6a` after adding direct `Alt-h` / `Alt-l` previous/next window bindings.
+Updated the managed Ghostty config so `Cmd-h` / `Cmd-l` send `Meta-h` / `Meta-l` into tmux, leaving the tmux-side window bindings unchanged while freeing `Alt-h` / `Alt-l` for AeroSpace.
 Parsed `dot_config/tmux/plugins/tmux-which-key/config.yaml` successfully with Ruby YAML.
 Validated `dot_config/karabiner/karabiner.json` with `jq empty` and applied it to `~/.config/karabiner/karabiner.json`.
 Ran ./scripts/sync-ai-configs.sh --dry-run successfully after adding Copilot skill sync and excluding the repo-managed workflow skills from imported home skill directories.
