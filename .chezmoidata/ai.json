@@ -170,7 +170,9 @@
       },
       "copilot": {
         "type": "http",
-        "url": "https://mcp.atlassian.com/v1/mcp"
+        "url": "https://mcp.atlassian.com/v1/mcp",
+        "gallery": "https://tn-mcp-registry.azurewebsites.net",
+        "version": "1.1.0"
       },
       "opencode": {
         "type": "remote",
@@ -186,7 +188,9 @@
       ],
       "copilot": {
         "type": "http",
-        "url": "https://api.githubcopilot.com/mcp/"
+        "url": "https://api.githubcopilot.com/mcp/",
+        "gallery": "https://tn-mcp-registry.azurewebsites.net",
+        "version": "0.28.0"
       }
     },
     {
@@ -197,7 +201,9 @@
       ],
       "copilot": {
         "type": "http",
-        "url": "https://learn.microsoft.com/api/mcp"
+        "url": "https://learn.microsoft.com/api/mcp",
+        "gallery": "https://tn-mcp-registry.azurewebsites.net",
+        "version": "1.0.0"
       }
     },
     {
@@ -208,7 +214,9 @@
       ],
       "copilot": {
         "type": "http",
-        "url": "https://mcp.figma.com/mcp"
+        "url": "https://mcp.figma.com/mcp",
+        "gallery": "https://tn-mcp-registry.azurewebsites.net",
+        "version": "1.0.3"
       }
     },
     {
@@ -222,7 +230,9 @@
         "command": "npx",
         "args": [
           "chrome-devtools-mcp@0.12.1"
-        ]
+        ],
+        "gallery": "https://tn-mcp-registry.azurewebsites.net",
+        "version": "0.12.1"
       }
     },
     {
@@ -236,7 +246,9 @@
         "command": "npx",
         "args": [
           "@playwright/mcp@0.0.54"
-        ]
+        ],
+        "gallery": "https://tn-mcp-registry.azurewebsites.net",
+        "version": "0.0.54"
       }
     },
     {
@@ -259,7 +271,9 @@
           "-e",
           "ENABLE_TF_OPERATIONS",
           "hashicorp/terraform-mcp-server:0.4.0"
-        ]
+        ],
+        "gallery": "https://api.mcp.github.com",
+        "version": "0.4.0"
       }
     },
     {
@@ -270,7 +284,9 @@
       ],
       "copilot": {
         "type": "http",
-        "url": "https://mcp.us3.datadoghq.com/api/unstable/mcp-server/mcp"
+        "url": "https://mcp.us3.datadoghq.com/api/unstable/mcp-server/mcp",
+        "gallery": "https://tn-mcp-registry.azurewebsites.net",
+        "version": "1.0.0"
       }
     },
     {
