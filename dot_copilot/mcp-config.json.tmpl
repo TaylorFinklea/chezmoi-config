@@ -9,17 +9,28 @@
 {{- $enabled := or (eq $server.scope "shared") (and (eq $server.scope "work-only") (eq $profile "work")) (and (eq $server.scope "personal-only") (eq $profile "personal")) -}}
 {{- if and $enabled (has "copilot" $server.targets) }}
 {{- $copilot := index $server "copilot" }}
+{{- $hasCmd := index $copilot "command" }}
+{{- $hasArgs := index $copilot "args" }}
+{{- $hasUrl := index $copilot "url" }}
+{{- $hasGallery := index $copilot "gallery" }}
+{{- $hasVersion := index $copilot "version" }}
 {{- if not $first }},{{ end }}
     "{{ if eq $server.id "atlassian_rovo" }}atlassian{{ else }}{{ $server.id }}{{ end }}": {
-      "type": {{ index $copilot "type" | quote }}{{- if or (index $copilot "command") (index $copilot "url") }},{{ end }}
-{{- with index $copilot "command" }}
-      "command": {{ . | quote }}{{- if or (index $copilot "args") (index $copilot "url") }},{{ end }}
+      "type": {{ index $copilot "type" | quote }}{{- if or $hasCmd $hasArgs $hasUrl $hasGallery $hasVersion }},{{ end }}
+{{- with $hasCmd }}
+      "command": {{ . | quote }}{{- if or $hasArgs $hasUrl $hasGallery $hasVersion }},{{ end }}
 {{- end }}
-{{- with index $copilot "args" }}
-      "args": [{{- range $index, $arg := . }}{{ if gt $index 0 }}, {{ end }}{{ $arg | quote }}{{- end }}]{{- if (index $copilot "url") }},{{ end }}
+{{- with $hasArgs }}
+      "args": [{{- range $index, $arg := . }}{{ if gt $index 0 }}, {{ end }}{{ $arg | quote }}{{- end }}]{{- if or $hasUrl $hasGallery $hasVersion }},{{ end }}
 {{- end }}
-{{- with index $copilot "url" }}
-      "url": {{ . | quote }}
+{{- with $hasUrl }}
+      "url": {{ . | quote }}{{- if or $hasGallery $hasVersion }},{{ end }}
+{{- end }}
+{{- with $hasGallery }}
+      "gallery": {{ . | quote }}{{- if $hasVersion }},{{ end }}
+{{- end }}
+{{- with $hasVersion }}
+      "version": {{ . | quote }}
 {{- end }}
     }
 {{- $first = false }}

@@ -53,7 +53,7 @@ CASKS=(
   #"logseq"
 
   # System Utilities
-  #"aerospace"
+  "aerospace"
   "lunar"
   #"kindavim"
   #"wooshy"
@@ -139,6 +139,7 @@ BREWS=(
   # Window Management
   "borders"
   "sketchybar"
+  "sketchyvim"
 
   # Security & Password Management
   "lastpass-cli"

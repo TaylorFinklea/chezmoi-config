@@ -55,3 +55,7 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 2026-04-09: Manage Karabiner from this chezmoi repo through `dot_config/karabiner/karabiner.json`, using a minimal profile with dual-role `Caps Lock`, a `Ctrl-Space` nav layer, and a `Ctrl-;` numpad layer rather than a broader keyboard remap scheme.
 
 2026-04-10: Add personal-only Supabase, Fly.io, and Railway MCP entries through the shared AI catalog, but name the Supabase server `supabase-personal` so the managed Codex config does not collide with the plugin-bundled `supabase` server from `build-web-apps@openai-curated`.
+
+2026-04-10: Manage the Espanso base match file from this repo for work machines only; personal machines should ignore `Library/Application Support/espanso/match/base.yml` so text expansions can diverge by profile.
+
+2026-04-10: Keep personal Espanso snippets in separate profile-scoped files under the same match directory rather than branching one shared `base.yml`; personal machines now get `personal-email.yml` while work machines ignore it.
