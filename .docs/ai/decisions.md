@@ -61,3 +61,5 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 2026-04-10: Manage the Espanso base match file from this repo for work machines only; personal machines should ignore `Library/Application Support/espanso/match/base.yml` so text expansions can diverge by profile.
 
 2026-04-10: Keep personal Espanso snippets in separate profile-scoped files under the same match directory rather than branching one shared `base.yml`; personal machines now get `personal-email.yml` while work machines ignore it.
+
+2026-04-13: Manage Neru from this chezmoi repo through `dot_config/neru/config.toml`, and represent the desired Hyper-Space launcher as `Cmd+Ctrl+Alt+Shift+Space` because Neru hotkeys support only the standard `Cmd`, `Ctrl`, `Alt/Option`, and `Shift` modifiers.
