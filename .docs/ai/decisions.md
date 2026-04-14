@@ -62,4 +62,4 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 
 2026-04-10: Keep personal Espanso snippets in separate profile-scoped files under the same match directory rather than branching one shared `base.yml`; personal machines now get `personal-email.yml` while work machines ignore it.
 
-2026-04-13: Manage Neru from this chezmoi repo through `dot_config/neru/config.toml`, and represent the desired Hyper-Space launcher as `Cmd+Ctrl+Alt+Shift+Space` because Neru hotkeys support only the standard `Cmd`, `Ctrl`, `Alt/Option`, and `Shift` modifiers.
+2026-04-13: Manage Neru from this chezmoi repo through `dot_config/neru/config.toml`, keeping the stock `Cmd+Shift+Space` launcher while preserving the imported local mode and theme customizations.

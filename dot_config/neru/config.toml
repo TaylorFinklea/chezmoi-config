@@ -35,7 +35,7 @@ text = "#E8EEFF"
 # See https://github.com/y3owk1n/neru/blob/main/docs/CONFIGURATION.md#hotkeys
 # See https://github.com/y3owk1n/neru/blob/main/docs/CLI.md
 [hotkeys]
-"Cmd+Ctrl+Alt+Shift+Space" = "hints"
+"Cmd+Shift+Space" = "hints"
 "Cmd+Shift+G" = "grid"
 "Cmd+Shift+C" = "recursive_grid"
 "Cmd+Shift+S" = "scroll"

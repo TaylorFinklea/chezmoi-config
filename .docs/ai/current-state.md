@@ -19,7 +19,6 @@ Living snapshot of the project. Update before ending each AI session.
 - Updated the managed Claude shell aliases in both `dot_zshrc` and `dot_config/fish/config.fish` so `c` runs `claude --permission-mode bypassPermissions` and `ccc` runs `claude -c --permission-mode bypassPermissions`, while leaving `ccr` unchanged.
 - Restored the LM Studio zsh PATH entry as managed repo content in `dot_zshrc` after a targeted force-apply exposed that `~/.zshrc` had the same old unmanaged local edit as Fish.
 - Added a managed Neru config at `dot_config/neru/config.toml` by importing the current `~/.config/neru/config.toml` into chezmoi source control.
-- Changed the managed Neru launch hotkey from `Cmd+Shift+Space` to `Cmd+Ctrl+Alt+Shift+Space`, which matches a Hyper-Space chord when Hyper is emitted as all four standard modifiers.
 - Added a new chezmoi-managed tmux setup at `dot_tmux.conf` with a lean, window-centric workflow tuned for Claude Code, Codex, Neovim, and other terminal TUIs.
 - Added direct tmux window cycling on `Alt-h` / `Alt-l`, then remapped the primary desktop shortcut path to Ghostty `Cmd-h` / `Cmd-l` sending `Meta-h` / `Meta-l` so AeroSpace can own directional movement without changing the tmux bindings themselves.
 - Added a small XDG `tmux-which-key` menu config at `dot_config/tmux/plugins/tmux-which-key/config.yaml` so prefix-driven discovery matches the direct bindings in the managed tmux config.
