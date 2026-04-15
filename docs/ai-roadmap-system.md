@@ -47,6 +47,11 @@ Command meanings are fixed:
 
 There is no tool-specific reinterpretation of `/process-backlog`.
 
+The phase execution protocol (Plan/Clarify/Build/Verify/Report) is described
+separately in `docs/ai-workflows/phase-execution.md`. It is not a standalone
+command — it is invoked automatically when `/process-backlog-opus` runs an
+Opus item, or when substantial ad-hoc work begins.
+
 ## Claim and completion protocol
 
 Backlog items use three active states:
@@ -75,6 +80,26 @@ When working backlog items:
 - **Opus**: 1 at a time (requires full codebase understanding).
 
 After each batch, verify the build passes before starting the next.
+
+## Phase execution protocol
+
+Substantial work — milestone sub-items, Opus-tier backlog items, and ad-hoc
+tasks involving multiple files or design decisions — follows a five-phase
+protocol: Plan, Clarify, Build, Verify, Report.
+
+The canonical definition lives in `docs/ai-workflows/phase-execution.md`.
+
+Key integration points:
+
+- **Backlog interaction**: Opus items are claimed (`[~]`) at Phase 1 (Plan),
+  not at Phase 3 (Build). This gives other agents early visibility that
+  architect-level work is in progress.
+- **Handoff docs**: Phase reports update the same `current-state.md`,
+  `next-steps.md`, and `decisions.md` files used by all other workflows.
+- **Session boundaries**: Phase state is persisted to `.docs/ai/phases/`.
+  A new session resumes from the spec file, not from chat history.
+- **Scope**: Haiku and Sonnet items are exempt. They continue using the
+  fast claim/build/verify flow from `/process-backlog`.
 
 ## Tool parity model
 

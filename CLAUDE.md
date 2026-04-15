@@ -14,8 +14,11 @@ This repo also ships a repo-scoped `.mcp.json` with `chrome-devtools`, so Claude
    - `.docs/ai/roadmap.md` — durable goals and milestones
    - `.docs/ai/current-state.md` — last session summary, blockers, build status
    - `.docs/ai/next-steps.md` — exact next actions
+   - `.docs/ai/phases/` — any in-progress phase specs or recent reports
 2. Check `git log --oneline -5` and `git status` to verify state matches docs.
-3. Ask the user what they want to work on (or pick from next-steps).
+3. If a phase spec exists without a matching report, the previous session was
+   mid-protocol. Resume at the appropriate phase rather than starting fresh.
+4. Ask the user what they want to work on (or pick from next-steps).
 
 ### Session End
 
@@ -23,12 +26,31 @@ Before signing off, update:
 1. `.docs/ai/current-state.md` — session summary, changed files, blockers, build status
 2. `.docs/ai/next-steps.md` — remove completed items, add new ones
 3. `.docs/ai/decisions.md` — append an entry if any non-obvious design, tooling, or scope decision was made
+4. If phase execution work was done, ensure the phase report in `.docs/ai/phases/` is complete.
 
 Use `.docs/ai/handoff-template.md` as the checklist format.
 
 ### After Major Features
 
 Update handoff docs immediately after completing a significant feature. Don't wait for session end.
+
+### Phase Execution Protocol
+
+For milestone sub-items, Opus-tier backlog items, and substantial ad-hoc work
+(multi-file changes or design decisions), follow the autonomous phase execution
+protocol in `docs/ai-workflows/phase-execution.md`.
+
+Claude-specific tool mappings:
+- **Structured prompts**: Use `AskUserQuestion` with `options` for enumerated
+  choices during Clarify. Fall back to free-form `AskUserQuestion` for
+  open-ended questions.
+- **Progress tracking**: Use `TaskCreate` / `TaskUpdate` to track each phase
+  as a task (Plan, Clarify, Build, Verify, Report).
+- **Spec presentation**: Present the spec inline in the conversation. Do not
+  require the user to open a file.
+
+Haiku and Sonnet backlog items skip this protocol and use the existing
+`/process-backlog` fast flow.
 
 ### Resuming After External Agent Work
 

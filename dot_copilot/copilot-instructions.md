@@ -26,5 +26,7 @@ Rules:
   - `/process-backlog`
   - `/process-backlog-opus`
   - `/resume-and-continue`
+- For milestone sub-items, Opus-tier work, and multi-file ad-hoc tasks, follow the phase execution protocol in `docs/ai-workflows/phase-execution.md`. Present clarification questions as numbered lists.
+- Phase specs and reports go to `.docs/ai/phases/`. Resume mid-protocol work from spec files if they exist without matching reports.
 - After changes, update `current-state.md`, `next-steps.md`, and `decisions.md` when applicable.
 - Make a small descriptive commit by default. Do not push unless the user explicitly asks.

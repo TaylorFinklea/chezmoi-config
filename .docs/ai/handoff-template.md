@@ -35,3 +35,11 @@ not run
 ### Next steps
 
 - [ ] 
+
+### Phase execution (if applicable)
+
+- **Phase spec**: `.docs/ai/phases/<slug>-spec.md`
+- **Phase report**: `.docs/ai/phases/<slug>-report.md`
+- **Protocol status**: <!-- completed | in-progress at phase N | abandoned -->
+- **Follow-up items from report**:
+  - 

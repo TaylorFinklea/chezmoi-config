@@ -20,6 +20,17 @@ Keep personal dotfiles and AI-agent configuration aligned across Claude, Codex, 
 - [ ] Apply the owner-neutral roadmap template to active project repos managed from this machine
 - [ ] Validate a full owner switch in a real project with Claude, Codex, and Copilot CLI
 
+<!-- Acceptance criteria guidance:
+     Good milestone items include verifiable criteria, not just descriptions.
+     Examples:
+       - [ ] Apply owner-neutral roadmap template to >=1 active project — verified by `grep tier3_owner` in that project's roadmap
+       - [ ] Validate a full owner switch — verified by Codex successfully running /process-backlog-opus after tier3_owner is changed from claude to codex
+     Bad:
+       - [ ] Set up roadmap in other repos
+       - [ ] Test owner switching
+     The difference: good items say what "done" looks like and how to check it.
+-->
+
 ## Backlog (parallel, tiered by model capability)
 
 <!-- tier3_owner: unassigned -->

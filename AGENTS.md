@@ -8,6 +8,7 @@ Cross-session state lives in `.docs/ai/` (or `docs/ai/` in older repos). Read be
 - `.docs/ai/roadmap.md` — milestones + tiered backlog
 - `.docs/ai/current-state.md` — last session summary
 - `.docs/ai/next-steps.md` — what to work on
+- `.docs/ai/phases/` — any in-progress specs or recent reports
 
 Update before ending:
 - `.docs/ai/current-state.md` — what you did, build status
@@ -70,6 +71,21 @@ When a repo ships workflow skills, the command meanings are fixed:
 ### Claim protocol
 
 Before starting an item, change `- [ ]` to `- [~]` and commit the roadmap. This signals to other agents that the item is in progress. On completion, mark `- [x]`. If you fail or get stuck, revert to `- [ ]` and add a `<!-- build-failed: YYYY-MM-DD [error] -->` comment. Always skip `- [~]` items — another agent is working on them.
+
+## Phase Execution Protocol
+
+For milestone sub-items, Opus-tier backlog items, and substantial ad-hoc work
+(multi-file changes or design decisions), follow the autonomous phase execution
+protocol in `docs/ai-workflows/phase-execution.md`.
+
+Phase specs and reports are persisted to `.docs/ai/phases/`. A session that
+finds a spec without a matching report should resume at the appropriate phase.
+
+When presenting clarification questions, format them as numbered lists with
+brief rationale for each option. Batch 2–4 related questions per prompt.
+
+Haiku and Sonnet backlog items skip this protocol and use the existing
+claim/build/verify flow from `/process-backlog`.
 
 ## Rules
 

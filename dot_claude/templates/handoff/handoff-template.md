@@ -15,3 +15,7 @@
 - [ ] **decisions.md** updated (if any non-obvious decision was made)
 - [ ] All work committed to git
 - [ ] No uncommitted secrets or credentials
+- [ ] **Phase execution** (if applicable):
+  - [ ] Phase report written to `.docs/ai/phases/<slug>-report.md`
+  - [ ] Spec and report are consistent
+  - [ ] Follow-up items captured in next-steps.md or backlog

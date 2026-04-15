@@ -8,6 +8,7 @@ MANAGED_WORKFLOW_SKILLS=(
     process-backlog-opus
     resume-and-continue
     import-ai-config-changes
+    phase-execution
 )
 
 CODEX_EXTRA_SKIP=(

@@ -28,6 +28,7 @@ Managed workflow skills are:
 - `process-backlog-opus`
 - `resume-and-continue`
 - `import-ai-config-changes`
+- `phase-execution`
 
 ### Discovery roots
 
