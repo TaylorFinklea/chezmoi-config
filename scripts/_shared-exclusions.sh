@@ -9,6 +9,7 @@ MANAGED_WORKFLOW_SKILLS=(
     resume-and-continue
     import-ai-config-changes
     phase-execution
+    init-ai-docs
 )
 
 CODEX_EXTRA_SKIP=(

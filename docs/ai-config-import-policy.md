@@ -29,6 +29,7 @@ Managed workflow skills are:
 - `resume-and-continue`
 - `import-ai-config-changes`
 - `phase-execution`
+- `init-ai-docs`
 
 ### Discovery roots
 

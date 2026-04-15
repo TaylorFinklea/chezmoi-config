@@ -66,7 +66,11 @@ Use `/handoff-prompt` to generate prompts for external agents.
 
 ### Directory Creation
 
-- **Git repos**: On the first substantive task, create `.docs/ai/` if it does not exist. Seed it with starter templates from `~/.claude/templates/handoff/`. Keep it tracked by git.
+- **Explicit bootstrap**: Use `/init-ai-docs` to bootstrap `.docs/ai/` and
+  optionally `docs/ai-workflows/` in a new project repo.
+- **Git repos**: On the first substantive task, create `.docs/ai/` if it does
+  not exist. Seed it with starter templates from `~/.agents/templates/handoff/`
+  (or `~/.claude/templates/handoff/` as fallback). Keep it tracked by git.
 - **Non-git folders**: Ask before creating `.docs/ai/`.
 - **Repo-level overrides**: If a repo's CLAUDE.md specifies a different handoff path, use that instead.
 

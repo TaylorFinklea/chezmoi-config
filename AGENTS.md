@@ -14,6 +14,9 @@ Update before ending:
 - `.docs/ai/current-state.md` — what you did, build status
 - `.docs/ai/next-steps.md` — check off completed items
 
+If `.docs/ai/` does not exist in a git repo, use `/init-ai-docs` to bootstrap it
+from `~/.agents/templates/handoff/`. This also optionally creates `docs/ai-workflows/`.
+
 If the repo contains `docs/ai-roadmap-system.md`, treat it as the canonical explanation of the shared workflow system and keep tool behavior aligned to it.
 
 This repo also ships a repo-scoped `.mcp.json` with `chrome-devtools`, so tools that honor project MCP config can use Chrome DevTools MCP here.
