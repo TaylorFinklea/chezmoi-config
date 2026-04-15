@@ -14,6 +14,9 @@ keybind = cmd+shift+d=new_split:down
 
 keybind = global:cmd+backquote=toggle_quick_terminal
 
+# Shift+Enter sends ESC+CR so Copilot CLI and Codex treat it as newline
+keybind = shift+enter=text:\x1b\x0d
+
 # Notifications from claude and codex
 desktop-notifications = true
 bell-features = system,attention,title,border
