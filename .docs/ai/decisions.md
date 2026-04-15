@@ -62,6 +62,4 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 
 2026-04-10: Keep personal Espanso snippets in separate profile-scoped files under the same match directory rather than branching one shared `base.yml`; personal machines now get `personal-email.yml` while work machines ignore it.
 
-2026-04-13: Manage Neru from this chezmoi repo through `dot_config/neru/config.toml`, keeping the stock `Cmd+Shift+Space` launcher while preserving the imported local mode and theme customizations.
-
 2026-04-15: Add an autonomous phase execution protocol (Plan/Clarify/Build/Verify/Report) as a canonical workflow doc at `docs/ai-workflows/phase-execution.md`. The protocol applies to milestone sub-items, Opus-tier backlog items, and substantial ad-hoc work; Haiku/Sonnet items remain on the fast `/process-backlog` flow. Phase specs and reports persist to `.docs/ai/phases/` so sessions can resume mid-protocol. Clarifications use structured-first prompts (enumerated options, batched 2–4). The protocol is tool-agnostic with per-tool skill wrappers for Claude, Codex, Copilot, and generic agents.

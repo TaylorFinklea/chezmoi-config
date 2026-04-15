@@ -138,8 +138,6 @@ BREWS=(
 
   # Window Management
   "borders"
-  "sketchybar"
-  "sketchyvim"
 
   # Security & Password Management
   "lastpass-cli"

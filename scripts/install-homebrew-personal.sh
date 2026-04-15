@@ -73,7 +73,7 @@ CASKS=(
   # System Utilities
   "aerospace"
   "lunar"
-  #"hammerspoon"
+
   # "kindavim"
   # "wooshy"
   # "shortcat"
@@ -161,7 +161,6 @@ BREWS=(
 
   # Window Management
   "borders"
-  "sketchybar"
 
   # Security & Password Management
   "lastpass-cli"

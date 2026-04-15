@@ -18,7 +18,6 @@ Living snapshot of the project. Update before ending each AI session.
 - Moved the LM Studio Fish PATH addition into the managed `dot_config/fish/config.fish` file as `fish_add_path ~/.lmstudio/bin`, then force-applied just `~/.config/fish/config.fish` so the repo now owns that change too.
 - Updated the managed Claude shell aliases in both `dot_zshrc` and `dot_config/fish/config.fish` so `c` runs `claude --permission-mode bypassPermissions` and `ccc` runs `claude -c --permission-mode bypassPermissions`, while leaving `ccr` unchanged.
 - Restored the LM Studio zsh PATH entry as managed repo content in `dot_zshrc` after a targeted force-apply exposed that `~/.zshrc` had the same old unmanaged local edit as Fish.
-- Added a managed Neru config at `dot_config/neru/config.toml` by importing the current `~/.config/neru/config.toml` into chezmoi source control.
 - Added a new chezmoi-managed tmux setup at `dot_tmux.conf` with a lean, window-centric workflow tuned for Claude Code, Codex, Neovim, and other terminal TUIs.
 - Added direct tmux window cycling on `Alt-h` / `Alt-l`, then remapped the primary desktop shortcut path to Ghostty `Cmd-h` / `Cmd-l` sending `Meta-h` / `Meta-l` so AeroSpace can own directional movement without changing the tmux bindings themselves.
 - Added a small XDG `tmux-which-key` menu config at `dot_config/tmux/plugins/tmux-which-key/config.yaml` so prefix-driven discovery matches the direct bindings in the managed tmux config.
@@ -77,7 +76,6 @@ Living snapshot of the project. Update before ending each AI session.
 - `dot_config/tmuxai/config.yaml.tmpl`
 - `dot_config/tmuxai/README.md`
 - `dot_config/tmux/cheatsheet.txt`
-- `dot_config/neru/config.toml`
 - `private_Library/private_Application Support/com.mitchellh.ghostty/config`
 - `private_Library/private_Application Support/espanso/match/base.yml`
 - `private_Library/private_Application Support/espanso/match/personal-email.yml`
@@ -176,6 +174,5 @@ Applied `~/.codex/config.toml` and `~/.config/opencode/opencode.json` successful
 Updated `dot_config/fish/config.fish` to manage `~/.lmstudio/bin` with `fish_add_path`, then ran `chezmoi apply --force -v ~/.config/fish/config.fish` successfully to remove the local unmanaged LM Studio PATH block.
 Updated the managed `c` and `ccc` aliases in both Zsh and Fish, applied `~/.config/fish/config.fish` with `chezmoi apply --force -v`, and applied `~/.zshrc` with `chezmoi apply -v`.
 Restored the LM Studio zsh PATH by adding `export PATH="$PATH:$HOME/.lmstudio/bin"` to `dot_zshrc`, then reapplied `~/.zshrc`.
-Validated `dot_config/neru/config.toml` successfully with `neru config validate -c dot_config/neru/config.toml`.
-Applied `~/.config/neru/config.toml` successfully with targeted `chezmoi apply -v`, then revalidated the live config with `neru config validate`.
+
 ```
