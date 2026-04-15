@@ -43,8 +43,11 @@ This protocol does **not** apply to:
    cross-session context.
 3. Draft a lightweight spec (see template below) covering:
    - Goal, scope, approach, acceptance criteria, assumptions, out of scope.
-4. Write the spec to `.docs/ai/phases/<item-slug>-spec.md`.
-5. Present the spec to the user and wait for a response before proceeding.
+4. Write the full spec (product + technical) to `.docs/ai/phases/<item-slug>-spec.md`.
+5. Present only the **product section** (Goal, Acceptance criteria, Assumptions,
+   Out of scope, Open questions) to the user. Do not show the technical approach
+   or file-level scope unless the user asks for it.
+6. Wait for a response before proceeding.
 
 **Exit criteria:**
 1. The spec file exists on disk.
@@ -159,33 +162,43 @@ This protocol does **not** apply to:
 
 ## Spec template
 
+The spec has two sections. The **product section** is what the user sees by
+default. The **technical approach** is written to disk but only shown on request.
+
 ```markdown
 # Phase Spec: <item title>
 
-**Goal:** <one sentence>
 **Roadmap item:** <reference or "ad-hoc">
 **Date:** <YYYY-MM-DD>
 
-## Scope
+## Product
+
+**Goal:** <one sentence — what the user gets, not how it's built>
+
+### Acceptance criteria
+- [ ] <criterion — says what "done" looks like and how to check it>
+
+### Assumptions
+- <assumption>
+
+### Out of scope
+- <exclusion>
+
+### Open questions
+- <resolved or pending>
+
+---
+
+## Technical approach
+
+### Scope
 - Create: <files>
 - Modify: <files>
 - Delete: <files>
 
-## Approach
+### Steps
 1. <step>
 2. <step>
-
-## Acceptance criteria
-- [ ] <criterion — says what "done" looks like and how to check it>
-
-## Assumptions
-- <assumption>
-
-## Out of scope
-- <exclusion>
-
-## Open questions
-- <resolved or pending>
 ```
 
 ## Report template
