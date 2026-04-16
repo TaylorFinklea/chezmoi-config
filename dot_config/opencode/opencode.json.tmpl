@@ -17,7 +17,7 @@
 {{- if and $enabled (has "opencode" $server.targets) }}
 {{- $opencode := index $server "opencode" }}
 {{- if not $first }},{{ end }}
-    "{{ if eq $server.id "atlassian_rovo" }}atlassian{{ else }}{{ $server.id }}{{ end }}": {
+    "{{ $server.id }}": {
       "type": {{ index $opencode "type" | quote }}{{- if or (index $opencode "command") (index $opencode "url") (index $opencode "enabled") }},{{ end }}
 {{- with index $opencode "command" }}
       "command": [{{- range $index, $part := . }}{{ if gt $index 0 }}, {{ end }}{{ $part | quote }}{{- end }}]{{- if or (index $opencode "url") (index $opencode "enabled") }},{{ end }}

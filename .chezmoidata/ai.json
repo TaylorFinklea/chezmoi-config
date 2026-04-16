@@ -157,7 +157,7 @@
       }
     },
     {
-      "id": "atlassian_rovo",
+      "id": "com.atlassian/atlassian-mcp-server",
       "scope": "work-only",
       "targets": [
         "codex",
@@ -181,7 +181,7 @@
       }
     },
     {
-      "id": "github-mcp-work",
+      "id": "io.github.github/github-mcp-server",
       "scope": "work-only",
       "targets": [
         "copilot"
@@ -194,7 +194,7 @@
       }
     },
     {
-      "id": "microsoft-learn-work",
+      "id": "com.microsoft/microsoft-learn-mcp",
       "scope": "work-only",
       "targets": [
         "copilot"
@@ -207,7 +207,7 @@
       }
     },
     {
-      "id": "figma-work",
+      "id": "com.figma.mcp/mcp",
       "scope": "work-only",
       "targets": [
         "copilot"
@@ -220,7 +220,7 @@
       }
     },
     {
-      "id": "chrome-devtools-work",
+      "id": "io.github.ChromeDevTools/chrome-devtools-mcp",
       "scope": "work-only",
       "targets": [
         "copilot"
@@ -236,7 +236,7 @@
       }
     },
     {
-      "id": "playwright-work",
+      "id": "com.microsoft/microsoft-playwright-mcp",
       "scope": "work-only",
       "targets": [
         "copilot"
@@ -252,7 +252,7 @@
       }
     },
     {
-      "id": "terraform-work",
+      "id": "io.github.hashicorp/terraform-mcp-server",
       "scope": "work-only",
       "targets": [
         "copilot"
@@ -277,7 +277,7 @@
       }
     },
     {
-      "id": "datadog-work",
+      "id": "com.datadoghq/datadog-mcp-server",
       "scope": "work-only",
       "targets": [
         "copilot"
