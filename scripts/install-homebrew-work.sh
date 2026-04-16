@@ -24,6 +24,7 @@ TAPS=(
   "atlassian/homebrew-acli"
   "FelixKratz/formulae"
   "nikitabobko/tap"
+  "spacelift-io/spacelift"
 )
 
 for tap in "${TAPS[@]}"; do
@@ -145,6 +146,7 @@ BREWS=(
 
   # Cloud & Infrastructure
   "azure-cli"
+  "spacectl"
   "opentofu"
   "ansible"
 

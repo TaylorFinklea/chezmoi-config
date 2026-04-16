@@ -10,6 +10,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Recent Progress
 
+- Added the official Spacelift Homebrew tap (`spacelift-io/spacelift`) and `spacectl` formula to `scripts/install-homebrew-work.sh` so work machines can install the Spacelift CLI through the managed brew sync script.
 - Resolved the `.docs/ai/decisions.md` merge conflict by keeping both the personal MCP catalog decision and the profile-scoped Espanso decisions, so the branch can be finalized without dropping either line of history.
 - Added personal-scope MCP fanout entries in `.chezmoidata/ai.json` for `supabase-personal`, `flyctl`, and `railway`, rendering them into the managed personal Codex and OpenCode configs.
 - Updated the repo-scoped `.mcp.json` used for Claude Code in this repo to expose `supabase-personal`, `flyctl`, and `railway` alongside `chrome-devtools`.
@@ -71,6 +72,7 @@ Living snapshot of the project. Update before ending each AI session.
 - `dot_zshrc`
 - `.mcp.json`
 - `README.md`
+- `scripts/install-homebrew-work.sh`
 - `scripts/install-homebrew-personal.sh`
 - `dot_config/tmux/plugins/tmux-which-key/config.yaml`
 - `dot_config/tmuxai/config.yaml.tmpl`
@@ -174,5 +176,6 @@ Applied `~/.codex/config.toml` and `~/.config/opencode/opencode.json` successful
 Updated `dot_config/fish/config.fish` to manage `~/.lmstudio/bin` with `fish_add_path`, then ran `chezmoi apply --force -v ~/.config/fish/config.fish` successfully to remove the local unmanaged LM Studio PATH block.
 Updated the managed `c` and `ccc` aliases in both Zsh and Fish, applied `~/.config/fish/config.fish` with `chezmoi apply --force -v`, and applied `~/.zshrc` with `chezmoi apply -v`.
 Restored the LM Studio zsh PATH by adding `export PATH="$PATH:$HOME/.lmstudio/bin"` to `dot_zshrc`, then reapplied `~/.zshrc`.
+Ran `bash -n scripts/install-homebrew-work.sh` successfully after adding the Spacelift Homebrew tap and `spacectl` formula.
 
 ```

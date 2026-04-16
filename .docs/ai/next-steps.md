@@ -5,6 +5,7 @@ Exact next actions for the incoming assistant. Keep this short, ordered, and act
 ---
 
 - [ ] Review the completed merge on `main` and push when ready; the only manual resolution was to keep both sides of the `.docs/ai/decisions.md` conflict.
+- [ ] Run `scripts/install-homebrew-work.sh` on a work machine and confirm the managed brew sync installs `spacectl` successfully from the `spacelift-io/spacelift` tap.
 - [ ] Run `chezmoi apply` on this machine and bootstrap TPM so the new managed tmux config and which-key menu are active under `~/.tmux.conf` and `~/.config/tmux/plugins/tmux-which-key/config.yaml`.
 - [ ] If you want the new `c` / `ccc` aliases in already-open shells, reload them with `source ~/.zshrc` or start a new Fish/Zsh session.
 - [ ] Log in to the newly installed `flyctl` and `railway` CLIs on this personal machine, then verify the managed `flyctl` and `railway` MCP entries connect successfully from Codex and OpenCode.
