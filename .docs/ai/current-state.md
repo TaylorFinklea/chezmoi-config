@@ -10,6 +10,8 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Recent Progress
 
+- Updated the managed tmux config so tmux itself now defaults to `/opt/homebrew/bin/fish -l` for new sessions, windows, and splits, instead of inheriting zsh from the login shell.
+- Switched the tmux `tmuxai` popup launchers from `/bin/zsh -lic` to `/opt/homebrew/bin/fish -ilc` so popup shells match the rest of the tmux environment.
 - Resolved the `.docs/ai/decisions.md` merge conflict by keeping both the personal MCP catalog decision and the profile-scoped Espanso decisions, so the branch can be finalized without dropping either line of history.
 - Added personal-scope MCP fanout entries in `.chezmoidata/ai.json` for `supabase-personal`, `flyctl`, and `railway`, rendering them into the managed personal Codex and OpenCode configs.
 - Updated the repo-scoped `.mcp.json` used for Claude Code in this repo to expose `supabase-personal`, `flyctl`, and `railway` alongside `chrome-devtools`.
@@ -141,6 +143,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 ```
 Verified all four workflow skill names exist under Claude, Codex, Copilot, and generic agent skill trees.
+Validated `dot_tmux.conf` syntax with `tmux -L codex-tmux-check -f /Users/tfinklea/git/chezmoi-config/dot_tmux.conf start-server` after setting Fish as the tmux default shell/command and updating the TmuxAI popup launchers.
 Fetched the upstream `tmuxai` `config.example.yaml` and confirmed the supported provider set includes `openai` and `github-copilot`, with `github-copilot` requiring the `copilot` CLI in `PATH`.
 Verified from GitHub Docs on 2026-04-10 that GitHub Copilot currently lists both `Claude Sonnet 4.6` and `GPT-5.4` as supported models.
 Validated `dot_tmux.conf` syntax with `tmux 3.6a` using `tmux -L codex-tmux-check -f ... start-server`.
