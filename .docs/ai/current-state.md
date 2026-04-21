@@ -10,6 +10,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Recent Progress
 
+- Disabled the user-scope Claude Code `vercel-plugin@vercel-vercel-plugin` with `claude plugin disable`, leaving the installed plugin and cache intact so it can be re-enabled later without reinstalling.
 - Updated the managed tmux config so tmux itself now defaults to `/opt/homebrew/bin/fish -l` for new sessions, windows, and splits, instead of inheriting zsh from the login shell.
 - Switched the tmux `tmuxai` popup launchers from `/bin/zsh -lic` to `/opt/homebrew/bin/fish -ilc` so popup shells match the rest of the tmux environment.
 - Resolved the `.docs/ai/decisions.md` merge conflict by keeping both the personal MCP catalog decision and the profile-scoped Espanso decisions, so the branch can be finalized without dropping either line of history.
@@ -177,5 +178,6 @@ Applied `~/.codex/config.toml` and `~/.config/opencode/opencode.json` successful
 Updated `dot_config/fish/config.fish` to manage `~/.lmstudio/bin` with `fish_add_path`, then ran `chezmoi apply --force -v ~/.config/fish/config.fish` successfully to remove the local unmanaged LM Studio PATH block.
 Updated the managed `c` and `ccc` aliases in both Zsh and Fish, applied `~/.config/fish/config.fish` with `chezmoi apply --force -v`, and applied `~/.zshrc` with `chezmoi apply -v`.
 Restored the LM Studio zsh PATH by adding `export PATH="$PATH:$HOME/.lmstudio/bin"` to `dot_zshrc`, then reapplied `~/.zshrc`.
+Confirmed `claude plugins list` reports `vercel-plugin@vercel-vercel-plugin` as installed at user scope with status disabled after running `claude plugin disable vercel-plugin@vercel-vercel-plugin`.
 
 ```
