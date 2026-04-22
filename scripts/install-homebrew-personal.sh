@@ -73,6 +73,7 @@ CASKS=(
   # System Utilities
   "aerospace"
   "lunar"
+  "tonisives/tap/ovim"
 
   # "kindavim"
   # "wooshy"
@@ -187,7 +188,8 @@ GH_EXTENSIONS=(
 # Install casks
 echo "🖥️  Installing casks..."
 for cask in "${CASKS[@]}"; do
-  if brew list --cask | grep -q "^${cask}$"; then
+  cask_token="${cask##*/}"
+  if brew list --cask | grep -q "^${cask_token}$"; then
     echo "  ✓ Already installed: $cask"
   else
     echo "  Installing cask: $cask"
