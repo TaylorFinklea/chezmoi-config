@@ -42,6 +42,7 @@ done
 CASKS=(
   # Development & Programming
   "ghostty"
+  "alacritty"
   "warp"
   "zed"
   "antigravity"
