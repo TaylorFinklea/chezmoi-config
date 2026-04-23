@@ -43,11 +43,8 @@ CASKS=(
   # Development & Programming
   "ghostty"
   "alacritty"
-  "warp"
   "zed"
-  "antigravity"
   "visual-studio-code"
-  "insomnia"
   "bruno"
   "docker-desktop"
   "github"
@@ -59,8 +56,6 @@ CASKS=(
   "codex-app"
   "codexbar"
   "opencode-desktop"
-  "langflow"
-  "block-goose"
   "mstystudio"
 
   # Productivity & Organization
@@ -77,11 +72,7 @@ CASKS=(
   "lunar"
   "tonisives/tap/ovim"
 
-  # "kindavim"
-  # "wooshy"
-  # "shortcat"
   # "superkey"
-  # "scrolla"
   "shottr"
 
   # Browsers

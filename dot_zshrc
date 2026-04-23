@@ -1,8 +1,5 @@
 # ~/.zshrc - Interactive shell configuration
 
-# Ensure local CLI bins are available in interactive shells.
-export PATH="$PATH:$HOME/.lmstudio/bin"
-
 # ============================================================================
 # SHELL OPTIONS
 # ============================================================================

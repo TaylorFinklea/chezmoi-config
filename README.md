@@ -63,7 +63,7 @@ chezmoi apply -v
 ### 3. Install Homebrew packages (macOS)
 
 ```bash
-# Work configuration (excludes Zed, Insomnia, Bruno, Ollama, Voiceink)
+# Work configuration (excludes Zed, Bruno, Ollama, Voiceink)
 cd ~/git/chezmoi-config
 ./scripts/install-homebrew-work.sh
 

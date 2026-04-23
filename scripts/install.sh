@@ -272,7 +272,7 @@ fi
 echo ""
 echo "Install Homebrew packages?"
 echo "  1) Yes, use detected configuration ($DETECTED_TYPE)"
-echo "  2) Work (excludes: Zed, Insomnia, Bruno, Ollama, Voiceink)"
+echo "  2) Work (excludes: Zed, Bruno, Ollama, Voiceink)"
 echo "  3) Personal (full suite)"
 echo "  4) Skip package installation"
 read -p "Choose [1-4] (default: 1): " -n 1 -r

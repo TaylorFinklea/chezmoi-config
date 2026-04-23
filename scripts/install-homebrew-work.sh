@@ -58,11 +58,7 @@ CASKS=(
   # System Utilities
   "aerospace"
   "lunar"
-  #"kindavim"
-  #"wooshy"
-  #"shortcat"
   #"superkey"
-  #"scrolla"
   "shottr"
 
   # Browsers
@@ -215,4 +211,4 @@ echo "   Taps: ${#TAPS[@]} configured"
 echo "   Casks: ${#CASKS[@]} configured"
 echo "   Brews: ${#BREWS[@]} configured"
 echo ""
-echo "💡 Excluded from work: Zed, Insomnia, Bruno, Ollama, Voiceink"
+echo "💡 Excluded from work: Zed, Bruno, Ollama, Voiceink"
