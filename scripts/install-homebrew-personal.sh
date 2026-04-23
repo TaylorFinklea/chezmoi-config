@@ -61,7 +61,6 @@ CASKS=(
   "langflow"
   "block-goose"
   "mstystudio"
-  "lmstudio"
 
   # Productivity & Organization
   "raycast"
@@ -134,7 +133,6 @@ BREWS=(
   "codex"
   "opencode"
   "claude-code"
-  "lmstudio"
 
   # Build Tools
   "qt@6"
