@@ -64,6 +64,8 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 
 2026-04-15: Add an autonomous phase execution protocol (Plan/Clarify/Build/Verify/Report) as a canonical workflow doc at `docs/ai-workflows/phase-execution.md`. The protocol applies to milestone sub-items, Opus-tier backlog items, and substantial ad-hoc work; Haiku/Sonnet items remain on the fast `/process-backlog` flow. Phase specs and reports persist to `.docs/ai/phases/` so sessions can resume mid-protocol. Clarifications use structured-first prompts (enumerated options, batched 2–4). The protocol is tool-agnostic with per-tool skill wrappers for Claude, Codex, Copilot, and generic agents.
 
+2026-04-16: Manage the Spacelift CLI on work machines through the official Homebrew tap `spacelift-io/spacelift` plus the `spacectl` formula in `scripts/install-homebrew-work.sh`, instead of relying on an unqualified `spacelift` package name that Homebrew does not provide.
+
 2026-04-18: Make tmux explicitly start Fish by setting `default-shell` to `/opt/homebrew/bin/fish` and `default-command` to `/opt/homebrew/bin/fish -l`, so fresh tmux sessions, windows, splits, and managed TmuxAI popups all use the same shell instead of inheriting zsh from the parent environment.
 
 2026-04-21: Disable the user-scope Claude Code Vercel plugin instead of uninstalling or deleting its config. This preserves the installed `vercel-plugin@vercel-vercel-plugin` cache and metadata, while preventing its hooks and skill injections from influencing unrelated Claude Code sessions.

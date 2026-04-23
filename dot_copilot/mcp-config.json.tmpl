@@ -15,7 +15,7 @@
 {{- $hasGallery := index $copilot "gallery" }}
 {{- $hasVersion := index $copilot "version" }}
 {{- if not $first }},{{ end }}
-    "{{ if eq $server.id "atlassian_rovo" }}atlassian{{ else }}{{ $server.id }}{{ end }}": {
+    "{{ $server.id }}": {
       "type": {{ index $copilot "type" | quote }}{{- if or $hasCmd $hasArgs $hasUrl $hasGallery $hasVersion }},{{ end }}
 {{- with $hasCmd }}
       "command": {{ . | quote }}{{- if or $hasArgs $hasUrl $hasGallery $hasVersion }},{{ end }}

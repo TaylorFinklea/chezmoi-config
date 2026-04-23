@@ -13,6 +13,7 @@ Living snapshot of the project. Update before ending each AI session.
 - Disabled the user-scope Claude Code `vercel-plugin@vercel-vercel-plugin` with `claude plugin disable`, leaving the installed plugin and cache intact so it can be re-enabled later without reinstalling.
 - Updated the managed tmux config so tmux itself now defaults to `/opt/homebrew/bin/fish -l` for new sessions, windows, and splits, instead of inheriting zsh from the login shell.
 - Switched the tmux `tmuxai` popup launchers from `/bin/zsh -lic` to `/opt/homebrew/bin/fish -ilc` so popup shells match the rest of the tmux environment.
+- Added the official Spacelift Homebrew tap (`spacelift-io/spacelift`) and `spacectl` formula to `scripts/install-homebrew-work.sh` so work machines can install the Spacelift CLI through the managed brew sync script.
 - Resolved the `.docs/ai/decisions.md` merge conflict by keeping both the personal MCP catalog decision and the profile-scoped Espanso decisions, so the branch can be finalized without dropping either line of history.
 - Added personal-scope MCP fanout entries in `.chezmoidata/ai.json` for `supabase-personal`, `flyctl`, and `railway`, rendering them into the managed personal Codex and OpenCode configs.
 - Updated the repo-scoped `.mcp.json` used for Claude Code in this repo to expose `supabase-personal`, `flyctl`, and `railway` alongside `chrome-devtools`.
@@ -65,6 +66,10 @@ Living snapshot of the project. Update before ending each AI session.
   - Copilot CLI via managed `~/.copilot/mcp-config.json`
   - Claude Code via the repo-scoped `.mcp.json`
 - Set `data.ai_profile = "work"` in the live `~/.config/chezmoi/chezmoi.toml` on this machine and applied the scoped Codex, Copilot, and OpenCode outputs successfully.
+- Imported local VS Code `settings.json` changes into the chezmoi repo (local was a superset of the repo version).
+- Fixed the TN MCP registry (`tn-mcp-registry.azurewebsites.net`) returning 403 on `/v0/servers` — IIS rewrite was targeting a physical directory path instead of the JSON file. PR #14 merged in `therapynotes-it/infrastructure.mcpregistry`.
+- Renamed all 8 work-scoped Copilot MCP server IDs from friendly names (e.g. `atlassian`, `figma-work`) to their canonical TN registry reverse-DNS names (e.g. `com.atlassian/atlassian-mcp-server`, `com.figma.mcp/mcp`) so they match the org allowlist enforcement.
+- Removed the `atlassian_rovo` → `atlassian` special-case logic from both the Copilot and OpenCode templates.
 
 ## Changed Files
 
@@ -74,6 +79,7 @@ Living snapshot of the project. Update before ending each AI session.
 - `dot_zshrc`
 - `.mcp.json`
 - `README.md`
+- `scripts/install-homebrew-work.sh`
 - `scripts/install-homebrew-personal.sh`
 - `dot_config/tmux/plugins/tmux-which-key/config.yaml`
 - `dot_config/tmuxai/config.yaml.tmpl`
@@ -113,7 +119,9 @@ Living snapshot of the project. Update before ending each AI session.
 - `dot_codex/skills/process-backlog/SKILL.md`
 - `dot_codex/skills/process-backlog-opus/SKILL.md`
 - `dot_codex/skills/resume-and-continue/SKILL.md`
+- `private_Library/private_Application Support/private_Code/User/settings.json`
 - `dot_copilot/mcp-config.json.tmpl`
+- `dot_config/opencode/opencode.json.tmpl`
 - `dot_copilot/copilot-instructions.md`
 - `dot_copilot/skills/audit-backlog/SKILL.md`
 - `dot_copilot/skills/process-backlog/SKILL.md`
@@ -179,5 +187,9 @@ Updated `dot_config/fish/config.fish` to manage `~/.lmstudio/bin` with `fish_add
 Updated the managed `c` and `ccc` aliases in both Zsh and Fish, applied `~/.config/fish/config.fish` with `chezmoi apply --force -v`, and applied `~/.zshrc` with `chezmoi apply -v`.
 Restored the LM Studio zsh PATH by adding `export PATH="$PATH:$HOME/.lmstudio/bin"` to `dot_zshrc`, then reapplied `~/.zshrc`.
 Confirmed `claude plugins list` reports `vercel-plugin@vercel-vercel-plugin` as installed at user scope with status disabled after running `claude plugin disable vercel-plugin@vercel-vercel-plugin`.
+Ran `bash -n scripts/install-homebrew-work.sh` successfully after adding the Spacelift Homebrew tap and `spacectl` formula.
+Rendered Copilot MCP config with `chezmoi execute-template` and confirmed all 8 work-scoped servers use registry reverse-DNS names.
+Applied `~/.copilot/mcp-config.json` with `chezmoi apply` and confirmed the deployed config contains the correct registry-matching server IDs.
+Verified TN registry `/v0/servers` returns HTTP 200 with valid JSON listing 10 servers after the rewrite rule fix.
 
 ```
