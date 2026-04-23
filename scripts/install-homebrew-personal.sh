@@ -133,7 +133,7 @@ BREWS=(
   "promptfoo"
   "codex"
   "opencode"
-  "claude-code"
+  "claude-code@latest"
 
   # Build Tools
   "qt@6"
