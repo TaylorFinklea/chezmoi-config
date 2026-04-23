@@ -48,6 +48,7 @@ CASKS=(
 
   # Productivity & Organization
   "maccy"
+  "hiddenbar"
   "espanso"
   "handy"
   "brainfm"

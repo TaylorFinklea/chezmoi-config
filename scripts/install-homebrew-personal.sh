@@ -66,6 +66,7 @@ CASKS=(
   # Productivity & Organization
   "raycast"
   "maccy"
+  "hiddenbar"
   "espanso"
   "logseq"
   "handy"
