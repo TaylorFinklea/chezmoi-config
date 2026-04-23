@@ -69,6 +69,7 @@ CASKS=(
   "espanso"
   "logseq"
   "handy"
+  "brainfm"
 
   # System Utilities
   "aerospace"

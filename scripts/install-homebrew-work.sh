@@ -50,6 +50,7 @@ CASKS=(
   "maccy"
   "espanso"
   "handy"
+  "brainfm"
   #"logseq"
 
   # System Utilities
