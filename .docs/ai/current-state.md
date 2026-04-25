@@ -11,6 +11,7 @@ Living snapshot of the project. Update before ending each AI session.
 ## Recent Progress
 
 - Disabled the user-scope Claude Code `vercel-plugin@vercel-vercel-plugin` with `claude plugin disable`, leaving the installed plugin and cache intact so it can be re-enabled later without reinstalling.
+- Added Ghostty `Cmd-Shift-h` / `Cmd-Shift-l` bindings that emit `Meta-H` / `Meta-L` so the existing tmux `swap-window` bindings can move the current window left and right.
 - Updated the managed tmux config so tmux itself now defaults to `/opt/homebrew/bin/fish -l` for new sessions, windows, and splits, instead of inheriting zsh from the login shell.
 - Switched the tmux `tmuxai` popup launchers from `/bin/zsh -lic` to `/opt/homebrew/bin/fish -ilc` so popup shells match the rest of the tmux environment.
 - Added the official Spacelift Homebrew tap (`spacelift-io/spacelift`) and `spacectl` formula to `scripts/install-homebrew-work.sh` so work machines can install the Spacelift CLI through the managed brew sync script.
@@ -158,6 +159,7 @@ Verified from GitHub Docs on 2026-04-10 that GitHub Copilot currently lists both
 Validated `dot_tmux.conf` syntax with `tmux 3.6a` using `tmux -L codex-tmux-check -f ... start-server`.
 Revalidated `dot_tmux.conf` syntax with `tmux 3.6a` after adding direct `Alt-h` / `Alt-l` previous/next window bindings.
 Updated the managed Ghostty config so `Cmd-h` / `Cmd-l` send `Meta-h` / `Meta-l` into tmux, leaving the tmux-side window bindings unchanged while freeing `Alt-h` / `Alt-l` for AeroSpace.
+Updated and applied the managed Ghostty config so `Cmd-Shift-h` / `Cmd-Shift-l` send `Meta-H` / `Meta-L` into tmux for window reordering; `git diff --check` passed.
 Parsed `dot_config/tmux/plugins/tmux-which-key/config.yaml` successfully with Ruby YAML.
 Validated `dot_config/karabiner/karabiner.json` with `jq empty` and applied it to `~/.config/karabiner/karabiner.json`.
 Ran ./scripts/sync-ai-configs.sh --dry-run successfully after adding Copilot skill sync and excluding the repo-managed workflow skills from imported home skill directories.

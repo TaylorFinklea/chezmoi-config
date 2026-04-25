@@ -69,3 +69,5 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 2026-04-18: Make tmux explicitly start Fish by setting `default-shell` to `/opt/homebrew/bin/fish` and `default-command` to `/opt/homebrew/bin/fish -l`, so fresh tmux sessions, windows, splits, and managed TmuxAI popups all use the same shell instead of inheriting zsh from the parent environment.
 
 2026-04-21: Disable the user-scope Claude Code Vercel plugin instead of uninstalling or deleting its config. This preserves the installed `vercel-plugin@vercel-vercel-plugin` cache and metadata, while preventing its hooks and skill injections from influencing unrelated Claude Code sessions.
+
+2026-04-24: Keep tmux window navigation and reordering on the existing `Meta-h/l` and `Meta-H/L` bindings, and have Ghostty translate `Cmd-h/l` plus `Cmd-Shift-h/l` into those sequences. This preserves AeroSpace ownership of real Alt-based desktop movement while making tmux window order controllable from the same Cmd chord family.

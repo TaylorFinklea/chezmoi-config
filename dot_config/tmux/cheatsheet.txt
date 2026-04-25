@@ -20,6 +20,8 @@ MOVE AROUND
   C-a l   Move to the pane on the right
   Cmd-h   Previous window
   Cmd-l   Next window
+  Cmd-Shift-h Move current window left
+  Cmd-Shift-l Move current window right
   C-a C-a Send a literal Ctrl-a to the running application
 
 RESIZE PANES
