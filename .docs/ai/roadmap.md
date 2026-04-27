@@ -50,7 +50,7 @@ Active items pulled from the previous next-steps log. Trim as completed.
 - [x] Delete `docs/ai-workflows/`, `docs/ai-roadmap-system.md`, `docs/ai-config-import-policy.md`, and the three import scripts in `scripts/`
 - [x] Drop `tier3_owner` markers and the `[~]` claim protocol from this roadmap
 - [x] Flip canonical instruction file to `AGENTS.md`; reduce `CLAUDE.md`, `dot_codex/AGENTS.md`, and `dot_copilot/copilot-instructions.md` to thin pointers + tool-specific overrides
-- [ ] Add `/plan-backlog-item` skill — Opus drafts self-contained backlog entries for cheaper agents to execute, no claim ceremony
+- [x] Add `/plan-backlog-item` skill — Opus drafts self-contained backlog entries for cheaper agents to execute, no claim ceremony
 - [ ] Migrate active downstream repos (finclaide, simmersmith, larkline, musicapp, joji) to the new instruction-file shape opportunistically
 
 ## Backlog
