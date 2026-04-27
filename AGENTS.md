@@ -1,22 +1,43 @@
 # AGENTS.md
 
-Global agent instructions. Applies to Codex, GitHub Copilot CLI, Opencode, Gemini CLI, GPT, and any other AI coding agent. Claude Code reads `CLAUDE.md` first, but the same conventions apply.
+Canonical agent instructions for this user. Applies to Claude Code, Codex, GitHub Copilot CLI, Opencode, Gemini CLI, GPT, and any other AI coding agent that operates in this user's repos. Tool-specific files (`CLAUDE.md`, `dot_codex/AGENTS.md`, `dot_copilot/copilot-instructions.md`) point here for shared rules and only override behavior unique to their harness.
 
 ## Handoff State
 
-Cross-session state lives in `.docs/ai/`. Read before starting:
-- `.docs/ai/roadmap.md` — milestones, active items under Now / Next / Later, and a self-contained backlog
-- `.docs/ai/current-state.md` — last session summary, build status
-- `.docs/ai/phases/` — any in-progress specs or recent reports for substantial multi-session work
+Cross-session continuity lives in `.docs/ai/` (git-tracked). These docs are the source of truth — not chat memory.
 
-Update before ending:
-- `.docs/ai/current-state.md` — what you did, build status
-- `.docs/ai/roadmap.md` — check off completed items, add new ones
-- `.docs/ai/decisions.md` — append an entry if a non-obvious design or tooling decision was made
+### Session Start
 
-If `.docs/ai/` does not exist in a git repo, copy the templates from `~/.claude/templates/handoff/` (or use `/init-ai-docs` if running Claude Code).
+1. Read (if they exist):
+   - `.docs/ai/roadmap.md` — durable goals, milestones, and active items under Now / Next / Later
+   - `.docs/ai/current-state.md` — last session summary, blockers, build status
+   - `.docs/ai/phases/` — any in-progress phase specs or recent reports
+2. Run `git log --oneline -5` and `git status` to verify state matches docs.
+3. Ask the user what they want to work on (or pick from the roadmap's Now list).
 
-This repo also ships a repo-scoped `.mcp.json` with `chrome-devtools`, so tools that honor project MCP config can use Chrome DevTools MCP here.
+### Session End
+
+Before signing off, update:
+1. `.docs/ai/current-state.md` — session summary, changed files, blockers, build status
+2. `.docs/ai/roadmap.md` — check off completed Now/Next items, add new ones if discovered
+3. `.docs/ai/decisions.md` — append an entry if any non-obvious design, tooling, or scope decision was made
+4. If substantial multi-session work was in progress, ensure the phase report in `.docs/ai/phases/` is complete
+
+Use `.docs/ai/handoff-template.md` as the checklist format.
+
+### After Major Features
+
+Update handoff docs immediately after completing a significant feature. Don't wait for session end.
+
+### Resuming After External Agent Work
+
+If the user mentions that another AI agent (Codex, Opencode, Copilot, GPT, Kimi, etc.) worked on the repo while you were elsewhere:
+
+1. `git log --oneline -10` — see what was committed
+2. Read changed files to understand what was done; verify quality
+3. Run the build/test command — confirm nothing is broken
+4. Update the roadmap to mark completed items and note any issues
+5. Only then proceed with new work
 
 ## Backlog Conventions
 
@@ -28,7 +49,7 @@ The roadmap may contain a `## Backlog` section with self-contained items. Each e
 - **Verify** — exact command to confirm success (build, test, lint, etc.)
 - **Tier hint** — prose like "Haiku candidate", "Sonnet — multi-file", "needs Opus to scope"
 
-The tier hint is advice, not gating. Any agent can pick up any item. First agent to start it executes it.
+The tier hint is advice, not gating. Any agent can pick up any item. First agent to start it executes it. No claim ceremony, no `[~]` markers.
 
 ### How to work backlog items
 
@@ -43,7 +64,24 @@ If you fail or get stuck, leave the item `[ ]` and add a `<!-- failed YYYY-MM-DD
 
 ## Substantial-Work Convention
 
-For multi-session or multi-file work that needs continuity (typically authored by Opus): write a brief `.docs/ai/phases/<slug>-spec.md` before starting and a `.docs/ai/phases/<slug>-report.md` when done. No formal protocol — just enough notes to resume across sessions or hand off to another tool. Skip this for routine changes.
+For multi-session or multi-file work that needs continuity (typically authored by Opus): write a brief `.docs/ai/phases/<slug>-spec.md` before starting and a `.docs/ai/phases/<slug>-report.md` when done. No formal protocol — just enough notes to resume across sessions or hand off to another tool. Skip this for routine changes; commit messages and `current-state.md` are enough.
+
+## Common Working Style
+
+### Shell commands
+
+Run one command per Bash tool call unless you genuinely need to pipe output between two commands. Don't chain unrelated commands with `&&` or `;`. Use `git -C <path>` instead of `cd <path> && git`.
+
+### Commits and pushes
+
+- After code changes, make a small descriptive commit by default.
+- Don't push unless the user explicitly asks.
+
+### Directory creation
+
+- **Git repos**: On the first substantive task, create `.docs/ai/` if it doesn't exist. Seed it from `~/.claude/templates/handoff/`. Keep it tracked by git.
+- **Non-git folders**: Ask before creating `.docs/ai/`.
+- **Repo-level overrides**: If a repo's instruction file specifies a different handoff path, use that instead.
 
 ## Rules
 
@@ -54,27 +92,43 @@ For multi-session or multi-file work that needs continuity (typically authored b
 - Stop and report if you get stuck — don't guess.
 - Don't push to remote.
 
+## Repo-scoped tooling
+
+This repo ships a `.mcp.json` with `chrome-devtools`, so tools that honor project MCP config can use Chrome DevTools MCP here.
+
 ## API Keys
 
-`OPENAI_API_KEY` is stored in the macOS Keychain, not in source control.
+### OPENAI_API_KEY
+
+Stored in the macOS Keychain, not in source control. Set or update with:
+
+```bash
+security add-generic-password -U -a "$USER" -s OPENAI_API_KEY -w 'your-api-key-here'
+```
+
+Open a new `zsh` or `fish` shell after saving so the variable is exported automatically.
+
+Verify:
 
 ```bash
 security find-generic-password -a "$USER" -s OPENAI_API_KEY -w
 ```
 
-`GITHUB_PAT_TOKEN` is also stored in the macOS Keychain. This repo expects the PAT under the Keychain service `codex-github-pat`, and shell/bootstrap code exports it as `GITHUB_PAT_TOKEN`.
+### GITHUB_PAT_TOKEN
 
-Set or update it locally with:
+Stored in the macOS Keychain under service `codex-github-pat`; shell/bootstrap code exports it as `GITHUB_PAT_TOKEN`.
+
+Set or update with:
 
 ```bash
 security add-generic-password -U -a "$USER" -s codex-github-pat -w 'your-github-pat-here'
 ```
 
-After saving it:
+After saving:
 - Open a new `zsh` or `fish` shell so the variable is exported automatically.
 - Run `~/.local/bin/load-codex-github-pat` if you want to load it into the `launchd` environment immediately for GUI-launched tools.
 
-Verify with:
+Verify:
 
 ```bash
 security find-generic-password -a "$USER" -s codex-github-pat -w
