@@ -10,6 +10,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Recent Progress
 
+- Added the official Bun Homebrew tap (`oven-sh/bun`) and `bun` formula to `scripts/install-homebrew-personal.sh` so personal machine bootstrap installs Bun through the managed Homebrew script.
 - Slimmed the AI-agent overlay (M3 milestone — three phases, all complete except per-repo migration). Phase A: deleted six workflow skills (audit-backlog, process-backlog, process-backlog-opus, resume-and-continue, import-ai-config-changes, phase-execution) across `dot_claude/`, `dot_copilot/`, `dot_codex/`, `dot_agents/`. Deleted `docs/ai-workflows/`, `docs/ai-roadmap-system.md`, `docs/ai-config-import-policy.md`, `dot_agents/templates/`, `.docs/ai/inbox/`, the three import scripts plus `_shared-exclusions.sh`, the `audit-backlog` Claude agent, and `.docs/ai/next-steps.md`. Stripped `tier3_owner` markers and the `[~]` claim protocol; folded the previous next-steps items into a Now/Next/Later section in `roadmap.md`. Phase B: flipped canonical instruction file to `AGENTS.md` (137 lines, comprehensive); reduced `CLAUDE.md` (23 lines), `dot_codex/AGENTS.md` (12 lines), and `dot_copilot/copilot-instructions.md` (19 lines) to thin pointers + tool-specific overrides. Phase C: added `/plan-backlog-item` Claude Code skill that produces self-contained backlog entries Opus can author for cheaper agents to execute later. Remaining: opportunistic per-repo `CLAUDE.md` → `AGENTS.md` migration when each downstream repo (finclaide, simmersmith, larkline, musicapp, joji) is next touched. `chezmoi apply` not yet run on this machine — preview shows expected drift in `~/.claude/skills/`, `~/.codex/skills/`, `~/.copilot/skills/`, and `~/.agents/skills/`.
 - Disabled the user-scope Claude Code `vercel-plugin@vercel-vercel-plugin` with `claude plugin disable`, leaving the installed plugin and cache intact so it can be re-enabled later without reinstalling.
 - Added Ghostty `Cmd-Shift-h` / `Cmd-Shift-l` bindings that emit `Meta-H` / `Meta-L` so the existing tmux `swap-window` bindings can move the current window left and right.
@@ -75,6 +76,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Changed Files
 
+- `scripts/install-homebrew-personal.sh`
 - `dot_tmux.conf`
 - `.chezmoidata/ai.json`
 - `dot_config/fish/config.fish`
@@ -153,6 +155,7 @@ Living snapshot of the project. Update before ending each AI session.
 ## Validation / Test Status
 
 ```
+Ran `bash -n scripts/install-homebrew-personal.sh` successfully after adding the Bun tap and formula to the personal Homebrew script.
 Verified all four workflow skill names exist under Claude, Codex, Copilot, and generic agent skill trees.
 Validated `dot_tmux.conf` syntax with `tmux -L codex-tmux-check -f /Users/tfinklea/git/chezmoi-config/dot_tmux.conf start-server` after setting Fish as the tmux default shell/command and updating the TmuxAI popup launchers.
 Fetched the upstream `tmuxai` `config.example.yaml` and confirmed the supported provider set includes `openai` and `github-copilot`, with `github-copilot` requiring the `copilot` CLI in `PATH`.

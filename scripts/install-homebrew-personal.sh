@@ -27,6 +27,7 @@ TAPS=(
   "FelixKratz/formulae"
   "nikitabobko/tap"
   "steipete/tap"
+  "oven-sh/bun"
 )
 
 for tap in "${TAPS[@]}"; do
@@ -106,6 +107,7 @@ BREWS=(
   "pyenv"
   "nvm"
   "pnpm"
+  "bun"
   "uv"
   "git"
   "git-lfs"
