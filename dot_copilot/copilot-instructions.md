@@ -3,30 +3,26 @@
 In git repositories, treat `./.docs/ai/` as the shared AI handoff state.
 
 Before substantive work, read:
-- `./.docs/ai/roadmap.md`
-- `./.docs/ai/current-state.md`
-- `./.docs/ai/next-steps.md`
+- `./.docs/ai/roadmap.md` — milestones, Now/Next/Later items, and self-contained backlog entries
+- `./.docs/ai/current-state.md` — last session summary and build status
 
-Use the roadmap owner comment as the source of truth for Opus/T3 ownership:
+After changes:
+- Update `current-state.md` with what you did and the build status.
+- Check off completed items in the roadmap; add new ones if discovered.
+- Append to `decisions.md` if a non-obvious design or tooling decision was made.
 
-```markdown
-<!-- tier3_owner: claude|codex|copilot|unassigned -->
-```
+## Backlog
+
+Backlog entries in the roadmap are self-contained: scope, file paths, acceptance criteria, verification steps, and a prose tier hint ("Haiku candidate", "Sonnet — multi-file", "needs Opus to scope"). The tier hint is advice, not gating. Pick items that match your model.
 
 Rules:
-- If `tier3_owner: copilot`, GitHub Copilot CLI may work Opus/T3 backlog items.
-- If `tier3_owner` names another tool, GitHub Copilot CLI must not work Opus/T3 items.
-- If `tier3_owner: unassigned`, do not start Opus/T3 work automatically.
-- Haiku and Sonnet tiers remain safe by default unless the roadmap item is flagged `<!-- needs-discussion -->` or `<!-- design-TBD -->`.
+- Read referenced files before editing.
+- Make a small descriptive commit per item; do not push unless the user explicitly asks.
 - Do not work milestone items unless the user explicitly assigns them.
-- If the repo contains `docs/ai-roadmap-system.md`, treat it as the canonical workflow reference.
-- Chrome DevTools MCP is managed in this chezmoi repo for Copilot CLI; when available, prefer it for browser debugging and performance investigation.
-- Use the normalized workflow names when skills are available:
-  - `/audit-backlog`
-  - `/process-backlog`
-  - `/process-backlog-opus`
-  - `/resume-and-continue`
-- For milestone sub-items, Opus-tier work, and multi-file ad-hoc tasks, follow the phase execution protocol in `docs/ai-workflows/phase-execution.md`. Present clarification questions as numbered lists.
-- Phase specs and reports go to `.docs/ai/phases/`. Resume mid-protocol work from spec files if they exist without matching reports.
-- After changes, update `current-state.md`, `next-steps.md`, and `decisions.md` when applicable.
-- Make a small descriptive commit by default. Do not push unless the user explicitly asks.
+- If you fail or get stuck, leave the item `[ ]` and add a `<!-- failed YYYY-MM-DD: [error] -->` comment. Don't guess.
+
+## Substantial work
+
+For multi-session or multi-file work: write `.docs/ai/phases/<slug>-spec.md` before starting and `<slug>-report.md` when done. Skip this for routine changes.
+
+Chrome DevTools MCP is managed in this chezmoi repo for Copilot CLI; when available, prefer it for browser debugging and performance investigation.

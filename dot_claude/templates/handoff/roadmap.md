@@ -6,6 +6,19 @@
 
 <!-- One sentence: what is this project and who is it for? -->
 
+## Now / Next / Later
+
+<!-- Active items. Trim as completed; no claim markers — first agent to pick it up writes it. -->
+
+### Now
+- [ ]
+
+### Next
+- [ ]
+
+### Later
+- [ ]
+
 ## Milestones
 
 ### M1: [Name]
@@ -15,27 +28,18 @@
 ### M2: [Name]
 - [ ] Item
 
-## Backlog (parallel, tiered by model capability)
+## Backlog
 
-<!-- tier3_owner: unassigned -->
-<!-- Valid values: claude, codex, copilot, unassigned -->
-<!-- Populate during milestones or audits. Include file paths. Items must be independent. -->
+> Self-contained items any agent can execute. Each entry should include scope, file paths, acceptance criteria, verification steps, and a prose tier hint ("Haiku candidate", "Sonnet — multi-file", "needs Opus to scope").
 
-### Haiku (mechanical, no judgment)
-<!-- Empty catch blocks, a11y labels, doc comments, linter fixes, hardcoded values -->
-- [ ] Item — file:line
-
-### Sonnet (some architectural judgment)
-<!-- View refactoring, utility extraction, type safety, component extraction -->
-- [ ] Item — file:line
-
-### Opus (design skill, cross-cutting — owned by tier3_owner)
-<!-- Unit tests, integration tests, API design, complex refactors -->
-- [ ] Item — file:line
-
-## Priority Order
-
-<!-- Which milestones come first. Backlog runs alongside any milestone. -->
+<!-- Format example:
+### Add foo to bar
+**Scope**: …
+**Files**: `path/to/file.ts:42`
+**Acceptance**: …
+**Verify**: `npm test -- foo`
+**Tier hint**: Sonnet — touches 2 files, no design decisions
+-->
 
 ## Constraints
 

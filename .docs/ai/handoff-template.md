@@ -1,6 +1,6 @@
 # Handoff Template
 
-Use this to update `current-state.md`, `next-steps.md`, and `decisions.md` at the end of a session.
+Use this to update `current-state.md` and (optionally) `decisions.md` at the end of a session. Active items live in `roadmap.md` under "Now / Next / Later".
 
 ---
 
@@ -12,11 +12,11 @@ Use this to update `current-state.md`, `next-steps.md`, and `decisions.md` at th
 
 ### What was done
 
-- 
+-
 
 ### Files changed
 
-- 
+-
 
 ### Test status
 
@@ -26,20 +26,14 @@ not run
 
 ### Blockers / open questions
 
-- 
+-
 
 ### Decisions made
 
-- 
+- <!-- if any non-obvious design or tooling decision: append to decisions.md -->
 
-### Next steps
+### Substantial-work artifacts (only if applicable)
 
-- [ ] 
-
-### Phase execution (if applicable)
-
-- **Phase spec**: `.docs/ai/phases/<slug>-spec.md`
-- **Phase report**: `.docs/ai/phases/<slug>-report.md`
-- **Protocol status**: <!-- completed | in-progress at phase N | abandoned -->
-- **Follow-up items from report**:
-  - 
+- **Spec**: `.docs/ai/phases/<slug>-spec.md`
+- **Report**: `.docs/ai/phases/<slug>-report.md`
+- **Status**: <!-- in-progress | complete | abandoned -->

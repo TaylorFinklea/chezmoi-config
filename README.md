@@ -132,47 +132,35 @@ echo $GITHUB_PAT_TOKEN
 launchctl getenv GITHUB_PAT_TOKEN
 ```
 
-## AI Roadmap Ownership
+## AI Agent Surfaces
 
-This repo treats `.docs/ai/roadmap.md` as the source of truth for which AI tool owns Opus/T3 architectural work in a project, and [`docs/ai-roadmap-system.md`](./docs/ai-roadmap-system.md) as the source of truth for the shared workflow protocol itself.
+This repo manages instruction and skill surfaces for Claude Code, Codex, GitHub Copilot CLI, and Opencode. The overlay is deliberately thin — vanilla harness behavior plus a small shared handoff layer.
 
-The roadmap uses:
+Per-tool files this repo distributes:
+- `AGENTS.md` — shared cross-agent instructions (canonical instruction file going forward)
+- `CLAUDE.md` — Claude Code overrides; thin pointer to AGENTS.md plus Claude-specific tool mappings
+- `dot_codex/AGENTS.md` — Codex home-level defaults
+- `dot_copilot/copilot-instructions.md` — GitHub Copilot CLI defaults
+- `dot_config/opencode/opencode.json.tmpl` — Opencode global config
+- `dot_config/tmuxai/config.yaml.tmpl` — TmuxAI model/provider config
+- `dot_claude/skills`, `dot_codex/skills`, `dot_copilot/skills`, `dot_agents/skills` — aligned skills (LSPs, language helpers, planning utilities)
+- `.mcp.json` — repo-scoped MCP servers
+- `dot_codex/private_config.toml.tmpl` and `.chezmoitemplates/codex/*.toml` — Codex MCP/server config
+- `dot_copilot/mcp-config.json.tmpl` — Copilot CLI MCP servers
+- `.chezmoidata/ai.json` — shared MCP scope metadata
 
-```markdown
-<!-- tier3_owner: claude|codex|copilot|unassigned -->
-```
-
-Rules:
-- `claude`, `codex`, and `copilot` mean that named tool owns Opus/T3 work for that project.
-- `unassigned` means no tool should start Opus/T3 work automatically.
-- Haiku and Sonnet remain available to non-owner agents unless a roadmap item is explicitly flagged as needing discussion.
-
-The normalized workflow command set is:
-- `/audit-backlog`
-- `/process-backlog` for Haiku/Sonnet
-- `/process-backlog-opus` for Opus/T3
-- `/resume-and-continue`
-
-This repo now manages instruction and skill surfaces for Codex, GitHub Copilot CLI, OpenCode, Claude, and the generic/open-standard skill set:
-- `AGENTS.md` for shared non-Claude agent rules
-- `CLAUDE.md` for Claude-specific behavior
-- `dot_codex/AGENTS.md` for Codex home-level defaults
-- `dot_copilot/copilot-instructions.md` for GitHub Copilot CLI home-level defaults
-- `dot_config/tmuxai/config.yaml.tmpl` for TmuxAI model/provider config
-- `dot_config/opencode/opencode.json.tmpl` for OpenCode global config
-- `dot_claude/skills`, `dot_codex/skills`, `dot_copilot/skills`, and `dot_agents/skills` for aligned workflow skills
-- `.mcp.json` for repo-scoped MCP servers shared by Claude Code and Copilot-compatible tooling in this repo
-- `dot_codex/private_config.toml.tmpl` and `.chezmoitemplates/codex/*.toml` for Codex home-level MCP/server config
-- `dot_copilot/mcp-config.json.tmpl` for GitHub Copilot CLI user-level MCP server config
-- `.chezmoidata/ai.json` for shared MCP scope metadata and scoped artifact paths
+Per-repo handoff lives in `.docs/ai/`:
+- `roadmap.md` — milestones, Now/Next/Later, self-contained backlog entries
+- `current-state.md` — last session summary
+- `decisions.md` — append-only ADR log
+- `phases/` — optional `<slug>-spec.md` / `<slug>-report.md` pairs for substantial multi-session work
+- `handoff-template.md` — checklist format
 
 Sync strategy:
-- Edit repo-managed docs, instructions, and tracked workflow skills here, then distribute them to machines with `chezmoi apply`.
-- Run `./scripts/review-ai-config-imports.sh` before importing home-created AI changes back into this repo.
-- Use `./scripts/sync-ai-configs.sh` only as a review wrapper; it no longer imports directly into managed trees.
-- Stage new local AI artifacts with `./scripts/promote-ai-config-inbox.sh`, then classify `scope` and `targets` before they become managed.
+- Edit repo-managed docs and skills here; distribute with `chezmoi apply`.
 - `~/.codex/config.toml`, `~/.copilot/mcp-config.json`, and `~/.config/opencode/opencode.json` are profile-managed via `ai_profile`, not mirrored from a single machine.
-- `~/.config/tmuxai/config.yaml` is managed from this repo and exposes `codex` plus `copilot` model profiles for `tmuxai`.
+- `~/.config/tmuxai/config.yaml` exposes `codex` and `copilot` model profiles for `tmuxai`.
+- Detect drift between home and repo with `chezmoi diff`; reconcile manually rather than running an importer.
 
 ## Shared MCP Servers
 

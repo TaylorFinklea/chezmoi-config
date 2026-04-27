@@ -1,44 +1,33 @@
 ---
 name: init-ai-docs
-description: Bootstrap .docs/ai/ handoff state and optionally docs/ai-workflows/ in a new project repo.
+description: Bootstrap a slim `.docs/ai/` handoff state in a new project repo.
 ---
 
 # Initialize AI Docs
 
-Bootstrap the shared AI handoff and workflow docs in the current project repo.
+Bootstrap a lightweight handoff layer for the current project repo. Intentionally minimal — no protocol scaffolding, no claim markers, no cross-tool sync.
 
 ## What to do
 
-1. **Check if `.docs/ai/` already exists.** If it does, report what's there and
-   ask before overwriting. Never silently overwrite existing handoff state.
+1. **Check if `.docs/ai/` already exists.** If it does, report what's there and ask before overwriting. Never silently overwrite existing handoff state.
 
-2. **Create `.docs/ai/` from templates.** Copy each file from
-   `~/.agents/templates/handoff/` into `.docs/ai/`:
+2. **Create `.docs/ai/` from templates.** Copy each file from `~/.claude/templates/handoff/` into `.docs/ai/`:
    - `roadmap.md`
    - `current-state.md`
-   - `next-steps.md`
    - `decisions.md`
    - `handoff-template.md`
 
 3. **Create `.docs/ai/phases/`** with a README:
    ```
-   # Phase Execution Artifacts
-   Specs and reports for the phase execution protocol.
-   See docs/ai-workflows/phase-execution.md for the full protocol.
+   # Phase Artifacts
+
+   Lightweight specs and reports for substantial multi-session work.
+   `<slug>-spec.md` before, `<slug>-report.md` after. Skip for routine changes.
    ```
 
-4. **Ask whether to also bootstrap `docs/ai-workflows/`.** If yes, copy each
-   file from `~/.agents/templates/workflows/` into `docs/ai-workflows/`:
-   - `phase-execution.md`
-   - `process-backlog.md`
-   - `process-backlog-opus.md`
-   - `resume-and-continue.md`
-   - `audit-backlog.md`
+4. **Commit** with a message like `docs: bootstrap .docs/ai/ handoff state`.
 
-5. **Commit** the new docs with a message like
-   `docs: bootstrap .docs/ai/ handoff state and workflow docs`.
-
-6. **Report** what was created and suggest next steps:
-   - Fill in the Vision and Milestones in `roadmap.md`
-   - Set `tier3_owner` in the roadmap if using the tiered backlog
-   - Add a project-level `AGENTS.md` if one doesn't exist
+5. **Report** what was created and suggest next steps:
+   - Fill in the Vision in `roadmap.md`
+   - Add active items under Now / Next / Later
+   - Add a project-level `AGENTS.md` if one doesn't exist (canonical instruction file)

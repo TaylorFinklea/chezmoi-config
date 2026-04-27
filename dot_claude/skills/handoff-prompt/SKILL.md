@@ -1,69 +1,60 @@
 ---
 name: handoff-prompt
-description: Generate a self-contained prompt for a less sophisticated AI agent to continue backlog work when Claude is rate-limited. Reads current roadmap/backlog state, picks appropriate items, and produces a copy-pasteable prompt.
+description: Generate a self-contained prompt to hand off backlog work to another AI agent (cheaper model, different harness, or web UI). Reads roadmap state, picks items, and produces a copy-pasteable prompt with all context inline.
 user-invocable: true
 disable-model-invocation: true
 ---
 
 # Handoff Prompt Generator
 
-Generate a prompt to hand off backlog work to a cheaper/less sophisticated AI agent (Gemini, GLM, GPT, Sonnet, etc.) when Claude is rate-limited.
+Generate a self-contained prompt for handing backlog work to another AI agent — a cheaper model (Sonnet, Haiku, GPT, Kimi), a different harness (Codex, Opencode, Copilot), or a web UI (claude.ai, chatgpt.com). Useful when rate-limited or when you want a different tool to work the queue while you context-switch.
 
 ## Usage
 
-`/handoff-prompt` — pick remaining backlog items automatically
-`/handoff-prompt haiku` — only Haiku-tier items
-`/handoff-prompt sonnet` — only Sonnet-tier items
+`/handoff-prompt` — pick up to 4 unchecked backlog items
 `/handoff-prompt 3` — limit to N items
+`/handoff-prompt <keyword>` — only items mentioning the keyword in their entry
 
-## What to Do
+## What to do
 
-1. **Read the roadmap** at `.docs/ai/roadmap.md` (or the path specified in the repo's CLAUDE.md). If the repo's roadmap references a unified roadmap in another repo, read that instead.
+1. **Read the roadmap** at `.docs/ai/roadmap.md`. If the repo points to a different roadmap path in its `AGENTS.md` or `CLAUDE.md`, use that.
 
-2. **Read `tier3_owner`** from the backlog header and carry that owner forward into the generated prompt.
+2. **Identify unchecked backlog items** — `- [ ]` items in the `## Backlog` section. Skip items with `<!-- failed YYYY-MM-DD -->` markers unless the user says otherwise.
 
-3. **Identify remaining backlog items** — items that are NOT struck through (~text~) or marked [x].
+3. **Check recent git history** — `git log --oneline -10`. If commits suggest items were completed but not marked `[x]`, note them.
 
-4. **Check recent git history** — run `git log --oneline -10` to see what was recently committed. If any commits look like they completed backlog items that aren't marked done in the roadmap, note them.
+4. **Select items** based on the argument:
+   - Default: up to 4 items, simpler items first (Haiku/Sonnet hints before Opus hints)
+   - Number: limit to that many
+   - Keyword: only items whose entry contains the keyword
 
-5. **Select items** based on the argument:
-   - Default: pick up to 4 items, Haiku first, then Sonnet
-   - `haiku`: only Haiku-tier items
-   - `sonnet`: only Sonnet-tier items
-   - A number: limit to that many items
+5. **For each item**, read the referenced files to verify paths still exist and capture the surrounding code style.
 
-6. **For each item**, read the referenced files to gather:
-   - Exact file paths (verify they exist)
-   - Current content around the lines that need to change
-   - Any patterns the agent should follow (look at recent commits for style)
-
-7. **Generate the prompt** using this structure:
+6. **Generate the prompt** using this structure:
 
 ```
 You are working on [project name] — [one-line description].
 
-## Repos
-- [repo name]: [absolute path]
-[repeat for each repo involved]
+## Repo
+[absolute path to repo]
 
 ## Rules
 - Read files before editing them.
 - Make one commit per item. Do not push.
-- Do not change anything beyond what the item describes.
-- Do not add comments, docstrings, or type annotations to code you didn't change.
-- Run one shell command at a time. Never chain with &&.
-- Respect `tier3_owner: [value from roadmap]`. Do not touch Opus/T3 items unless you are that named owner.
+- Don't change anything beyond what the item describes.
+- Don't add comments, docstrings, or type annotations to code you didn't change.
+- Run one shell command at a time. Don't chain with &&.
+- Stop and report if you get stuck — don't guess.
 
-## Verify changes with:
-[build/test command from CLAUDE.md]
+## Verify changes with
+[build/test command from AGENTS.md or repo conventions]
 
-## Work through these items in order. Stop if you get stuck.
+## Items (work in order; stop if stuck)
 
-### 1. [tier/repo] Item title
-Repo: [which repo]
-[Detailed instructions with exact file paths, what to find, what to change]
-[Include code templates where helpful — reduces ambiguity]
-[Include the exact commit message to use]
+### 1. [item title]
+[full backlog entry inlined: scope, files, acceptance, verify]
+[any code context the agent will need — current content of relevant lines]
+[suggested commit message]
 
 ### 2. ...
 
@@ -72,26 +63,22 @@ Repo: [which repo]
 After completing items, report what you did and what (if anything) you couldn't finish.
 ```
 
-8. **Output the prompt** as a fenced code block so the user can copy-paste it directly into another agent.
+7. **Output the prompt** as a fenced code block so the user can copy-paste it directly into another agent.
 
-## Key Principles
+## Key principles
 
-- **Self-contained**: The prompt must include ALL context the agent needs. It cannot read CLAUDE.md, roadmap, or other docs — everything must be inline.
-- **Explicit file paths**: Always use absolute paths or paths relative to the repo root.
-- **Code templates**: For Haiku items, include the exact code to write. For Sonnet items, include the pattern to follow.
-- **One commit per item**: Each item should be independently committable.
-- **Verify command**: Always include the build/test command.
-- **Read-first**: Always tell the agent to read files before editing.
-- **Stop on stuck**: Tell the agent to stop and report rather than guess.
+- **Self-contained**: the prompt must include ALL context. The receiving agent cannot read your CLAUDE.md, AGENTS.md, or roadmap — everything is inline.
+- **Explicit file paths**: absolute paths or paths relative to the repo root.
+- **Verify command**: always include the build/test command.
+- **One commit per item**.
+- **Stop on stuck**: tell the agent to stop and report rather than guess.
 
-## After Handoff: Resume Protocol
+## Resume protocol
 
-When Claude resumes after a handoff (next session or after rate limit clears), it MUST:
+When you (or another agent) come back after a handoff:
 
-1. Run `git log --oneline -10` in each repo to see what the other agent committed
-2. Read the changed files to understand what was done
-3. Verify the build still passes
-4. Update the roadmap to mark completed items
-5. Note any issues or incomplete work before starting new phase work
-
-This is critical — the other agent may have made mistakes or partial changes that need cleanup before proceeding.
+1. `git log --oneline -10` to see what was committed.
+2. Read the changed files to verify quality.
+3. Run the build/test command.
+4. Update the roadmap to mark completed items and note any issues.
+5. Only then start new work.

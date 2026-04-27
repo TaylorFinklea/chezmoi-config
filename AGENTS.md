@@ -1,103 +1,58 @@
 # AGENTS.md
 
-Global agent instructions (applies to Codex, GitHub Copilot CLI, Gemini CLI, GPT, and any non-Claude AI coding agent).
+Global agent instructions. Applies to Codex, GitHub Copilot CLI, Opencode, Gemini CLI, GPT, and any other AI coding agent. Claude Code reads `CLAUDE.md` first, but the same conventions apply.
 
 ## Handoff State
 
-Cross-session state lives in `.docs/ai/` (or `docs/ai/` in older repos). Read before starting:
-- `.docs/ai/roadmap.md` — milestones + tiered backlog
-- `.docs/ai/current-state.md` — last session summary
-- `.docs/ai/next-steps.md` — what to work on
-- `.docs/ai/phases/` — any in-progress specs or recent reports
+Cross-session state lives in `.docs/ai/`. Read before starting:
+- `.docs/ai/roadmap.md` — milestones, active items under Now / Next / Later, and a self-contained backlog
+- `.docs/ai/current-state.md` — last session summary, build status
+- `.docs/ai/phases/` — any in-progress specs or recent reports for substantial multi-session work
 
 Update before ending:
 - `.docs/ai/current-state.md` — what you did, build status
-- `.docs/ai/next-steps.md` — check off completed items
+- `.docs/ai/roadmap.md` — check off completed items, add new ones
+- `.docs/ai/decisions.md` — append an entry if a non-obvious design or tooling decision was made
 
-If `.docs/ai/` does not exist in a git repo, use `/init-ai-docs` to bootstrap it
-from `~/.agents/templates/handoff/`. This also optionally creates `docs/ai-workflows/`.
-
-If the repo contains `docs/ai-roadmap-system.md`, treat it as the canonical explanation of the shared workflow system and keep tool behavior aligned to it.
+If `.docs/ai/` does not exist in a git repo, copy the templates from `~/.claude/templates/handoff/` (or use `/init-ai-docs` if running Claude Code).
 
 This repo also ships a repo-scoped `.mcp.json` with `chrome-devtools`, so tools that honor project MCP config can use Chrome DevTools MCP here.
 
-## Tiered Backlog System
+## Backlog Conventions
 
-The roadmap contains a `## Backlog` section with items organized into three tiers:
+The roadmap may contain a `## Backlog` section with self-contained items. Each entry should include:
 
-| Tier | Who can do it | Scope |
-|------|--------------|-------|
-| **Haiku** | Any agent | Mechanical fixes: empty catch blocks, doc comments, a11y labels, linter issues, hardcoded values |
-| **Sonnet** | Mid-tier+ agents | Refactoring, utility extraction, type safety, component extraction (multi-file, needs some judgment) |
-| **Opus** | Tier 3 owner only | Unit tests, integration tests, API design, complex refactors, architecture decisions |
+- **Scope** — what to do, in 1–2 sentences
+- **Files** — specific paths (with line numbers when relevant)
+- **Acceptance** — what "done" looks like
+- **Verify** — exact command to confirm success (build, test, lint, etc.)
+- **Tier hint** — prose like "Haiku candidate", "Sonnet — multi-file", "needs Opus to scope"
 
-### Tier ownership
-
-The backlog header may include a `tier3_owner` field:
-```markdown
-<!-- tier3_owner: claude|codex|copilot|unassigned -->
-```
-
-Valid values are `claude`, `codex`, `copilot`, and `unassigned`.
-
-**If `tier3_owner` is set to a different tool, non-owner agents MUST NOT work on Tier 3 (Opus) items.** This prevents cheaper agents from making design decisions that conflict with the primary architect's vision.
-
-**If `tier3_owner: unassigned`, no agent should start Opus work automatically.** Only lower-tier work is safe until the project explicitly assigns an architect.
-
-To check: `grep 'tier3_owner' .docs/ai/roadmap.md` (or `docs/ai/roadmap.md`).
-
-### What you can work on
-
-1. **Always safe**: Haiku-tier items — they're mechanical and independent.
-2. **Usually safe**: Sonnet-tier items — but read the item carefully. If it says "needs discussion" or "design TBD", skip it.
-3. **Only if you're the named owner**: Opus-tier items.
-4. **Never**: Milestone work (M1, M2, etc.) unless the user explicitly assigns it to you.
+The tier hint is advice, not gating. Any agent can pick up any item. First agent to start it executes it.
 
 ### How to work backlog items
 
-1. Pick unchecked items (`- [ ]`) from your allowed tiers.
+1. Pick an unchecked item (`- [ ]`) you can execute. Match the tier hint to your model — picking work above your tier is fine if you're confident; picking below it is wasteful.
 2. Read the referenced files before editing.
-3. Make one commit per item (or group related items into one commit).
-4. Verify the build passes after each change.
+3. Make one commit per item (or group closely related items into one commit).
+4. Verify with the entry's Verify command.
 5. Mark the item `[x]` in the roadmap.
-6. Do not push. The user will review and push.
+6. Do not push. The user reviews and pushes.
 
-### Standard workflow commands
+If you fail or get stuck, leave the item `[ ]` and add a `<!-- failed YYYY-MM-DD: [error] -->` comment.
 
-When a repo ships workflow skills, the command meanings are fixed:
+## Substantial-Work Convention
 
-- `/audit-backlog` — audit and append Haiku/Sonnet items
-- `/process-backlog` — execute only Haiku/Sonnet items
-- `/process-backlog-opus` — execute only Opus/T3 items when the active tool matches `tier3_owner`
-- `/resume-and-continue` — review recent agent work and continue only if the active tool owns the next Opus phase
-
-### Claim protocol
-
-Before starting an item, change `- [ ]` to `- [~]` and commit the roadmap. This signals to other agents that the item is in progress. On completion, mark `- [x]`. If you fail or get stuck, revert to `- [ ]` and add a `<!-- build-failed: YYYY-MM-DD [error] -->` comment. Always skip `- [~]` items — another agent is working on them.
-
-## Phase Execution Protocol
-
-For milestone sub-items, Opus-tier backlog items, and substantial ad-hoc work
-(multi-file changes or design decisions), follow the autonomous phase execution
-protocol in `docs/ai-workflows/phase-execution.md`.
-
-Phase specs and reports are persisted to `.docs/ai/phases/`. A session that
-finds a spec without a matching report should resume at the appropriate phase.
-
-When presenting clarification questions, format them as numbered lists with
-brief rationale for each option. Batch 2–4 related questions per prompt.
-
-Haiku and Sonnet backlog items skip this protocol and use the existing
-claim/build/verify flow from `/process-backlog`.
+For multi-session or multi-file work that needs continuity (typically authored by Opus): write a brief `.docs/ai/phases/<slug>-spec.md` before starting and a `.docs/ai/phases/<slug>-report.md` when done. No formal protocol — just enough notes to resume across sessions or hand off to another tool. Skip this for routine changes.
 
 ## Rules
 
 - Read files before editing them.
-- Do not change anything beyond what the backlog item describes.
-- Do not add comments, docstrings, or type annotations to code you didn't change.
-- Do not refactor surrounding code.
+- Don't change anything beyond what the task or backlog item describes.
+- Don't add comments, docstrings, or type annotations to code you didn't change.
+- Don't refactor surrounding code.
 - Stop and report if you get stuck — don't guess.
-- Do not push to remote.
+- Don't push to remote.
 
 ## API Keys
 
@@ -107,7 +62,7 @@ claim/build/verify flow from `/process-backlog`.
 security find-generic-password -a "$USER" -s OPENAI_API_KEY -w
 ```
 
-`GITHUB_PAT_TOKEN` is also stored in the macOS Keychain, not in source control. This repo expects the PAT under the Keychain service `codex-github-pat`, and shell/bootstrap code exports it as `GITHUB_PAT_TOKEN`.
+`GITHUB_PAT_TOKEN` is also stored in the macOS Keychain. This repo expects the PAT under the Keychain service `codex-github-pat`, and shell/bootstrap code exports it as `GITHUB_PAT_TOKEN`.
 
 Set or update it locally with:
 
