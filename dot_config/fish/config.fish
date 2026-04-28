@@ -181,6 +181,13 @@ if test -f ~/.config/fish/config.local.fish
     source ~/.config/fish/config.local.fish
 end
 
+# Moshi iOS client signal: app Settings -> Integrations -> Export ENV.
+# Reserved for prompt/glyph trims when running under Moshi. Starship handles
+# the prompt here, so leave this branch empty unless you add tweaks.
+if set -q MOSHI_CLIENT
+    # extension point — e.g. set -gx STARSHIP_CONFIG ~/.config/starship-moshi.toml
+end
+
 # ============================================================================
 # ENVIRONMENT VARIABLES
 # ============================================================================
