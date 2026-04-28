@@ -65,7 +65,8 @@ trust_level = "trusted"
 {{- $enabled := or (eq $server.scope "shared") (and (eq $server.scope "work-only") (eq $profile "work")) (and (eq $server.scope "personal-only") (eq $profile "personal")) -}}
 {{- if and $enabled (has "codex" $server.targets) }}
 {{- $codex := index $server "codex" }}
-[mcp_servers.{{ $server.id }}]
+{{- $serverID := coalesce (index $codex "serverId") $server.id }}
+[mcp_servers.{{ $serverID }}]
 {{- with index $codex "command" }}
 command = {{ . | quote }}
 {{- end }}
@@ -84,7 +85,7 @@ bearer_token_env_var = {{ . | quote }}
 {{- with index $codex "toolApprovals" }}
 {{- range $toolName, $approval := . }}
 
-[mcp_servers.{{ $server.id }}.tools.{{ $toolName }}]
+[mcp_servers.{{ $serverID }}.tools.{{ $toolName }}]
 approval_mode = {{ $approval | quote }}
 {{- end }}
 {{- end }}
@@ -109,6 +110,10 @@ notification_method = "bel"
 
 [sandbox_workspace_write]
 network_access = true
+
+[marketplaces.openai-bundled]
+source_type = "local"
+source = {{ printf "%s/.codex/.tmp/bundled-marketplaces/openai-bundled" .chezmoi.homeDir | quote }}
 
 {{- range $plugin := .codexPlugins }}
 {{- $enabled := or (eq $plugin.scope "shared") (and (eq $plugin.scope "work-only") (eq $profile "work")) (and (eq $plugin.scope "personal-only") (eq $profile "personal")) -}}

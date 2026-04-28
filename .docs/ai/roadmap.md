@@ -13,7 +13,6 @@ Active items pulled from the previous next-steps log. Trim as completed.
 ### Now
 - Restart Copilot CLI and verify the 7 "blocked by policy" MCP servers connect; if `io.github.hashicorp/terraform-mcp-server` is still blocked, request its addition to the TN MCP registry.
 - Verify with the org admin that the TN registry URL (`https://tn-mcp-registry.azurewebsites.net`) is configured in GitHub org settings under Copilot → MCP Registry, with "Restrict MCP access to registry servers" enforced.
-- Import the local `~/.codex/config.toml` changes into chezmoi (`chezmoi apply` flagged drift on that file).
 - Run `chezmoi apply` on this machine and bootstrap TPM so the managed tmux config and which-key menu are active under `~/.tmux.conf` and `~/.config/tmux/plugins/tmux-which-key/config.yaml`.
 - Reload or restart tmux after `chezmoi apply` so the new Fish default shell takes effect for fresh sessions/windows/splits/TmuxAI popups.
 - Apply the new managed `~/.config/tmuxai/config.yaml`, then verify `tmuxai --model codex` and `tmuxai --model copilot` both launch in tmux popups with expected credentials.
