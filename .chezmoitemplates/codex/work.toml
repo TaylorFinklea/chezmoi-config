@@ -101,7 +101,11 @@ js_repl = true
 [tui]
 alternate_screen = "never"
 notifications = ["agent-turn-complete", "approval-requested"]
-notification_method = "osc9"
+# bel emits the terminal bell character (\a) so tmux highlights the window in
+# the status bar and Ghostty plays the system sound + bounces attention via
+# its bell-features setting. Trade-off vs osc9: no macOS notification-center
+# banner, but matches the audible+visual chain wired for Claude Code.
+notification_method = "bel"
 
 [sandbox_workspace_write]
 network_access = true
