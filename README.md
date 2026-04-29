@@ -187,7 +187,7 @@ opencode --agent spec-planner
 
 Projects can override these globally managed agents with project-level agent files when a repo needs a different model, stricter tools, or a narrower spec template.
 
-Hook ideas remain intentionally secondary: a future Copilot user-level hook could remind sessions to read `.docs/ai/`, an OpenCode plugin hook could protect secret files or nudge spec completion, and the existing Claude Stop hook remains the commit guard.
+Hook ideas remain intentionally secondary and should stay low-noise: a future Copilot user-level hook could remind sessions to read `.docs/ai/`, an OpenCode plugin hook could protect secret files, and any spec-completion nudges should be opt-in rather than broad Stop hooks.
 
 Per-repo handoff lives in `.docs/ai/`:
 - `roadmap.md` — milestones, Now/Next/Later, self-contained backlog entries

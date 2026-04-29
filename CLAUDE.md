@@ -20,10 +20,6 @@ For shared agent rules — handoff state, backlog conventions, substantial-work 
 - `/spec-implement` — use `spec-implementer` to execute an approved spec
 - `/spec-verify` — use `spec-verifier` to check implementation against a spec
 
-## Hooks
-
-`~/.claude/hooks/auto-commit-on-stop.sh` triggers a commit agent after the Stop event. Don't bypass.
-
 ## Memory
 
 Persistent notes for this user/project live under `~/.claude/projects/<repo>/memory/`. Build it up over time per the auto-memory directive in the system prompt.
