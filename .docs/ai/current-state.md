@@ -10,6 +10,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Recent Progress
 
+- Ran `chezmoi -S . apply --force -v` on 2026-04-29 after a noninteractive apply stopped on local `~/.codex/config.toml` drift; managed home files now match the repo (`chezmoi -S . status` and `chezmoi -S . diff` are empty). This distributed the slim-overlay AI skills/docs, Codex hooks, tmux/TmuxAI config, Ghostty bindings, shell config, OpenCode, and Copilot surfaces. The old AI importer/sync scripts are no longer present in the current source tree; the documented sync path is `chezmoi apply` plus manual drift review.
 - Switched the personal Homebrew script to install the OpenCode CLI from the fully qualified `anomalyco/tap/opencode` formula, added the `anomalyco/tap` tap, removed the old unused `sst/tap`, and made the brew install check compare against the formula token so qualified formula names are not reinstalled every run.
 - Added a global spec-agent pack across Claude Code, GitHub Copilot CLI, and OpenCode. New `spec-planner`, `spec-implementer`, and `spec-verifier` agents use inherited/default models so sessions can choose planning, implementation, and mechanical tiers at launch time. Added Claude/OpenCode `/spec-plan`, `/spec-implement`, and `/spec-verify` commands; documented Copilot `--agent` usage; updated the AI catalog to include Claude commands, Copilot agents, and plural OpenCode agent/command roots. Hooks remain a documented follow-up rather than v1 automation.
 - Removed the Claude Code auto-commit Stop hook from managed settings and deleted its script. Commits remain the default agent convention, but Claude no longer blocks session stopping to force a commit agent.
@@ -231,6 +232,7 @@ Verified TN registry `/v0/servers` returns HTTP 200 with valid JSON listing 10 s
 Rendered work and personal `~/.codex/config.toml` profiles with `chezmoi cat`, parsed both with Python `tomllib`, and confirmed OpenAI Bundled plugins, `marketplaces.openai-bundled`, `chrome-devtools.tools.new_page`, and work-only `atlassian_rovo` render correctly.
 Ran `CHEZMOI_AI_PROFILE=work chezmoi -S . apply --dry-run --force ~/.codex/config.toml` successfully, then applied only `~/.codex/config.toml` with `chezmoi apply --force`.
 Parsed the deployed `~/.codex/config.toml` with Python `tomllib` and confirmed it contains `browser-use@openai-bundled`, `computer-use@openai-bundled`, `latex-tectonic@openai-bundled`, the local `openai-bundled` marketplace pointer, `chrome-devtools.tools.new_page`, `atlassian_rovo`, and repo-default `bel` notifications.
+Ran `chezmoi -S . apply --force -v`; verified `chezmoi -S . status` and `chezmoi -S . diff` are empty; parsed deployed `~/.codex/config.toml` with Python `tomllib`; validated `~/.copilot/mcp-config.json` and `~/.config/opencode/opencode.json` with `jq empty`; parsed `~/.config/tmuxai/config.yaml` with Ruby YAML.
 Ran `jq empty .chezmoidata/ai.json` and `git diff --check` successfully.
 
 ```
