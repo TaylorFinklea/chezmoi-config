@@ -10,6 +10,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Recent Progress
 
+- Switched the personal Homebrew script to install the OpenCode CLI from the fully qualified `anomalyco/tap/opencode` formula, added the `anomalyco/tap` tap, removed the old unused `sst/tap`, and made the brew install check compare against the formula token so qualified formula names are not reinstalled every run.
 - Added a global spec-agent pack across Claude Code, GitHub Copilot CLI, and OpenCode. New `spec-planner`, `spec-implementer`, and `spec-verifier` agents use inherited/default models so sessions can choose planning, implementation, and mechanical tiers at launch time. Added Claude/OpenCode `/spec-plan`, `/spec-implement`, and `/spec-verify` commands; documented Copilot `--agent` usage; updated the AI catalog to include Claude commands, Copilot agents, and plural OpenCode agent/command roots. Hooks remain a documented follow-up rather than v1 automation.
 - Removed the Claude Code auto-commit Stop hook from managed settings and deleted its script. Commits remain the default agent convention, but Claude no longer blocks session stopping to force a commit agent.
 - Imported local `~/.codex/config.toml` drift into the managed Codex source: enabled all three OpenAI Bundled plugins (`browser-use`, `computer-use`, `latex-tectonic`) through config-only marketplace/plugin entries, added Codex `chrome-devtools.new_page` approval, and rendered work-profile Atlassian as `atlassian_rovo` while preserving the registry-style ID for Copilot/OpenCode. Applied only `~/.codex/config.toml` with `chezmoi apply --force`; full `chezmoi apply` remains a separate Now item.
@@ -79,6 +80,9 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Changed Files
 
+- `scripts/install-homebrew-personal.sh`
+- `.docs/ai/current-state.md`
+- `.docs/ai/decisions.md`
 - `dot_claude/agents/spec-planner.md`
 - `dot_claude/agents/spec-implementer.md`
 - `dot_claude/agents/spec-verifier.md`
@@ -180,6 +184,7 @@ Living snapshot of the project. Update before ending each AI session.
 ## Validation / Test Status
 
 ```
+Ran `bash -n scripts/install-homebrew-personal.sh` and `git diff --check` successfully after switching OpenCode CLI installs to `anomalyco/tap/opencode`.
 Validated the spec-agent pack with `jq empty .chezmoidata/ai.json`, rendered work and personal OpenCode configs through `chezmoi -S . cat ~/.config/opencode/opencode.json | jq empty`, rendered work and personal Copilot MCP configs through `chezmoi -S . cat ~/.copilot/mcp-config.json | jq empty`, parsed all new agent/command markdown frontmatter with Ruby YAML, confirmed `chezmoi -S . managed` includes the new `.claude`, `.copilot`, and `.config/opencode` agent/command paths for both profiles, and ran `git diff --check` successfully. Did not use `opencode agent list` because the local OpenCode database is currently failing WAL checkpoint queries.
 Ran `bash -n scripts/install-homebrew-personal.sh` successfully after adding the Bun tap and formula to the personal Homebrew script.
 Verified all four workflow skill names exist under Claude, Codex, Copilot, and generic agent skill trees.

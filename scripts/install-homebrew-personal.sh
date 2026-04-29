@@ -22,7 +22,7 @@ brew update
 echo "🔧 Adding taps..."
 TAPS=(
   "atlassian/homebrew-acli"
-  "sst/tap"
+  "anomalyco/tap"
   "knqyf263/pet"
   "FelixKratz/formulae"
   "nikitabobko/tap"
@@ -126,7 +126,7 @@ BREWS=(
   # AI & Machine Learning
   "promptfoo"
   "codex"
-  "opencode"
+  "anomalyco/tap/opencode"
   "claude-code@latest"
 
   # Build Tools
@@ -194,7 +194,8 @@ done
 # Install brews
 echo "🍺 Installing brews..."
 for formula in "${BREWS[@]}"; do
-  if brew list | grep -q "^${formula}$"; then
+  formula_token="${formula##*/}"
+  if brew list | grep -q "^${formula_token}$"; then
     echo "  ✓ Already installed: $formula"
   else
     echo "  Installing formula: $formula"
