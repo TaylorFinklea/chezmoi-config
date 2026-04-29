@@ -31,3 +31,12 @@ if [ -z "${GITHUB_PAT_TOKEN:-}" ]; then
 
     [ -n "$GITHUB_PAT_TOKEN" ] && export GITHUB_PAT_TOKEN
 fi
+
+# Load the work-only Logseq DB MCP token from the macOS Keychain.
+if [ -z "${LOGSEQ_DB_MCP_TOKEN:-}" ]; then
+    if [ -x /usr/bin/security ]; then
+        LOGSEQ_DB_MCP_TOKEN="$(/usr/bin/security find-generic-password -a "$USER" -s logseq-db-mcp-token -w 2>/dev/null)"
+    fi
+
+    [ -n "$LOGSEQ_DB_MCP_TOKEN" ] && export LOGSEQ_DB_MCP_TOKEN
+fi

@@ -10,6 +10,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Recent Progress
 
+- Added the local Logseq DB MCP endpoint (`http://127.0.0.1:12315/mcp`) as a work-only `logseq-db` entry for Codex and OpenCode only. The auth token is stored in macOS Keychain service `logseq-db-mcp-token`, exported as `LOGSEQ_DB_MCP_TOKEN` by zsh/fish and a new LaunchAgent loader, and is not rendered literally into managed config. Applied the work-profile chezmoi output to this machine; Codex now lists `logseq-db` as an enabled bearer-token MCP.
 - Ran `chezmoi -S . apply --force -v` on 2026-04-29 after a noninteractive apply stopped on local `~/.codex/config.toml` drift; managed home files now match the repo (`chezmoi -S . status` and `chezmoi -S . diff` are empty). This distributed the slim-overlay AI skills/docs, Codex hooks, tmux/TmuxAI config, Ghostty bindings, shell config, OpenCode, and Copilot surfaces. The old AI importer/sync scripts are no longer present in the current source tree; the documented sync path is `chezmoi apply` plus manual drift review.
 - Switched the personal Homebrew script to install the OpenCode CLI from the fully qualified `anomalyco/tap/opencode` formula, added the `anomalyco/tap` tap, removed the old unused `sst/tap`, and made the brew install check compare against the formula token so qualified formula names are not reinstalled every run.
 - Added a global spec-agent pack across Claude Code, GitHub Copilot CLI, and OpenCode. New `spec-planner`, `spec-implementer`, and `spec-verifier` agents use inherited/default models so sessions can choose planning, implementation, and mechanical tiers at launch time. Added Claude/OpenCode `/spec-plan`, `/spec-implement`, and `/spec-verify` commands; documented Copilot `--agent` usage; updated the AI catalog to include Claude commands, Copilot agents, and plural OpenCode agent/command roots. Hooks remain a documented follow-up rather than v1 automation.
@@ -81,6 +82,17 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Changed Files
 
+- `.chezmoidata/ai.json`
+- `dot_config/opencode/opencode.json.tmpl`
+- `dot_zshenv`
+- `dot_config/fish/config.fish`
+- `private_dot_local/bin/executable_load-logseq-db-mcp-token`
+- `private_Library/LaunchAgents/com.tfinklea.logseq-db-mcp-token.plist`
+- `README.md`
+- `AGENTS.md`
+- `.docs/ai/current-state.md`
+- `.docs/ai/roadmap.md`
+- `.docs/ai/decisions.md`
 - `scripts/install-homebrew-personal.sh`
 - `.docs/ai/current-state.md`
 - `.docs/ai/decisions.md`
@@ -176,6 +188,7 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Blockers
 
+- Local `opencode mcp list` still fails before config inspection with `Failed to run the query 'PRAGMA wal_checkpoint(PASSIVE)'`; OpenCode verification for `logseq-db` was done by rendering and parsing `~/.config/opencode/opencode.json` instead.
 - The old importer-created source directories still exist on disk; they are now ignored by both chezmoi and git until you decide which ones should be promoted into the scoped catalog versus deleted locally.
 
 ## Open Questions
@@ -185,6 +198,7 @@ Living snapshot of the project. Update before ending each AI session.
 ## Validation / Test Status
 
 ```
+Validated the Logseq DB MCP change with `jq empty .chezmoidata/ai.json`, work/personal Codex TOML renders parsed by Python `tomllib`, work/personal OpenCode JSON renders parsed by `jq`, work Copilot render confirmed to exclude `logseq-db`, `plutil -lint` for the LaunchAgent, `zsh -n`, `fish -n`, and `git diff --check`. Confirmed the Keychain token matches Logseq config without printing it, applied with `CHEZMOI_AI_PROFILE=work chezmoi -S . apply -v`, loaded the token into `launchd`, confirmed no token literal appears in managed config files, verified Codex `mcp list` shows `logseq-db`, and smoke-tested the MCP URL with the token: HTTP 400 instead of unauthenticated 401 for a raw GET.
 Ran `bash -n scripts/install-homebrew-personal.sh` and `git diff --check` successfully after switching OpenCode CLI installs to `anomalyco/tap/opencode`.
 Validated the spec-agent pack with `jq empty .chezmoidata/ai.json`, rendered work and personal OpenCode configs through `chezmoi -S . cat ~/.config/opencode/opencode.json | jq empty`, rendered work and personal Copilot MCP configs through `chezmoi -S . cat ~/.copilot/mcp-config.json | jq empty`, parsed all new agent/command markdown frontmatter with Ruby YAML, confirmed `chezmoi -S . managed` includes the new `.claude`, `.copilot`, and `.config/opencode` agent/command paths for both profiles, and ran `git diff --check` successfully. Did not use `opencode agent list` because the local OpenCode database is currently failing WAL checkpoint queries.
 Ran `bash -n scripts/install-homebrew-personal.sh` successfully after adding the Bun tap and formula to the personal Homebrew script.

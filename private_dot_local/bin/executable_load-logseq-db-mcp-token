@@ -1,0 +1,8 @@
+#!/bin/zsh
+set -euo pipefail
+
+token="$(/usr/bin/security find-generic-password -a "$USER" -s logseq-db-mcp-token -w 2>/dev/null || true)"
+if [[ -n "$token" ]]; then
+    launchctl setenv LOGSEQ_DB_MCP_TOKEN "$token"
+fi
+unset token

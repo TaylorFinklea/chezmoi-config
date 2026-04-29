@@ -135,3 +135,17 @@ security find-generic-password -a "$USER" -s codex-github-pat -w
 echo $GITHUB_PAT_TOKEN
 launchctl getenv GITHUB_PAT_TOKEN
 ```
+
+### LOGSEQ_DB_MCP_TOKEN
+
+Stored in the macOS Keychain under service `logseq-db-mcp-token`; shell/bootstrap code exports it as `LOGSEQ_DB_MCP_TOKEN` for the work-only Logseq DB MCP entry in Codex and OpenCode.
+
+Set or update with:
+
+```bash
+security add-generic-password -U -a "$USER" -s logseq-db-mcp-token -w 'your-logseq-token-here'
+```
+
+After saving:
+- Open a new `zsh` or `fish` shell so the variable is exported automatically.
+- Run `~/.local/bin/load-logseq-db-mcp-token` if you want to load it into the `launchd` environment immediately for GUI-launched tools.

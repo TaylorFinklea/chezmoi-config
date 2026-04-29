@@ -16,17 +16,39 @@
 {{- $enabled := or (eq $server.scope "shared") (and (eq $server.scope "work-only") (eq $profile "work")) (and (eq $server.scope "personal-only") (eq $profile "personal")) -}}
 {{- if and $enabled (has "opencode" $server.targets) }}
 {{- $opencode := index $server "opencode" }}
+{{- $hasCmd := index $opencode "command" }}
+{{- $hasUrl := index $opencode "url" }}
+{{- $hasEnabled := hasKey $opencode "enabled" }}
+{{- $hasHeaders := index $opencode "headers" }}
+{{- $hasOAuth := hasKey $opencode "oauth" }}
+{{- $hasTimeout := index $opencode "timeout" }}
 {{- if not $first }},{{ end }}
     "{{ $server.id }}": {
-      "type": {{ index $opencode "type" | quote }}{{- if or (index $opencode "command") (index $opencode "url") (index $opencode "enabled") }},{{ end }}
-{{- with index $opencode "command" }}
-      "command": [{{- range $index, $part := . }}{{ if gt $index 0 }}, {{ end }}{{ $part | quote }}{{- end }}]{{- if or (index $opencode "url") (index $opencode "enabled") }},{{ end }}
+      "type": {{ index $opencode "type" | quote }}{{- if or $hasCmd $hasUrl $hasEnabled $hasHeaders $hasOAuth $hasTimeout }},{{ end }}
+{{- with $hasCmd }}
+      "command": [{{- range $index, $part := . }}{{ if gt $index 0 }}, {{ end }}{{ $part | quote }}{{- end }}]{{- if or $hasUrl $hasEnabled $hasHeaders $hasOAuth $hasTimeout }},{{ end }}
 {{- end }}
-{{- with index $opencode "url" }}
-      "url": {{ . | quote }}{{- if (index $opencode "enabled") }},{{ end }}
+{{- with $hasUrl }}
+      "url": {{ . | quote }}{{- if or $hasEnabled $hasHeaders $hasOAuth $hasTimeout }},{{ end }}
 {{- end }}
-{{- with index $opencode "enabled" }}
-      "enabled": {{ . }}
+{{- if $hasEnabled }}
+      "enabled": {{ index $opencode "enabled" }}{{- if or $hasHeaders $hasOAuth $hasTimeout }},{{ end }}
+{{- end }}
+{{- with $hasHeaders }}
+      "headers": {
+{{- $firstHeader := true -}}
+{{- range $name, $value := . }}
+{{- if not $firstHeader }},{{ end }}
+        {{ $name | quote }}: {{ $value | quote }}
+{{- $firstHeader = false -}}
+{{- end }}
+      }{{- if or $hasOAuth $hasTimeout }},{{ end }}
+{{- end }}
+{{- if $hasOAuth }}
+      "oauth": {{ index $opencode "oauth" }}{{- if $hasTimeout }},{{ end }}
+{{- end }}
+{{- with $hasTimeout }}
+      "timeout": {{ . }}
 {{- end }}
     }
 {{- $first = false }}

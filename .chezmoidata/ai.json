@@ -185,6 +185,27 @@
       }
     },
     {
+      "id": "logseq-db",
+      "scope": "work-only",
+      "targets": [
+        "codex",
+        "opencode"
+      ],
+      "codex": {
+        "url": "http://127.0.0.1:12315/mcp",
+        "bearer_token_env_var": "LOGSEQ_DB_MCP_TOKEN"
+      },
+      "opencode": {
+        "type": "remote",
+        "url": "http://127.0.0.1:12315/mcp",
+        "headers": {
+          "Authorization": "Bearer {env:LOGSEQ_DB_MCP_TOKEN}"
+        },
+        "oauth": false,
+        "enabled": true
+      }
+    },
+    {
       "id": "io.github.github/github-mcp-server",
       "scope": "work-only",
       "targets": [

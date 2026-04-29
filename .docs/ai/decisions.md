@@ -85,3 +85,5 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 2026-04-29: Remove the Claude Code auto-commit Stop hook. The default remains "make a small local commit after code changes" in shared agent instructions and spec-implementer behavior, but broad Stop hooks are too noisy for normal dirty-worktree iteration. Future hooks should be narrow, opt-in, or deterministic guardrails rather than session-stop workflow enforcement.
 
 2026-04-29: Install the OpenCode CLI through the fully qualified Homebrew formula `anomalyco/tap/opencode` in the personal bootstrap script. The old `sst/tap` source is no longer needed for the CLI, and `opencode-desktop` resolves from Homebrew cask directly.
+
+2026-04-29: Add the local Logseq DB MCP as a work-only Codex/OpenCode catalog entry named `logseq-db`. The server token stays out of git in the macOS Keychain service `logseq-db-mcp-token`, exported as `LOGSEQ_DB_MCP_TOKEN`; Codex references it through `bearer_token_env_var`, while OpenCode uses its documented `{env:...}` config substitution in an `Authorization` header.

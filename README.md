@@ -132,6 +132,20 @@ echo $GITHUB_PAT_TOKEN
 launchctl getenv GITHUB_PAT_TOKEN
 ```
 
+## Logseq DB MCP Token
+
+`LOGSEQ_DB_MCP_TOKEN` is loaded by `zsh` and `fish` from the macOS Keychain, and a LaunchAgent loads the same value into the `launchd` environment for GUI-launched tools. It is used only by the work-scoped `logseq-db` MCP entry for Codex and OpenCode.
+
+Set or update it locally with:
+
+```bash
+security add-generic-password -U -a "$USER" -s logseq-db-mcp-token -w 'your-logseq-token-here'
+```
+
+After saving it:
+- Open a new `zsh` or `fish` shell so the shell variable is exported automatically.
+- Run `~/.local/bin/load-logseq-db-mcp-token` if you want to load it into `launchd` immediately without logging out.
+
 ## AI Agent Surfaces
 
 This repo manages instruction and skill surfaces for Claude Code, Codex, GitHub Copilot CLI, and Opencode. The overlay is deliberately thin — vanilla harness behavior plus a small shared handoff layer.

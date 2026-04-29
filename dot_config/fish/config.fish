@@ -214,6 +214,17 @@ if not set -q GITHUB_PAT_TOKEN
     end
 end
 
+# Load the work-only Logseq DB MCP token from the macOS Keychain.
+if not set -q LOGSEQ_DB_MCP_TOKEN
+    if test -x /usr/bin/security
+        set logseq_db_mcp_token (/usr/bin/security find-generic-password -a "$USER" -s logseq-db-mcp-token -w 2>/dev/null)
+    end
+
+    if test -n "$logseq_db_mcp_token"
+        set -gx LOGSEQ_DB_MCP_TOKEN $logseq_db_mcp_token
+    end
+end
+
 set -gx LANG en_US.UTF-8
 set -gx LC_ALL en_US.UTF-8
 set -gx EDITOR nvim
