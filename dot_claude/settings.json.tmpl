@@ -47,15 +47,6 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash {{ .chezmoi.homeDir }}/.claude/hooks/auto-commit-on-stop.sh",
-            "timeout": 10
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "type": "command",
             "command": "bunx moshi-hooks # moshi-hooks",
             "async": true
           }

@@ -48,7 +48,10 @@
         "command": "npx",
         "args": [
           "chrome-devtools-mcp@latest"
-        ]
+        ],
+        "toolApprovals": {
+          "new_page": "approve"
+        }
       },
       "opencode": {
         "type": "local",
@@ -165,6 +168,7 @@
         "opencode"
       ],
       "codex": {
+        "serverId": "atlassian_rovo",
         "enabled": true,
         "url": "https://mcp.atlassian.com/v1/mcp"
       },
@@ -376,6 +380,18 @@
     },
     {
       "id": "build-ios-apps@openai-curated",
+      "scope": "shared"
+    },
+    {
+      "id": "browser-use@openai-bundled",
+      "scope": "shared"
+    },
+    {
+      "id": "computer-use@openai-bundled",
+      "scope": "shared"
+    },
+    {
+      "id": "latex-tectonic@openai-bundled",
       "scope": "shared"
     },
     {
@@ -601,6 +617,12 @@
       "repoPath": "dot_claude/agents"
     },
     {
+      "id": "claude-commands",
+      "kind": "command",
+      "path": "~/.claude/commands",
+      "repoPath": "dot_claude/commands"
+    },
+    {
       "id": "claude-skills",
       "kind": "skill",
       "path": "~/.claude/skills",
@@ -625,6 +647,12 @@
       "repoPath": "dot_copilot/skills"
     },
     {
+      "id": "copilot-agents",
+      "kind": "agent",
+      "path": "~/.copilot/agents",
+      "repoPath": "dot_copilot/agents"
+    },
+    {
       "id": "agents-skills",
       "kind": "skill",
       "path": "~/.agents/skills",
@@ -633,20 +661,20 @@
     {
       "id": "opencode-agents",
       "kind": "agent",
-      "path": "~/.config/opencode/agent",
-      "repoPath": "dot_config/opencode/agent"
+      "path": "~/.config/opencode/agents",
+      "repoPath": "dot_config/opencode/agents"
     },
     {
       "id": "opencode-commands",
       "kind": "command",
-      "path": "~/.config/opencode/command",
-      "repoPath": "dot_config/opencode/command"
+      "path": "~/.config/opencode/commands",
+      "repoPath": "dot_config/opencode/commands"
     },
     {
       "id": "opencode-modes",
       "kind": "mode",
-      "path": "~/.config/opencode/mode",
-      "repoPath": "dot_config/opencode/mode"
+      "path": "~/.config/opencode/modes",
+      "repoPath": "dot_config/opencode/modes"
     }
   ]
 }

@@ -10,8 +10,11 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Recent Progress
 
+- Added a global spec-agent pack across Claude Code, GitHub Copilot CLI, and OpenCode. New `spec-planner`, `spec-implementer`, and `spec-verifier` agents use inherited/default models so sessions can choose planning, implementation, and mechanical tiers at launch time. Added Claude/OpenCode `/spec-plan`, `/spec-implement`, and `/spec-verify` commands; documented Copilot `--agent` usage; updated the AI catalog to include Claude commands, Copilot agents, and plural OpenCode agent/command roots. Hooks remain a documented follow-up rather than v1 automation.
+- Removed the Claude Code auto-commit Stop hook from managed settings and deleted its script. Commits remain the default agent convention, but Claude no longer blocks session stopping to force a commit agent.
+- Imported local `~/.codex/config.toml` drift into the managed Codex source: enabled all three OpenAI Bundled plugins (`browser-use`, `computer-use`, `latex-tectonic`) through config-only marketplace/plugin entries, added Codex `chrome-devtools.new_page` approval, and rendered work-profile Atlassian as `atlassian_rovo` while preserving the registry-style ID for Copilot/OpenCode. Applied only `~/.codex/config.toml` with `chezmoi apply --force`; full `chezmoi apply` remains a separate Now item.
 - Added the official Bun Homebrew tap (`oven-sh/bun`) and `bun` formula to `scripts/install-homebrew-personal.sh` so personal machine bootstrap installs Bun through the managed Homebrew script.
-- Slimmed the AI-agent overlay (M3 milestone — three phases, all complete except per-repo migration). Phase A: deleted six workflow skills (audit-backlog, process-backlog, process-backlog-opus, resume-and-continue, import-ai-config-changes, phase-execution) across `dot_claude/`, `dot_copilot/`, `dot_codex/`, `dot_agents/`. Deleted `docs/ai-workflows/`, `docs/ai-roadmap-system.md`, `docs/ai-config-import-policy.md`, `dot_agents/templates/`, `.docs/ai/inbox/`, the three import scripts plus `_shared-exclusions.sh`, the `audit-backlog` Claude agent, and `.docs/ai/next-steps.md`. Stripped `tier3_owner` markers and the `[~]` claim protocol; folded the previous next-steps items into a Now/Next/Later section in `roadmap.md`. Phase B: flipped canonical instruction file to `AGENTS.md` (137 lines, comprehensive); reduced `CLAUDE.md` (23 lines), `dot_codex/AGENTS.md` (12 lines), and `dot_copilot/copilot-instructions.md` (19 lines) to thin pointers + tool-specific overrides. Phase C: added `/plan-backlog-item` Claude Code skill that produces self-contained backlog entries Opus can author for cheaper agents to execute later. Remaining: opportunistic per-repo `CLAUDE.md` → `AGENTS.md` migration when each downstream repo (finclaide, simmersmith, larkline, musicapp, joji) is next touched. `chezmoi apply` not yet run on this machine — preview shows expected drift in `~/.claude/skills/`, `~/.codex/skills/`, `~/.copilot/skills/`, and `~/.agents/skills/`.
+- Slimmed the AI-agent overlay (M3 milestone — three phases, all complete except per-repo migration). Phase A: deleted six workflow skills (audit-backlog, process-backlog, process-backlog-opus, resume-and-continue, import-ai-config-changes, phase-execution) across `dot_claude/`, `dot_copilot/`, `dot_codex/`, `dot_agents/`. Deleted `docs/ai-workflows/`, `docs/ai-roadmap-system.md`, `docs/ai-config-import-policy.md`, `dot_agents/templates/`, `.docs/ai/inbox/`, the three import scripts plus `_shared-exclusions.sh`, the `audit-backlog` Claude agent, and `.docs/ai/next-steps.md`. Stripped `tier3_owner` markers and the `[~]` claim protocol; folded the previous next-steps items into a Now/Next/Later section in `roadmap.md`. Phase B: flipped canonical instruction file to `AGENTS.md` (137 lines, comprehensive); reduced `CLAUDE.md` (23 lines), `dot_codex/AGENTS.md` (12 lines), and `dot_copilot/copilot-instructions.md` (19 lines) to thin pointers + tool-specific overrides. Phase C: added `/plan-backlog-item` Claude Code skill that produces self-contained backlog entries Opus can author for cheaper agents to execute later. Remaining: opportunistic per-repo `CLAUDE.md` → `AGENTS.md` migration when each downstream repo (finclaide, simmersmith, larkline, musicapp, joji) is next touched. A full `chezmoi apply` still has not been run for the slim-overlay/tmux changes — preview shows expected drift in `~/.claude/skills/`, `~/.codex/skills/`, `~/.copilot/skills/`, and `~/.agents/skills/`.
 - Disabled the user-scope Claude Code `vercel-plugin@vercel-vercel-plugin` with `claude plugin disable`, leaving the installed plugin and cache intact so it can be re-enabled later without reinstalling.
 - Added Ghostty `Cmd-Shift-h` / `Cmd-Shift-l` bindings that emit `Meta-H` / `Meta-L` so the existing tmux `swap-window` bindings can move the current window left and right.
 - Updated the managed tmux config so tmux itself now defaults to `/opt/homebrew/bin/fish -l` for new sessions, windows, and splits, instead of inheriting zsh from the login shell.
@@ -76,6 +79,28 @@ Living snapshot of the project. Update before ending each AI session.
 
 ## Changed Files
 
+- `dot_claude/agents/spec-planner.md`
+- `dot_claude/agents/spec-implementer.md`
+- `dot_claude/agents/spec-verifier.md`
+- `dot_claude/commands/spec-plan.md`
+- `dot_claude/commands/spec-implement.md`
+- `dot_claude/commands/spec-verify.md`
+- `dot_copilot/agents/spec-planner.agent.md`
+- `dot_copilot/agents/spec-implementer.agent.md`
+- `dot_copilot/agents/spec-verifier.agent.md`
+- `dot_config/opencode/agents/spec-planner.md`
+- `dot_config/opencode/agents/spec-implementer.md`
+- `dot_config/opencode/agents/spec-verifier.md`
+- `dot_config/opencode/commands/spec-plan.md`
+- `dot_config/opencode/commands/spec-implement.md`
+- `dot_config/opencode/commands/spec-verify.md`
+- `.chezmoidata/ai.json`
+- `README.md`
+- `CLAUDE.md`
+- `dot_copilot/copilot-instructions.md`
+- `dot_config/opencode/README.md`
+- `dot_claude/settings.json.tmpl`
+- `dot_claude/hooks/auto-commit-on-stop.sh`
 - `scripts/install-homebrew-personal.sh`
 - `dot_tmux.conf`
 - `.chezmoidata/ai.json`
@@ -155,6 +180,7 @@ Living snapshot of the project. Update before ending each AI session.
 ## Validation / Test Status
 
 ```
+Validated the spec-agent pack with `jq empty .chezmoidata/ai.json`, rendered work and personal OpenCode configs through `chezmoi -S . cat ~/.config/opencode/opencode.json | jq empty`, rendered work and personal Copilot MCP configs through `chezmoi -S . cat ~/.copilot/mcp-config.json | jq empty`, parsed all new agent/command markdown frontmatter with Ruby YAML, confirmed `chezmoi -S . managed` includes the new `.claude`, `.copilot`, and `.config/opencode` agent/command paths for both profiles, and ran `git diff --check` successfully. Did not use `opencode agent list` because the local OpenCode database is currently failing WAL checkpoint queries.
 Ran `bash -n scripts/install-homebrew-personal.sh` successfully after adding the Bun tap and formula to the personal Homebrew script.
 Verified all four workflow skill names exist under Claude, Codex, Copilot, and generic agent skill trees.
 Validated `dot_tmux.conf` syntax with `tmux -L codex-tmux-check -f /Users/tfinklea/git/chezmoi-config/dot_tmux.conf start-server` after setting Fish as the tmux default shell/command and updating the TmuxAI popup launchers.
@@ -197,5 +223,9 @@ Ran `bash -n scripts/install-homebrew-work.sh` successfully after adding the Spa
 Rendered Copilot MCP config with `chezmoi execute-template` and confirmed all 8 work-scoped servers use registry reverse-DNS names.
 Applied `~/.copilot/mcp-config.json` with `chezmoi apply` and confirmed the deployed config contains the correct registry-matching server IDs.
 Verified TN registry `/v0/servers` returns HTTP 200 with valid JSON listing 10 servers after the rewrite rule fix.
+Rendered work and personal `~/.codex/config.toml` profiles with `chezmoi cat`, parsed both with Python `tomllib`, and confirmed OpenAI Bundled plugins, `marketplaces.openai-bundled`, `chrome-devtools.tools.new_page`, and work-only `atlassian_rovo` render correctly.
+Ran `CHEZMOI_AI_PROFILE=work chezmoi -S . apply --dry-run --force ~/.codex/config.toml` successfully, then applied only `~/.codex/config.toml` with `chezmoi apply --force`.
+Parsed the deployed `~/.codex/config.toml` with Python `tomllib` and confirmed it contains `browser-use@openai-bundled`, `computer-use@openai-bundled`, `latex-tectonic@openai-bundled`, the local `openai-bundled` marketplace pointer, `chrome-devtools.tools.new_page`, `atlassian_rovo`, and repo-default `bel` notifications.
+Ran `jq empty .chezmoidata/ai.json` and `git diff --check` successfully.
 
 ```
