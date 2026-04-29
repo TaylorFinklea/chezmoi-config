@@ -99,6 +99,11 @@ apps = true
 guardian_approval = true
 js_repl = true
 
+# Enables the hook system defined in ~/.codex/hooks.json (managed by chezmoi at
+# dot_codex/hooks.json). Moshi installs SessionStart/PreToolUse/PostToolUse/Stop
+# entries there via `bunx moshi-hooks setup --codex`.
+codex_hooks = true
+
 [tui]
 alternate_screen = "never"
 notifications = ["agent-turn-complete", "approval-requested"]
