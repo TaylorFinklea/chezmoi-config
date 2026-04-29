@@ -11,14 +11,23 @@
 set -eu
 
 blank_status() {
-    tmux set -g status-left  '' \; set -g status-right '' \; set -g @moshi_active 1
+    # Moshi parses the bottom row of the screen to find the tmux window list.
+    # The local config keeps status-position at the top, so flip it for the
+    # duration of any Moshi-attached client.
+    tmux set -g status-left  '' \; \
+         set -g status-right '' \; \
+         set -g status-position bottom \; \
+         set -g @moshi_active 1
 }
 
 restore_status() {
     local sl sr
     sl=$(tmux show-options -gv @local_status_left  2>/dev/null || true)
     sr=$(tmux show-options -gv @local_status_right 2>/dev/null || true)
-    tmux set -g status-left  "$sl" \; set -g status-right "$sr" \; set -g @moshi_active 0
+    tmux set -g status-left  "$sl" \; \
+         set -g status-right "$sr" \; \
+         set -g status-position top \; \
+         set -g @moshi_active 0
 }
 
 # tmux show-environment prints `-MOSHI_CLIENT` for the explicitly-unset form
