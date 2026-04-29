@@ -142,12 +142,52 @@ Per-tool files this repo distributes:
 - `dot_codex/AGENTS.md` — Codex home-level defaults
 - `dot_copilot/copilot-instructions.md` — GitHub Copilot CLI defaults
 - `dot_config/opencode/opencode.json.tmpl` — Opencode global config
+- `dot_claude/agents`, `dot_copilot/agents`, `dot_config/opencode/agents` — global custom agents
+- `dot_claude/commands`, `dot_config/opencode/commands` — global slash-command prompts
 - `dot_config/tmuxai/config.yaml.tmpl` — TmuxAI model/provider config
 - `dot_claude/skills`, `dot_codex/skills`, `dot_copilot/skills`, `dot_agents/skills` — aligned skills (LSPs, language helpers, planning utilities)
 - `.mcp.json` — repo-scoped MCP servers
 - `dot_codex/private_config.toml.tmpl` and `.chezmoitemplates/codex/*.toml` — Codex MCP/server config
 - `dot_copilot/mcp-config.json.tmpl` — Copilot CLI MCP servers
 - `.chezmoidata/ai.json` — shared MCP scope metadata
+
+### Spec Agent Pack
+
+The global spec-agent pack is an artifact-first workflow for spending strong-model reasoning on planning, then handing implementation or verification to cheaper tiers:
+
+- `spec-planner` — writes a product overview and decision-complete implementation spec, usually to `.docs/ai/phases/<slug>-spec.md`.
+- `spec-implementer` — implements an approved spec without re-planning, runs verification, updates handoff state, and commits locally.
+- `spec-verifier` — checks an implementation against a spec, runs verification commands, and reports Pass / Partial / Fail evidence.
+
+The agents inherit each tool's active model by default. Pick the tier at launch time instead of hard-coding model IDs in the profiles:
+
+- Planning tier: high or xhigh reasoning, for example `gpt-5.5` with xhigh reasoning or an Opus-class model.
+- Implementation tier: medium reasoning, for example `gpt-5.5` medium or a Sonnet-class model.
+- Mechanical tier: cheap/fast model, for example `gpt-5.4-mini`, Haiku, or equivalent for verification and call-site updates.
+
+Common invocations:
+
+```bash
+# GitHub Copilot CLI
+copilot --agent spec-planner --model gpt-5.5 --reasoning-effort xhigh
+copilot --agent spec-implementer --model gpt-5.5 --reasoning-effort medium
+copilot --agent spec-verifier --model gpt-5.4-mini --reasoning-effort low
+
+# OpenCode
+opencode --agent spec-planner
+/spec-plan <goal>
+/spec-implement .docs/ai/phases/<slug>-spec.md
+/spec-verify .docs/ai/phases/<slug>-spec.md
+
+# Claude Code
+/spec-plan <goal>
+/spec-implement .docs/ai/phases/<slug>-spec.md
+/spec-verify .docs/ai/phases/<slug>-spec.md
+```
+
+Projects can override these globally managed agents with project-level agent files when a repo needs a different model, stricter tools, or a narrower spec template.
+
+Hook ideas remain intentionally secondary: a future Copilot user-level hook could remind sessions to read `.docs/ai/`, an OpenCode plugin hook could protect secret files or nudge spec completion, and the existing Claude Stop hook remains the commit guard.
 
 Per-repo handoff lives in `.docs/ai/`:
 - `roadmap.md` — milestones, Now/Next/Later, self-contained backlog entries

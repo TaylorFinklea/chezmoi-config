@@ -14,6 +14,12 @@ For shared agent rules — handoff state, backlog conventions, substantial-work 
 - `/handoff-prompt` — generate a self-contained prompt to hand backlog work to another agent
 - `/plan-backlog-item` — Opus drafts a self-contained backlog entry that any cheaper agent can execute
 
+## Commands and agents
+
+- `/spec-plan` — use `spec-planner` to write a product overview and implementation spec
+- `/spec-implement` — use `spec-implementer` to execute an approved spec
+- `/spec-verify` — use `spec-verifier` to check implementation against a spec
+
 ## Hooks
 
 `~/.claude/hooks/auto-commit-on-stop.sh` triggers a commit agent after the Stop event. Don't bypass.
