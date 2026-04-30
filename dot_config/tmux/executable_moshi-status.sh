@@ -13,14 +13,20 @@ set -eu
 blank_status() {
     # Moshi parses the bottom row of the screen to find the tmux window list.
     # The local config keeps status-position at the top, so flip it for the
-    # duration of any Moshi-attached client. Also swap window-status-format
-    # to plain `#I:#W` text — the Tokyo Night color escapes wrapped around
-    # `#I` and `#W` confuse Moshi's swipe-gesture parser.
+    # duration of any Moshi-attached client.
+    #
+    # Use plain `#I:#W` text in the formats so Moshi's parser doesn't trip on
+    # ANSI escapes between the window number and the label. Differentiation
+    # between current vs non-current windows comes from window-status-style /
+    # window-status-current-style — tmux wraps each slot with that style's
+    # ANSI on the outside, so the parser-visible text inside stays clean.
     tmux set -g status-left  '' \; \
          set -g status-right '' \; \
          set -g status-position bottom \; \
          setw -g window-status-format         ' #I:#W ' \; \
          setw -g window-status-current-format ' #I:#W ' \; \
+         setw -g window-status-style          'fg=#a9b1d6,bg=#16161e' \; \
+         setw -g window-status-current-style  'fg=#15161e,bg=#bb9af7,bold' \; \
          set -g @moshi_active 1
 }
 
@@ -30,11 +36,15 @@ restore_status() {
     sr=$(tmux show-options -gv @local_status_right                2>/dev/null || true)
     wf=$(tmux show-options -gv @local_window_status_format        2>/dev/null || true)
     wc=$(tmux show-options -gv @local_window_status_current_format 2>/dev/null || true)
+    # Local-mode formats carry styling inline via `#[...]` escapes, so the
+    # window-status-style / -current-style options should be unset (defaults).
     tmux set -g status-left  "$sl" \; \
          set -g status-right "$sr" \; \
          set -g status-position top \; \
          setw -g window-status-format         "$wf" \; \
          setw -g window-status-current-format "$wc" \; \
+         setw -gu window-status-style \; \
+         setw -gu window-status-current-style \; \
          set -g @moshi_active 0
 }
 
