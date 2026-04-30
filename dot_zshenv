@@ -14,12 +14,18 @@ export PATH="$HOME/.local/bin:$PATH"
 [ -d "$HOME/go/bin" ] && export PATH="$HOME/go/bin:$PATH"
 
 # Load OpenAI API key from the macOS Keychain.
+# Universal expectation — warn loudly so a missing entry doesn't surface as a
+# confusing tool error hours later. Suppress with NO_KEYCHAIN_WARNINGS=1.
 if [ -z "${OPENAI_API_KEY:-}" ]; then
     if [ -x /usr/bin/security ]; then
         OPENAI_API_KEY="$(/usr/bin/security find-generic-password -a "$USER" -s OPENAI_API_KEY -w 2>/dev/null)"
     fi
 
-    [ -n "$OPENAI_API_KEY" ] && export OPENAI_API_KEY
+    if [ -n "$OPENAI_API_KEY" ]; then
+        export OPENAI_API_KEY
+    elif [ -z "${NO_KEYCHAIN_WARNINGS:-}" ]; then
+        echo "warn: keychain entry 'OPENAI_API_KEY' not found; OPENAI_API_KEY unset" >&2
+    fi
 fi
 
 
@@ -29,7 +35,11 @@ if [ -z "${GITHUB_PAT_TOKEN:-}" ]; then
         GITHUB_PAT_TOKEN="$(/usr/bin/security find-generic-password -a "$USER" -s codex-github-pat -w 2>/dev/null)"
     fi
 
-    [ -n "$GITHUB_PAT_TOKEN" ] && export GITHUB_PAT_TOKEN
+    if [ -n "$GITHUB_PAT_TOKEN" ]; then
+        export GITHUB_PAT_TOKEN
+    elif [ -z "${NO_KEYCHAIN_WARNINGS:-}" ]; then
+        echo "warn: keychain entry 'codex-github-pat' not found; GITHUB_PAT_TOKEN unset" >&2
+    fi
 fi
 
 # Load the work-only Logseq DB MCP token from the macOS Keychain.

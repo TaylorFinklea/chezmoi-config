@@ -28,7 +28,6 @@ Active items pulled from the previous next-steps log. Trim as completed.
 - Install Karabiner-Elements on this machine, then confirm the managed `Caps Lock`, `Ctrl-Space`, and `Ctrl-;` layers behave as intended in tmux, shells, Neovim, Claude Code, and Codex.
 
 ### Later
-- Explore only low-noise, opt-in hooks for the spec-agent pack, such as secret-file guards or explicit spec-completion checks; avoid broad Stop hooks that interrupt normal single-agent sessions.
 - Decide whether to keep powerline glyphs in the tmux status bar or swap them for plain separators on machines without a Nerd Font.
 - If you want Espanso on personal machines too, add a personal-only managed match file (or profile-specific snippet path) instead of sharing the work `base.yml`.
 - Roll the same `data.ai_profile` plus `chezmoi apply` verification through a personal machine and confirm scoped Codex/Copilot/Opencode renders match.

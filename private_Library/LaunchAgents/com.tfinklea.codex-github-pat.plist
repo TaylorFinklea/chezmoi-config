@@ -13,8 +13,8 @@
   <key>RunAtLoad</key>
   <true/>
   <key>StandardOutPath</key>
-  <string>/tmp/com.tfinklea.codex-github-pat.out</string>
+  <string>/Users/tfinklea/.local/state/com.tfinklea.codex-github-pat.out</string>
   <key>StandardErrorPath</key>
-  <string>/tmp/com.tfinklea.codex-github-pat.err</string>
+  <string>/Users/tfinklea/.local/state/com.tfinklea.codex-github-pat.err</string>
 </dict>
 </plist>

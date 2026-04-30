@@ -1,0 +1,55 @@
+# Files chezmoi should delete from the destination on `chezmoi apply`.
+# Paths are relative to ~. Use this for orphans that were managed in the past
+# but whose source files were removed — chezmoi does not auto-delete those,
+# so without this file they linger forever.
+
+# Auto-commit Stop hook (source removed in commit a019e02)
+.claude/hooks/auto-commit-on-stop.sh
+
+# Spec-agent pack (dropped 2026-04-29 — see decisions.md)
+.claude/agents/spec-planner.md
+.claude/agents/spec-implementer.md
+.claude/agents/spec-verifier.md
+.claude/commands/spec-plan.md
+.claude/commands/spec-implement.md
+.claude/commands/spec-verify.md
+.config/opencode/agents/spec-planner.md
+.config/opencode/agents/spec-implementer.md
+.config/opencode/agents/spec-verifier.md
+.config/opencode/commands/spec-plan.md
+.config/opencode/commands/spec-implement.md
+.config/opencode/commands/spec-verify.md
+.copilot/agents/spec-planner.agent.md
+.copilot/agents/spec-implementer.agent.md
+.copilot/agents/spec-verifier.agent.md
+
+# Slim-overlay Phase A: workflow skills removed across all four tool trees.
+# Listed explicitly rather than via glob so adding a new skill named like
+# "audit-foo" doesn't accidentally match.
+.claude/skills/audit-backlog
+.claude/skills/import-ai-config-changes
+.claude/skills/phase-execution
+.claude/skills/process-backlog
+.claude/skills/process-backlog-opus
+.claude/skills/resume-and-continue
+.codex/skills/audit-backlog
+.codex/skills/import-ai-config-changes
+.codex/skills/phase-execution
+.codex/skills/process-backlog
+.codex/skills/process-backlog-opus
+.codex/skills/resume-and-continue
+.copilot/skills/audit-backlog
+.copilot/skills/import-ai-config-changes
+.copilot/skills/phase-execution
+.copilot/skills/process-backlog
+.copilot/skills/process-backlog-opus
+.copilot/skills/resume-and-continue
+.agents/skills/audit-backlog
+.agents/skills/import-ai-config-changes
+.agents/skills/phase-execution
+.agents/skills/process-backlog
+.agents/skills/process-backlog-opus
+.agents/skills/resume-and-continue
+
+# Claude-Code-specific audit-backlog agent (also Phase A)
+.claude/agents/audit-backlog.md

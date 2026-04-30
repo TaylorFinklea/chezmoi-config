@@ -13,8 +13,8 @@
   <key>RunAtLoad</key>
   <true/>
   <key>StandardOutPath</key>
-  <string>/tmp/com.tfinklea.logseq-db-mcp-token.out</string>
+  <string>/Users/tfinklea/.local/state/com.tfinklea.logseq-db-mcp-token.out</string>
   <key>StandardErrorPath</key>
-  <string>/tmp/com.tfinklea.logseq-db-mcp-token.err</string>
+  <string>/Users/tfinklea/.local/state/com.tfinklea.logseq-db-mcp-token.err</string>
 </dict>
 </plist>

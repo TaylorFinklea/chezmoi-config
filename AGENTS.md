@@ -11,17 +11,17 @@ Cross-session continuity lives in `.docs/ai/` (git-tracked). These docs are the 
 1. Read (if they exist):
    - `.docs/ai/roadmap.md` — durable goals, milestones, and active items under Now / Next / Later
    - `.docs/ai/current-state.md` — last session summary, blockers, build status
-   - `.docs/ai/phases/` — any in-progress phase specs or recent reports
+   - `.docs/ai/phases/<slug>-spec.md` or `<slug>-report.md` if the user mentions ongoing multi-session work
 2. Run `git log --oneline -5` and `git status` to verify state matches docs.
 3. Ask the user what they want to work on (or pick from the roadmap's Now list).
 
 ### Session End
 
 Before signing off, update:
-1. `.docs/ai/current-state.md` — session summary, changed files, blockers, build status
+1. `.docs/ai/current-state.md` — last-session breadcrumb (not a journal): blockers, open questions, build status, the most recent few progress bullets
 2. `.docs/ai/roadmap.md` — check off completed Now/Next items, add new ones if discovered
 3. `.docs/ai/decisions.md` — append an entry if any non-obvious design, tooling, or scope decision was made
-4. If substantial multi-session work was in progress, ensure the phase report in `.docs/ai/phases/` is complete
+4. If substantial multi-session work is in progress, ensure the matching `<slug>-spec.md` / `<slug>-report.md` pair under `.docs/ai/phases/` reflects the current state
 
 Use `.docs/ai/handoff-template.md` as the checklist format.
 
@@ -51,6 +51,8 @@ The roadmap may contain a `## Backlog` section with self-contained items. Each e
 
 The tier hint is advice, not gating. Any agent can pick up any item. First agent to start it executes it. No claim ceremony, no `[~]` markers.
 
+Claude Code ships a `/plan-backlog-item` skill that drafts entries in this shape; other tools can produce equivalent prose by hand following the same fields.
+
 ### How to work backlog items
 
 1. Pick an unchecked item (`- [ ]`) you can execute. Match the tier hint to your model — picking work above your tier is fine if you're confident; picking below it is wasteful.
@@ -64,7 +66,7 @@ If you fail or get stuck, leave the item `[ ]` and add a `<!-- failed YYYY-MM-DD
 
 ## Substantial-Work Convention
 
-For multi-session or multi-file work that needs continuity (typically authored by Opus): write a brief `.docs/ai/phases/<slug>-spec.md` before starting and a `.docs/ai/phases/<slug>-report.md` when done. No formal protocol — just enough notes to resume across sessions or hand off to another tool. Skip this for routine changes; commit messages and `current-state.md` are enough.
+For multi-session or multi-file work that needs continuity (typically authored by Opus): create `.docs/ai/phases/` if it doesn't exist, write a brief `<slug>-spec.md` before starting, and write a matching `<slug>-report.md` when done. No formal protocol — just enough notes to resume across sessions or hand off to another tool. Skip this for routine changes; commit messages and `current-state.md` are enough.
 
 ## Common Working Style
 

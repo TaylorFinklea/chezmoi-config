@@ -193,6 +193,8 @@ end
 # ============================================================================
 
 # Load OpenAI API key from the macOS Keychain.
+# Universal expectation — warn loudly so a missing entry doesn't surface as a
+# confusing tool error hours later. Suppress with NO_KEYCHAIN_WARNINGS=1.
 if not set -q OPENAI_API_KEY
     if test -x /usr/bin/security
         set openai_api_key (/usr/bin/security find-generic-password -a "$USER" -s OPENAI_API_KEY -w 2>/dev/null)
@@ -200,6 +202,8 @@ if not set -q OPENAI_API_KEY
 
     if test -n "$openai_api_key"
         set -gx OPENAI_API_KEY $openai_api_key
+    else if not set -q NO_KEYCHAIN_WARNINGS
+        echo "warn: keychain entry 'OPENAI_API_KEY' not found; OPENAI_API_KEY unset" >&2
     end
 end
 
@@ -211,6 +215,8 @@ if not set -q GITHUB_PAT_TOKEN
 
     if test -n "$github_pat_token"
         set -gx GITHUB_PAT_TOKEN $github_pat_token
+    else if not set -q NO_KEYCHAIN_WARNINGS
+        echo "warn: keychain entry 'codex-github-pat' not found; GITHUB_PAT_TOKEN unset" >&2
     end
 end
 
