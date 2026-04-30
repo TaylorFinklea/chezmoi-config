@@ -11,18 +11,17 @@
 set -eu
 
 blank_status() {
-    # Moshi parses the bottom row of the screen to find the tmux window list.
-    # The local config keeps status-position at the top, so flip it for the
-    # duration of any Moshi-attached client.
-    #
     # Use plain `#I:#W` text in the formats so Moshi's parser doesn't trip on
     # ANSI escapes between the window number and the label. Differentiation
     # between current vs non-current windows comes from window-status-style /
     # window-status-current-style — tmux wraps each slot with that style's
     # ANSI on the outside, so the parser-visible text inside stays clean.
+    #
+    # status-position stays at `top` (the local default). Earlier we flipped
+    # to `bottom` thinking Moshi only parses the bottom row, but with the
+    # parser-friendly format Moshi finds the window list at top too.
     tmux set -g status-left ''
     tmux set -g status-right ''
-    tmux set -g status-position bottom
     tmux setw -g window-status-format ' #I:#W '
     tmux setw -g window-status-current-format ' #I:#W '
     tmux setw -g window-status-style 'fg=#a9b1d6,bg=#16161e'
@@ -40,7 +39,6 @@ restore_status() {
     # window-status-style / -current-style options should be unset (defaults).
     tmux set -g status-left "$sl"
     tmux set -g status-right "$sr"
-    tmux set -g status-position top
     tmux setw -g window-status-format "$wf"
     tmux setw -g window-status-current-format "$wc"
     tmux setw -gu window-status-style
