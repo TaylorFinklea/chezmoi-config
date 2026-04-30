@@ -79,6 +79,10 @@ Run one command per Bash tool call unless you genuinely need to pipe output betw
 - After code changes, make a small descriptive commit by default.
 - Don't push unless the user explicitly asks.
 
+### Asking questions
+
+When you need clarification or a decision from the user, prefer structured prompts (radio / checkbox / enumerated choices) over free-text whenever the answer space is enumerable. Most harnesses ship a structured question mechanism — Claude Code's `AskUserQuestion` with `options`, equivalents elsewhere, or at minimum a numbered list with the recommended option marked `(Recommended)`. Lead with the recommendation. Free-text answers force the user to read carefully, type a long reply, and risk ambiguity; one-tap selection is faster and clearer.
+
 ### Directory creation
 
 - **Git repos**: On the first substantive task, create `.docs/ai/` if it doesn't exist. Seed it from `~/.claude/templates/handoff/`. Keep it tracked by git.
