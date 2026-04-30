@@ -22,8 +22,8 @@ blank_status() {
     # parser-friendly format Moshi finds the window list at top too.
     tmux set -g status-left ''
     tmux set -g status-right ''
-    tmux setw -g window-status-format ' #I:#W#{?#{m:*sh,#{pane_current_command}},, ●} '
-    tmux setw -g window-status-current-format ' #I:#W#{?#{m:*sh,#{pane_current_command}},, ●} '
+    tmux setw -g window-status-format ' #I:#W '
+    tmux setw -g window-status-current-format ' #I:#W '
     tmux setw -g window-status-style 'fg=#a9b1d6,bg=#16161e'
     tmux setw -g window-status-current-style 'fg=#15161e,bg=#bb9af7,bold'
     tmux set -g @moshi_active 1
