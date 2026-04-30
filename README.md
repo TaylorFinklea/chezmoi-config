@@ -148,35 +148,14 @@ After saving it:
 
 ## AI Agent Surfaces
 
-This repo manages instruction and skill surfaces for Claude Code, Codex, GitHub Copilot CLI, and Opencode. The overlay is deliberately thin — vanilla harness behavior plus a small shared handoff layer.
+This repo manages instruction surfaces for Claude Code, Codex, GitHub Copilot CLI, and Opencode. The overlay is deliberately thin — vanilla harness behavior plus a shared handoff layer.
 
-Per-tool files this repo distributes:
-- `AGENTS.md` — shared cross-agent instructions (canonical instruction file going forward)
-- `CLAUDE.md` — Claude Code overrides; thin pointer to AGENTS.md plus Claude-specific tool mappings
-- `dot_codex/AGENTS.md` — Codex home-level defaults
-- `dot_copilot/copilot-instructions.md` — GitHub Copilot CLI defaults
-- `dot_config/opencode/opencode.json.tmpl` — Opencode global config
-- `dot_claude/agents`, `dot_copilot/agents`, `dot_config/opencode/agents` — global custom agents
-- `dot_claude/commands`, `dot_config/opencode/commands` — global slash-command prompts
-- `dot_config/tmuxai/config.yaml.tmpl` — TmuxAI model/provider config
-- `dot_claude/skills`, `dot_codex/skills`, `dot_copilot/skills`, `dot_agents/skills` — aligned skills (LSPs, language helpers, planning utilities)
-- `.mcp.json` — repo-scoped MCP servers
-- `dot_codex/private_config.toml.tmpl` and `.chezmoitemplates/codex/*.toml` — Codex MCP/server config
-- `dot_copilot/mcp-config.json.tmpl` — Copilot CLI MCP servers
-- `.chezmoidata/ai.json` — shared MCP scope metadata
+- Canonical instructions: `AGENTS.md` (cross-tool); `CLAUDE.md`, `dot_codex/AGENTS.md`, `dot_copilot/copilot-instructions.md` are thin pointers with tool-specific overrides only.
+- Per-tool surfaces: `dot_<tool>/skills`, `dot_<tool>/agents`, `dot_<tool>/commands` distribute global skills, custom agents, and slash commands. TmuxAI config at `dot_config/tmuxai/`.
+- MCP fanout: `.chezmoidata/ai.json` is the catalog; `dot_codex/private_config.toml.tmpl` and `.chezmoitemplates/codex/*.toml` render Codex configs; `dot_copilot/mcp-config.json.tmpl` and `dot_config/opencode/opencode.json.tmpl` render the others. Repo-scoped Claude Code uses `.mcp.json`.
+- Sync: edit here, distribute with `chezmoi apply`. Detect drift with `chezmoi diff`; reconcile manually rather than running an importer.
 
-Per-repo handoff lives in `.docs/ai/`:
-- `roadmap.md` — milestones, Now/Next/Later, self-contained backlog entries
-- `current-state.md` — last session summary
-- `decisions.md` — append-only ADR log
-- `phases/` — optional `<slug>-spec.md` / `<slug>-report.md` pairs for substantial multi-session work
-- `handoff-template.md` — checklist format
-
-Sync strategy:
-- Edit repo-managed docs and skills here; distribute with `chezmoi apply`.
-- `~/.codex/config.toml`, `~/.copilot/mcp-config.json`, and `~/.config/opencode/opencode.json` are profile-managed via `ai_profile`, not mirrored from a single machine.
-- `~/.config/tmuxai/config.yaml` exposes `codex` and `copilot` model profiles for `tmuxai`.
-- Detect drift between home and repo with `chezmoi diff`; reconcile manually rather than running an importer.
+Per-repo handoff lives in `.docs/ai/` (`roadmap.md`, `current-state.md`, `decisions.md`, `handoff-template.md`, optional `phases/<slug>-spec.md` / `<slug>-report.md` pairs for substantial multi-session work).
 
 ## Shared MCP Servers
 

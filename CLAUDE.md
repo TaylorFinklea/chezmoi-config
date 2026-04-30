@@ -10,7 +10,6 @@ For shared agent rules — handoff state, backlog conventions, substantial-work 
 
 ## Skills available in this repo
 
-- `/init-ai-docs` — bootstrap a slim `.docs/ai/` in a new project repo
 - `/handoff-prompt` — generate a self-contained prompt to hand backlog work to another agent
 - `/plan-backlog-item` — Opus drafts a self-contained backlog entry that any cheaper agent can execute
 

@@ -53,3 +53,12 @@
 
 # Claude-Code-specific audit-backlog agent (also Phase A)
 .claude/agents/audit-backlog.md
+
+# init-ai-docs skill (Round 3: AGENTS.md "Directory creation" already covers this)
+.claude/skills/init-ai-docs
+.codex/skills/init-ai-docs
+.copilot/skills/init-ai-docs
+.agents/skills/init-ai-docs
+
+# Stale handoff template (source removed in Phase A; lingered on disk)
+.claude/templates/handoff/next-steps.md

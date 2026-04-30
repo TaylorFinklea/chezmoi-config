@@ -141,20 +141,7 @@ For each group with 2+ branches:
 - A newer branch contains all commits from the older branch
 - Name prefix alone is NOT sufficient — similarly named branches may contain independent work
 
-Example analysis for `feature/api-*` branches:
-
-```markdown
-### Related Branch Group: feature/api-*
-
-| Branch | Commits | PR Merged | Status |
-|--------|---------|-----------|--------|
-| feature/api | 12 | #29 (initial API) | Superseded - work in main |
-| feature/api-v2 | 8 | #45 (API improvements) | Superseded - work in main |
-| feature/api-refactor | 5 | #67 (refactor) | Superseded - work in main |
-| feature/api-final | 4 | None found | Superseded by above PRs |
-
-**Recommendation:** All 4 branches can be deleted - work incorporated via PRs #29, #45, #67
-```
+Present each group as a markdown table with columns Branch | Commits | PR Merged | Status, then a one-line recommendation citing the PR numbers that incorporated the work.
 
 ### Phase 3: Categorize Remaining Branches
 
@@ -212,65 +199,14 @@ These changes will be LOST if you remove this worktree.
 
 ### GATE 1: Present Complete Analysis
 
-Present everything in ONE comprehensive view. Group related branches together:
+Present everything in ONE comprehensive view, organized as:
 
-```markdown
-## Git Cleanup Analysis
+1. **Related Branch Groups** — one table per group with columns Branch | Status | Evidence; one-line recommendation per group.
+2. **Individual Branches** — separate sub-tables for "Safe to delete (-d)", "Safe to delete (squash-merged, -D)", "Needs review", and "Keep".
+3. **Worktrees** — Path | Branch | Status table.
+4. **Summary** — counts per category, then ask what to clean up.
 
-### Related Branch Groups
-
-**Group: feature/api-* (4 branches)**
-| Branch | Status | Evidence |
-|--------|--------|----------|
-| feature/api | Superseded | Work merged in PR #29 |
-| feature/api-v2 | Superseded | Work merged in PR #45 |
-| feature/api-refactor | Superseded | Work merged in PR #67 |
-| feature/api-final | Superseded | Older iteration, diverged |
-
-Recommendation: Delete all 4 (work is in main)
-
----
-
-### Individual Branches
-
-**Safe to Delete (merged with -d)**
-| Branch | Merged Into |
-|--------|-------------|
-| fix/typo | main |
-
-**Safe to Delete (squash-merged, requires -D)**
-| Branch | Merged As |
-|--------|-----------|
-| feature/login | PR #42 |
-
-**Needs Review ([gone] remotes, no PR found)**
-| Branch | Last Commit |
-|--------|-------------|
-| experiment/old | abc1234 "WIP something" |
-
-**Keep (active work)**
-| Branch | Status |
-|--------|--------|
-| wip/new-feature | 5 unpushed commits |
-
-### Worktrees
-| Path | Branch | Status |
-|------|--------|--------|
-| ../proj-auth | feature/auth | STALE (merged) |
-
----
-
-**Summary:**
-- 4 related branches (feature/api-*) - recommend delete all
-- 1 merged branch - safe to delete
-- 1 squash-merged branch - safe to delete
-- 1 needs review
-- 1 to keep
-
-Which would you like to clean up?
-```
-
-Use AskUserQuestion with clear options:
+Use AskUserQuestion with options:
 - Delete all recommended (groups + merged + squash-merged)
 - Delete specific groups/categories
 - Let me pick individual branches
@@ -304,41 +240,11 @@ Confirm? (yes/no)
 
 ### Phase 5: Execute
 
-Run each deletion as a **separate command** so partial failures don't block remaining deletions. Report the result of each:
-
-```bash
-git branch -d fix/typo
-git branch -D feature/login
-git branch -D feature/api
-git branch -D feature/api-v2
-git branch -D feature/api-refactor
-git branch -D feature/api-final
-git worktree remove ../proj-auth
-```
-
-If a deletion fails, report the error and continue with remaining deletions.
+Run each deletion as a **separate command** so partial failures don't block remaining deletions. Report each result inline. If a deletion fails, report the error and continue.
 
 ### Phase 6: Report
 
-```markdown
-## Cleanup Complete
-
-### Deleted
-- fix/typo
-- feature/login
-- feature/api
-- feature/api-v2
-- feature/api-refactor
-- feature/api-final
-- Worktree: ../proj-auth
-
-### Remaining (4 branches)
-| Branch | Status |
-|--------|--------|
-| main | current |
-| wip/new-feature | active work |
-| experiment/old | needs review |
-```
+Show what was deleted (with delete flag used) and what remains. Group remaining branches by category (current, active work, needs review). Keep it terse — the user just confirmed at GATE 2; no need to re-justify each deletion.
 
 ## Safety Rules
 
