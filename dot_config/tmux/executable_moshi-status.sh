@@ -13,20 +13,28 @@ set -eu
 blank_status() {
     # Moshi parses the bottom row of the screen to find the tmux window list.
     # The local config keeps status-position at the top, so flip it for the
-    # duration of any Moshi-attached client.
+    # duration of any Moshi-attached client. Also swap window-status-format
+    # to plain `#I:#W` text — the Tokyo Night color escapes wrapped around
+    # `#I` and `#W` confuse Moshi's swipe-gesture parser.
     tmux set -g status-left  '' \; \
          set -g status-right '' \; \
          set -g status-position bottom \; \
+         setw -g window-status-format         ' #I:#W ' \; \
+         setw -g window-status-current-format ' #I:#W ' \; \
          set -g @moshi_active 1
 }
 
 restore_status() {
-    local sl sr
-    sl=$(tmux show-options -gv @local_status_left  2>/dev/null || true)
-    sr=$(tmux show-options -gv @local_status_right 2>/dev/null || true)
+    local sl sr wf wc
+    sl=$(tmux show-options -gv @local_status_left                 2>/dev/null || true)
+    sr=$(tmux show-options -gv @local_status_right                2>/dev/null || true)
+    wf=$(tmux show-options -gv @local_window_status_format        2>/dev/null || true)
+    wc=$(tmux show-options -gv @local_window_status_current_format 2>/dev/null || true)
     tmux set -g status-left  "$sl" \; \
          set -g status-right "$sr" \; \
          set -g status-position top \; \
+         setw -g window-status-format         "$wf" \; \
+         setw -g window-status-current-format "$wc" \; \
          set -g @moshi_active 0
 }
 
