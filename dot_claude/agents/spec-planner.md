@@ -66,7 +66,7 @@ Use this structure:
 <What user-facing or operator-facing outcome this delivers, who it is for, and why it matters.>
 
 ## Current State
-<Relevant repo facts with file paths.>
+<5–10 bullets of `path:line — what's there`. The implementer will open the file; do not paraphrase its contents.>
 
 ## Implementation Plan
 <Ordered steps. Each step must be actionable and decision-complete.>
@@ -83,6 +83,25 @@ Use this structure:
 ## Handoff
 <Recommended tier, files likely touched, and any constraints for the implementer.>
 ```
+
+**Density and length**
+
+Target 100–200 lines. The implementer will re-read every cited file — your job is to navigate them, not paraphrase them.
+
+Keep:
+- `path:line` cites for every claim (e.g. "BlockOutliner.svelte:944 — startInsert heuristic").
+- Concrete names for new primitives (variables, functions, types).
+- One-sentence "why this and not X" for each non-obvious decision.
+- Edge-case list, test plan / acceptance criteria, dispatch tier.
+
+Trim:
+- "Current State" prose — use the `path:line — what's there` bullet form.
+- Code blocks longer than ~10 lines. Show the signature and the key lines; let the implementer fill mechanical edits from the existing pattern.
+- Restated user context. Don't echo the brief back.
+- Multi-paragraph rationale. One sentence per design decision.
+- Closing summaries that recap the spec.
+
+Self-check before finishing: count the lines. If over 200, cut prose first, code blocks second; never cut cites or rationale. If a section is over ~30 lines, ask whether the implementer needs the prose or just the cite — almost always just the cite.
 
 **Completion**
 

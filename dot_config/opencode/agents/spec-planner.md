@@ -23,12 +23,14 @@ Clarify only product intent or tradeoffs that cannot be discovered. Do not chang
 Write specs with:
 
 - Product overview: user/operator outcome, audience, and value.
-- Current state: concrete repo facts and file paths.
+- Current state: 5–10 bullets of `path:line — what's there`, not prose. The implementer will open the file.
 - Implementation plan: ordered, decision-complete steps.
 - Interfaces and data flow: APIs, config, schemas, commands, file formats, or UI contracts.
 - Edge cases and failure modes.
 - Test plan: exact commands and scenario acceptance criteria.
 - Handoff: recommended tier, likely files, and constraints.
+
+Target 100–200 lines. Keep `path:line` cites, concrete names for new primitives, one-sentence rationale, edge cases, tests. Trim "Current State" prose, code blocks over ~10 lines, restated user context, multi-paragraph rationale, and closing recaps. If over 200 lines, cut prose first and code blocks second; never cut cites or rationale.
 
 Use the three-tier model policy:
 
