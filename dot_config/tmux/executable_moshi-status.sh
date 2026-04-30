@@ -20,19 +20,9 @@ blank_status() {
     # between current vs non-current windows comes from window-status-style /
     # window-status-current-style — tmux wraps each slot with that style's
     # ANSI on the outside, so the parser-visible text inside stays clean.
-    #
-    # Add a second status row above the window list that carries the
-    # Tokyo Night session / pane-command / date strip. Moshi only parses the
-    # bottommost row, so this upper row is free to use any styling.
-    #
-    # Using separate `tmux set` calls per option (rather than `\;`-chained)
-    # so the rich format string can't get re-tokenized by tmux's command
-    # parser when it contains spaces and `#[...]` escapes.
-    tmux set -g status 2
     tmux set -g status-left ''
     tmux set -g status-right ''
     tmux set -g status-position bottom
-    tmux set -g 'status-format[1]' '#[fg=#15161e,bg=#7aa2f7,bold] TMUX #[fg=#7aa2f7,bg=#24283b,nobold]#[fg=#c0caf5,bg=#24283b] #S #[default,bg=#16161e]#[align=right]#[fg=#565f89,bg=#16161e]#[fg=#c0caf5,bg=#565f89] #{pane_current_command} #[fg=#7dcfff,bg=#565f89]#[fg=#15161e,bg=#7dcfff] %Y-%m-%d %H:%M '
     tmux setw -g window-status-format ' #I:#W '
     tmux setw -g window-status-current-format ' #I:#W '
     tmux setw -g window-status-style 'fg=#a9b1d6,bg=#16161e'
@@ -48,13 +38,9 @@ restore_status() {
     wc=$(tmux show-options -gv @local_window_status_current_format 2>/dev/null || true)
     # Local-mode formats carry styling inline via `#[...]` escapes, so the
     # window-status-style / -current-style options should be unset (defaults).
-    # Drop back to a single status line; clear the Moshi-mode second row.
-    # `on` = one line; `2`-`5` = N lines. `1` is rejected as "unknown value".
-    tmux set -g status on
     tmux set -g status-left "$sl"
     tmux set -g status-right "$sr"
     tmux set -g status-position top
-    tmux set -gu 'status-format[1]'
     tmux setw -g window-status-format "$wf"
     tmux setw -g window-status-current-format "$wc"
     tmux setw -gu window-status-style
