@@ -99,10 +99,9 @@ apps = true
 guardian_approval = true
 js_repl = true
 
-# Enables the hook system defined in ~/.codex/hooks.json (managed by chezmoi at
-# dot_codex/hooks.json). Moshi installs SessionStart/PreToolUse/PostToolUse/Stop
-# entries there via `bunx moshi-hooks setup --codex`.
-codex_hooks = true
+# Work machines do not run Moshi hooks. Keep ~/.codex/hooks.json managed as an
+# empty hook map for this profile so stale local hook config is overwritten.
+codex_hooks = false
 
 [tui]
 alternate_screen = "never"
