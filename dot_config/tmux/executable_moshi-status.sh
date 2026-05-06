@@ -67,8 +67,17 @@ case "${1:-apply}" in
         current=$(tmux show-options -gv @moshi_active 2>/dev/null || echo 0)
         if [ "$current" = "1" ]; then restore_status; else blank_status; fi
         ;;
+    preserve)
+        # Reapply whichever mode is currently active (read from @moshi_active).
+        # Used after `source-file ~/.tmux.conf` so a manual `toggle` into Moshi
+        # mode survives a config reload — the conf re-sets status-left/right
+        # and the window formats to their local-mode values, which clobbers an
+        # active blank_status. This re-runs the matching helper.
+        current=$(tmux show-options -gv @moshi_active 2>/dev/null || echo 0)
+        if [ "$current" = "1" ]; then blank_status; else restore_status; fi
+        ;;
     *)
-        echo "Usage: $0 {apply|toggle}" >&2
+        echo "Usage: $0 {apply|toggle|preserve}" >&2
         exit 1
         ;;
 esac
