@@ -11,43 +11,21 @@
 set -eu
 
 blank_status() {
-    # Use plain `#I:#W` text in the formats so Moshi's parser doesn't trip on
-    # ANSI escapes between the window number and the label. Differentiation
-    # between current vs non-current windows comes from window-status-style /
-    # window-status-current-style — tmux wraps each slot with that style's
-    # ANSI on the outside, so the parser-visible text inside stays clean.
-    #
-    # status-position stays at `top` (the local default). Earlier we flipped
-    # to `bottom` thinking Moshi only parses the bottom row, but with the
-    # parser-friendly format Moshi finds the window list at top too.
+    # Window-status formats and styles are unified globally in dot_tmux.conf —
+    # the slot is plain ` #I:#W ` (with optional ` ● ` pin prefix) and the bg
+    # comes from window-status-style / -current-style, parser-friendly in both
+    # modes. So Moshi mode only needs to blank the sides.
     tmux set -g status-left ''
     tmux set -g status-right ''
-    # Pin indicator (`● `) is rendered with no `#[...]` styling so Moshi's
-    # parser doesn't trip on ANSI between the slot edge and the window number.
-    # The bullet inherits window-status-style / -current-style colors instead
-    # of the blue used in local mode — colored pin in Moshi mode would require
-    # ANSI escapes that the parser can't tolerate.
-    tmux setw -g window-status-format ' #{?#{==:#{@pinned},1},● ,}#I:#W '
-    tmux setw -g window-status-current-format ' #{?#{==:#{@pinned},1},● ,}#I:#W '
-    tmux setw -g window-status-style 'fg=#a9b1d6,bg=#16161e'
-    tmux setw -g window-status-current-style 'fg=#15161e,bg=#bb9af7,bold'
     tmux set -g @moshi_active 1
 }
 
 restore_status() {
-    local sl sr wf wc
-    sl=$(tmux show-options -gv @local_status_left                 2>/dev/null || true)
-    sr=$(tmux show-options -gv @local_status_right                2>/dev/null || true)
-    wf=$(tmux show-options -gv @local_window_status_format        2>/dev/null || true)
-    wc=$(tmux show-options -gv @local_window_status_current_format 2>/dev/null || true)
-    # Local-mode formats carry styling inline via `#[...]` escapes, so the
-    # window-status-style / -current-style options should be unset (defaults).
+    local sl sr
+    sl=$(tmux show-options -gv @local_status_left  2>/dev/null || true)
+    sr=$(tmux show-options -gv @local_status_right 2>/dev/null || true)
     tmux set -g status-left "$sl"
     tmux set -g status-right "$sr"
-    tmux setw -g window-status-format "$wf"
-    tmux setw -g window-status-current-format "$wc"
-    tmux setw -gu window-status-style
-    tmux setw -gu window-status-current-style
     tmux set -g @moshi_active 0
 }
 
