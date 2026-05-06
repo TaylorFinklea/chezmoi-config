@@ -22,8 +22,13 @@ blank_status() {
     # parser-friendly format Moshi finds the window list at top too.
     tmux set -g status-left ''
     tmux set -g status-right ''
-    tmux setw -g window-status-format ' #I:#W '
-    tmux setw -g window-status-current-format ' #I:#W '
+    # Pin indicator (`● `) is rendered with no `#[...]` styling so Moshi's
+    # parser doesn't trip on ANSI between the slot edge and the window number.
+    # The bullet inherits window-status-style / -current-style colors instead
+    # of the blue used in local mode — colored pin in Moshi mode would require
+    # ANSI escapes that the parser can't tolerate.
+    tmux setw -g window-status-format ' #{?#{==:#{@pinned},1},● ,}#I:#W '
+    tmux setw -g window-status-current-format ' #{?#{==:#{@pinned},1},● ,}#I:#W '
     tmux setw -g window-status-style 'fg=#a9b1d6,bg=#16161e'
     tmux setw -g window-status-current-style 'fg=#15161e,bg=#bb9af7,bold'
     tmux set -g @moshi_active 1
