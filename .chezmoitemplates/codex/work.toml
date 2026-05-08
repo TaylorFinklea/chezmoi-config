@@ -101,7 +101,7 @@ js_repl = true
 
 # Work machines do not run Moshi hooks. Keep ~/.codex/hooks.json managed as an
 # empty hook map for this profile so stale local hook config is overwritten.
-codex_hooks = false
+hooks = false
 
 [tui]
 alternate_screen = "never"

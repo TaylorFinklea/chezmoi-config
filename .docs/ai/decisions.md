@@ -93,3 +93,5 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 2026-05-04: Scope Codex Moshi hooks to the personal AI profile only. Work machines should render `codex_hooks = false` plus an empty managed `~/.codex/hooks.json`, preventing stale `bunx moshi-hooks` hook entries from firing on machines where Bun/Moshi are intentionally absent. Personal machines keep the Moshi hook commands and install Bun through the personal Homebrew bootstrap.
 
 2026-05-04: Remove stale unmanaged `~/.zprofile` through `.chezmoiremove` because `dot_zshenv` already owns Homebrew shellenv setup for zsh. Keeping both caused login zsh shells to parse Fish syntax whenever `$SHELL` pointed at Fish, even after fixing `dot_zshenv`.
+
+2026-05-08: Rename the managed Codex hook feature flag from deprecated `[features].codex_hooks` to `[features].hooks` in both work and personal profile templates. For the live `~/.codex/config.toml`, patch only the key name in place instead of running a full `chezmoi apply`, because current Codex runtime/plugin state has unrelated local drift.
