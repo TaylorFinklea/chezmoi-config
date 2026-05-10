@@ -102,6 +102,20 @@ When you need clarification or a decision from the user, prefer structured promp
 
 This repo ships a `.mcp.json` with `chrome-devtools`, so tools that honor project MCP config can use Chrome DevTools MCP here.
 
+## Chezmoi drift reconciliation
+
+This repo is the source of truth for dotfiles managed by chezmoi. `chezmoi diff` shows where `~/` has diverged from the repo. Drift can flow either way; **default to surfacing it before resolving it.**
+
+1. **Don't reflexively `chezmoi apply` (or `--force`).** Decide direction first:
+   - Source is right, home is stale → `chezmoi apply` is correct.
+   - Home is right, source is stale → hand-edit the source, then `chezmoi apply` (or `chezmoi re-add` if the file isn't templated).
+   - Both have intentional changes → manual merge.
+   For files the user actively hand-edits (`~/.tmux.conf`, shell rc files, editor configs), assume the home-side diff is intentional unless the user said otherwise. Show the diff and ask before clobbering.
+2. **Sister-config check.** Most config surfaces have parallel files across agents (`dot_claude/settings.json.tmpl`, `dot_codex/hooks.json`, `dot_copilot/...`, `dot_config/opencode/...`). When migrating one (e.g. moshi hooks Claude → daemon in commit `8bd5bc6`), grep for the old pattern across the others before declaring the migration done. A migration that updates only one sibling is a future-incident generator.
+3. **Probe canonical shapes against `mktemp -d`, never live HOME.** For moshi-hook specifically: `HOME=$(mktemp -d) moshi-hook install --target <agent>` writes the daemon's expected layout into a throwaway dir. Diff that against `dot_<agent>/hooks.json` to spot drift. Hook event names differ across agents — Claude has `PreToolUse`/`PostToolUse`; Codex does not.
+4. **Verify claims before writing them.** Don't describe a file as "daemon-based" / "migrated" / "current" in a commit message or `current-state.md` without reading it first. "Force-applied the daemon-based hooks.json" is only true if the source is actually daemon-based — otherwise the breadcrumb misleads the next session.
+5. **Hidden glyphs hide drift.** Powerline-style status lines embed Private Use Area characters (U+E0B0–U+E0BF) that some readers collapse in display. When two visually-identical status-line strings are supposed to mirror each other (e.g. `status-right` vs `@local_status_right`), confirm parity with `xxd`, not eyeballing.
+
 ## API Keys
 
 ### OPENAI_API_KEY
