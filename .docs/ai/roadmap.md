@@ -19,9 +19,8 @@ Active items pulled from the previous next-steps log. Trim as completed.
 ### Next
 - Run `scripts/install-homebrew-work.sh` on a work machine and confirm `spacectl` installs cleanly from the `spacelift-io/spacelift` tap.
 - Source `~/.zshrc` (or open a fresh Fish/Zsh) so the new `c` / `ccc` aliases land in already-open shells.
-- Resolve the local OpenCode SQLite WAL checkpoint failure, then rerun `opencode mcp list` to verify the rendered MCP set from the CLI side.
 - Log in to `flyctl` and `railway` on this personal machine, then verify the managed `flyctl` and `railway` MCP entries connect from Codex and Opencode.
-- Verify the repo-scoped Claude Code MCP entries (`supabase-personal`, `flyctl`, `railway`) connect cleanly in this repo. If you want personal/work scoping there too, introduce a managed home-level Claude MCP surface instead of relying only on `.mcp.json`.
+- Verify the repo-scoped Claude Code MCP entries (`supabase`, `flyctl`, `railway`) connect cleanly in this repo. If you want personal/work scoping there too, introduce a managed home-level Claude MCP surface instead of relying only on `.mcp.json`.
 - Validate `Cmd-h` / `Cmd-l` (tmux window navigation) and `Cmd-Shift-h` / `Cmd-Shift-l` (tmux window reorder) after restarting Ghostty, while AeroSpace keeps desktop-level focus behavior elsewhere.
 - Decide whether `vim-tmux-navigator`'s `Ctrl-h/j/k/l` collides with any terminal AI TUI; if so, remap it while keeping the prefix-based pane navigation in `dot_tmux.conf`.
 - Install Karabiner-Elements on this machine, then confirm the managed `Caps Lock`, `Ctrl-Space`, and `Ctrl-;` layers behave as intended in tmux, shells, Neovim, Claude Code, and Codex.
