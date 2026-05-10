@@ -62,3 +62,6 @@
 
 # Stale handoff template (source removed in Phase A; lingered on disk)
 .claude/templates/handoff/next-steps.md
+
+# Stale Home Manager tmux config symlink. This repo manages ~/.tmux.conf.
+.config/tmux/tmux.conf
