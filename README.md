@@ -183,7 +183,7 @@ The template intentionally keeps a separate `Notification` matcher with `printf 
 This repo manages instruction surfaces for Claude Code, Codex, GitHub Copilot CLI, and Opencode. The overlay is deliberately thin — vanilla harness behavior plus a shared handoff layer.
 
 - Canonical instructions: `AGENTS.md` (cross-tool); `CLAUDE.md`, `dot_codex/AGENTS.md`, `dot_copilot/copilot-instructions.md` are thin pointers with tool-specific overrides only.
-- Per-tool surfaces: `dot_<tool>/skills`, `dot_<tool>/agents`, `dot_<tool>/commands` distribute global skills, custom agents, and slash commands. TmuxAI config at `dot_config/tmuxai/`.
+- Per-tool surfaces: `dot_<tool>/skills`, `dot_<tool>/agents`, `dot_<tool>/commands` distribute global skills, custom agents, and slash commands. OpenCode global plugins live under `dot_config/opencode/plugins/`. TmuxAI config at `dot_config/tmuxai/`.
 - MCP fanout: `.chezmoidata/ai.json` is the catalog; `dot_codex/private_config.toml.tmpl` and `.chezmoitemplates/codex/*.toml` render Codex configs; `dot_copilot/mcp-config.json.tmpl` and `dot_config/opencode/opencode.json.tmpl` render the others. Repo-scoped Claude Code uses `.mcp.json`.
 - Sync: edit here, distribute with `chezmoi apply`. Detect drift with `chezmoi diff`; reconcile manually rather than running an importer.
 
