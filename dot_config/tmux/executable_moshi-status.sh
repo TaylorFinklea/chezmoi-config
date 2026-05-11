@@ -11,38 +11,21 @@
 set -eu
 
 blank_status() {
-    # Use plain `#I:#W` text in the formats so Moshi's parser doesn't trip on
-    # ANSI escapes between the window number and the label. Differentiation
-    # between current vs non-current windows comes from window-status-style /
-    # window-status-current-style — tmux wraps each slot with that style's
-    # ANSI on the outside, so the parser-visible text inside stays clean.
-    #
-    # status-position stays at `top` (the local default). Earlier we flipped
-    # to `bottom` thinking Moshi only parses the bottom row, but with the
-    # parser-friendly format Moshi finds the window list at top too.
+    # Window-status formats and styles are unified globally in dot_tmux.conf —
+    # the slot is plain ` #I:#W ` (with optional ` ● ` pin prefix) and the bg
+    # comes from window-status-style / -current-style, parser-friendly in both
+    # modes. So Moshi mode only needs to blank the sides.
     tmux set -g status-left ''
     tmux set -g status-right ''
-    tmux setw -g window-status-format ' #I:#W '
-    tmux setw -g window-status-current-format ' #I:#W '
-    tmux setw -g window-status-style 'fg=#a9b1d6,bg=#16161e'
-    tmux setw -g window-status-current-style 'fg=#15161e,bg=#bb9af7,bold'
     tmux set -g @moshi_active 1
 }
 
 restore_status() {
-    local sl sr wf wc
-    sl=$(tmux show-options -gv @local_status_left                 2>/dev/null || true)
-    sr=$(tmux show-options -gv @local_status_right                2>/dev/null || true)
-    wf=$(tmux show-options -gv @local_window_status_format        2>/dev/null || true)
-    wc=$(tmux show-options -gv @local_window_status_current_format 2>/dev/null || true)
-    # Local-mode formats carry styling inline via `#[...]` escapes, so the
-    # window-status-style / -current-style options should be unset (defaults).
+    local sl sr
+    sl=$(tmux show-options -gv @local_status_left  2>/dev/null || true)
+    sr=$(tmux show-options -gv @local_status_right 2>/dev/null || true)
     tmux set -g status-left "$sl"
     tmux set -g status-right "$sr"
-    tmux setw -g window-status-format "$wf"
-    tmux setw -g window-status-current-format "$wc"
-    tmux setw -gu window-status-style
-    tmux setw -gu window-status-current-style
     tmux set -g @moshi_active 0
 }
 
@@ -67,8 +50,17 @@ case "${1:-apply}" in
         current=$(tmux show-options -gv @moshi_active 2>/dev/null || echo 0)
         if [ "$current" = "1" ]; then restore_status; else blank_status; fi
         ;;
+    preserve)
+        # Reapply whichever mode is currently active (read from @moshi_active).
+        # Used after `source-file ~/.tmux.conf` so a manual `toggle` into Moshi
+        # mode survives a config reload — the conf re-sets status-left/right
+        # and the window formats to their local-mode values, which clobbers an
+        # active blank_status. This re-runs the matching helper.
+        current=$(tmux show-options -gv @moshi_active 2>/dev/null || echo 0)
+        if [ "$current" = "1" ]; then blank_status; else restore_status; fi
+        ;;
     *)
-        echo "Usage: $0 {apply|toggle}" >&2
+        echo "Usage: $0 {apply|toggle|preserve}" >&2
         exit 1
         ;;
 esac

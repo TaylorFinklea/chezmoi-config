@@ -10,6 +10,16 @@ Last-session breadcrumb. Update before ending each AI session. Older history liv
 
 ## Recent Progress
 
+- Added OpenCode to the shared `github` MCP catalog entry using the hosted GitHub MCP endpoint plus `GITHUB_PAT_TOKEN` as an Authorization header, with OAuth disabled for that PAT-backed path.
+- Renamed the personal Supabase MCP catalog entry from `supabase-personal` to `supabase`, and made OpenCode's Supabase OAuth config explicit (`oauth: {}`) so the renamed server gets a clean OAuth identity instead of reusing stale cached client state.
+- Fixed the OpenCode config template to JSON-encode object-valued `oauth` settings; rendered personal/work OpenCode templates now emit valid `oauth: false` and `oauth: {}` values.
+- Applied the managed OpenCode config locally and verified `opencode mcp list`: `github`, `flyctl`, and `railway` connect; `supabase` is present under the new name and needs browser OAuth auth; the previous SQLite WAL checkpoint failure did not reproduce. `opencode mcp debug supabase` now reaches Supabase's expected OAuth challenge instead of the prior `Unrecognized client_id` response.
+- Added a managed global OpenCode plugin at `~/.config/opencode/plugins/tmux-bell.js` that listens for OpenCode's `session.idle` event and emits BEL to `/dev/tty`, so tmux can use the existing `monitor-bell` / `window-status-bell-style` path when OpenCode finishes a task.
+- Resolved local Codex chezmoi drift: promoted `/Users/tfinklea/git/schedule-studio` into the personal trusted-project template, kept the local `gpt-5.5` NUX counter at `4`, applied the Supabase MCP rename to `~/.codex/config.toml`, and force-applied the repo-managed daemon-based `~/.codex/hooks.json`. `chezmoi update` now completes without prompting.
+- Bootstrapped tmux plugins through chezmoi externals in `.chezmoiexternal.toml` instead of vendoring plugin code. `chezmoi apply` now clones/updates TPM, tmux-sensible, tmux-which-key, vim-tmux-navigator, tmux-resurrect, and tmux-continuum under `~/.tmux/plugins` with weekly refreshes and fast-forward-only pulls.
+- Removed the stale Home Manager `~/.config/tmux/tmux.conf` symlink via `.chezmoiremove`; this repo's canonical tmux config remains `~/.tmux.conf`.
+- Applied the tmux-only chezmoi target set locally, reloaded tmux, and wrote a resurrect snapshot for the active 15-window `tesela` session. Current restore pointer: `~/.local/share/tmux/resurrect/last -> tmux_resurrect_20260509T194629.txt`.
+- Added a managed Espanso global config at `~/Library/Application Support/espanso/config/default.yml` and disabled the default Option+Space search shortcut with `search_shortcut: OFF`. Applied it to the live home config; Espanso detected the change and restarted its worker.
 - Renamed the managed Codex hook feature flag from deprecated `[features].codex_hooks` to `[features].hooks` in both work and personal Codex profile templates. Also patched the live `~/.codex/config.toml` key in place to stop today's warning without applying the full managed Codex config, because `chezmoi diff ~/.codex/config.toml` showed unrelated runtime/plugin drift.
 - Disabled Moshi-backed Codex hooks for the work AI profile: work now renders `[features].hooks = false` and an empty `~/.codex/hooks.json`, while personal keeps the Moshi hook commands. Also fixed zsh startup by making `dot_zshenv` call `brew shellenv zsh` explicitly and removing the stale unmanaged `.zprofile` duplicate that still emitted Fish syntax.
 - Dropped the global spec-agent pack (`spec-planner`, `spec-implementer`, `spec-verifier`) and their slash commands across Claude Code, GitHub Copilot CLI, and OpenCode. Real-world dogfood showed the synchronous tier-delegation workflow didn't earn its overhead — implementer crashes get patched at parent-tier cost, and the only durable value (the spec artifact) is narrow to multi-phase work covered by hand-written `.docs/ai/phases/<slug>-spec.md` files plus `/plan-backlog-item`. Stripped every doc reference and removed the live destination files.
@@ -18,9 +28,8 @@ Last-session breadcrumb. Update before ending each AI session. Older history liv
 
 ## Blockers
 
-- Local `opencode mcp list` still fails before config inspection with `Failed to run the query 'PRAGMA wal_checkpoint(PASSIVE)'`; OpenCode verification for `logseq-db` was done by rendering and parsing `~/.config/opencode/opencode.json` instead.
 - Old importer-created source directories still exist on disk; ignored by chezmoi and git until you decide which to promote into the scoped catalog versus delete locally.
 
 ## Open Questions
 
-- Decide whether to reconcile live `~/.codex/config.toml` drift back into the managed templates or leave runtime/plugin additions local.
+- Confirm in a real OpenCode TUI session that the `session.idle` plugin bell fires at the right time without duplicate alerts from the project-local Moshi plugin.

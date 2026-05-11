@@ -146,12 +146,44 @@ After saving it:
 - Open a new `zsh` or `fish` shell so the shell variable is exported automatically.
 - Run `~/.local/bin/load-logseq-db-mcp-token` if you want to load it into `launchd` immediately without logging out.
 
+## Moshi Hook (mobile companion for Claude Code / Codex)
+
+Moshi is the iOS app for SSH/Mosh + agent push notifications and the **Usages** screen (Claude/Codex 5h and 7d quota cards). It uses two cooperating pieces on this host:
+
+- `moshi-hook` — the **persistent daemon** installed via Homebrew (`rjyo/moshi` tap). Runs under `brew services` (`homebrew.mxcl.moshi-hook`), serves a Unix socket at `~/Library/Application Support/Moshi/moshi-hook.sock`, and holds a WebSocket back to the Moshi API for two-way approvals (the `PermissionRequest` synchronous hook).
+- Hook entries in `~/.claude/settings.json` — managed here in `dot_claude/settings.json.tmpl`. Every Claude Code session start / stop / user prompt / permission request invokes `/opt/homebrew/bin/moshi-hook claude-hook`, which forwards the event to the daemon over the local socket.
+
+### One-time install per machine
+
+```bash
+brew tap rjyo/moshi
+brew install moshi-hook
+moshi-hook pair --token <PAIRING_TOKEN_FROM_iOS_APP>
+brew services start moshi-hook
+chezmoi apply ~/.claude/settings.json   # writes hook entries from this repo
+moshi-hook status                       # confirm: paired, host id, socket path
+```
+
+The pairing token is generated in the iOS app at **Settings → Integrations**. The token is stored in the macOS Keychain (`secret store: keychain` in `moshi-hook status`), not in this repo.
+
+### Why there's no cron / launchd entry for `moshi-hook usage --sync`
+
+The daemon already has a built-in usage poller. Tail `~/Library/Application Support/Moshi/hook.log` to see lines like `usage poller: synced count=2` — those are automatic. It reads the local Claude Code status-line cache and Codex rollouts, then pushes snapshots over the WebSocket. **Do not add an external scheduler** — it would duplicate work and could race the daemon's own polling.
+
+If you ever need to force a one-shot resync (e.g. after manually clearing local caches), run `moshi-hook usage --sync` once. Without `--sync` it just prints the snapshot JSON without uploading.
+
+### Chezmoi gotcha
+
+`moshi-hook install` (run with no flags by `brew install`'s caveats) rewrites `~/.claude/settings.json` directly — but that file is templated by `dot_claude/settings.json.tmpl`. If you ever re-run `moshi-hook install` after a Claude Code update changes the supported hook event names, expect drift: `chezmoi diff` will show the brew tool's edits. Reconcile by hand-merging the new event names into the template, then `chezmoi apply --force`.
+
+The template intentionally keeps a separate `Notification` matcher with `printf '\\a' > /dev/tty` — that's a local terminal-bell customization that `moshi-hook install` doesn't touch.
+
 ## AI Agent Surfaces
 
 This repo manages instruction surfaces for Claude Code, Codex, GitHub Copilot CLI, and Opencode. The overlay is deliberately thin — vanilla harness behavior plus a shared handoff layer.
 
 - Canonical instructions: `AGENTS.md` (cross-tool); `CLAUDE.md`, `dot_codex/AGENTS.md`, `dot_copilot/copilot-instructions.md` are thin pointers with tool-specific overrides only.
-- Per-tool surfaces: `dot_<tool>/skills`, `dot_<tool>/agents`, `dot_<tool>/commands` distribute global skills, custom agents, and slash commands. TmuxAI config at `dot_config/tmuxai/`.
+- Per-tool surfaces: `dot_<tool>/skills`, `dot_<tool>/agents`, `dot_<tool>/commands` distribute global skills, custom agents, and slash commands. OpenCode global plugins live under `dot_config/opencode/plugins/`. TmuxAI config at `dot_config/tmuxai/`.
 - MCP fanout: `.chezmoidata/ai.json` is the catalog; `dot_codex/private_config.toml.tmpl` and `.chezmoitemplates/codex/*.toml` render Codex configs; `dot_copilot/mcp-config.json.tmpl` and `dot_config/opencode/opencode.json.tmpl` render the others. Repo-scoped Claude Code uses `.mcp.json`.
 - Sync: edit here, distribute with `chezmoi apply`. Detect drift with `chezmoi diff`; reconcile manually rather than running an importer.
 

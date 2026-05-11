@@ -61,7 +61,6 @@ Create an `IT` task under epic `IT-14359` (`AI Adoption Enhancements`).
 Use this route when the user wants a new open source application, framework, or tool approved, installed, or evaluated.
 
 Examples:
-- `approve Langflow`
 - `install this open source app on my work computer`
 - `request Microsoft Agent Framework`
 

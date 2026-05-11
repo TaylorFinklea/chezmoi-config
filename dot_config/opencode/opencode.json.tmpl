@@ -45,7 +45,7 @@
       }{{- if or $hasOAuth $hasTimeout }},{{ end }}
 {{- end }}
 {{- if $hasOAuth }}
-      "oauth": {{ index $opencode "oauth" }}{{- if $hasTimeout }},{{ end }}
+      "oauth": {{ index $opencode "oauth" | toJson }}{{- if $hasTimeout }},{{ end }}
 {{- end }}
 {{- with $hasTimeout }}
       "timeout": {{ . }}

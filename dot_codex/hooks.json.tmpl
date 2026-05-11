@@ -9,36 +9,23 @@
 {{- else -}}
 {
   "hooks": {
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/opt/homebrew/bin/moshi-hook codex-hook",
+            "timeout": 300
+          }
+        ]
+      }
+    ],
     "SessionStart": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "bunx --silent moshi-hooks --source codex",
-            "timeout": 45
-          }
-        ],
-        "matcher": "startup|resume"
-      }
-    ],
-    "PreToolUse": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bunx --silent moshi-hooks --source codex",
-            "timeout": 45
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bunx --silent moshi-hooks --source codex",
-            "timeout": 45
+            "command": "/opt/homebrew/bin/moshi-hook codex-hook"
           }
         ]
       }
@@ -48,8 +35,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bunx --silent moshi-hooks --source codex",
-            "timeout": 45
+            "command": "/opt/homebrew/bin/moshi-hook codex-hook"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/opt/homebrew/bin/moshi-hook codex-hook"
           }
         ]
       }

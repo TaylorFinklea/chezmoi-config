@@ -42,13 +42,14 @@
     "defaultMode": "auto"
   },
   "hooks": {
-    "Stop": [
+    "PermissionRequest": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "bunx moshi-hooks # moshi-hooks",
-            "async": true
+            "command": "/opt/homebrew/bin/moshi-hook claude-hook",
+            "async": false,
+            "timeout": 300
           }
         ]
       }
@@ -58,18 +59,29 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bunx moshi-hooks # moshi-hooks",
+            "command": "/opt/homebrew/bin/moshi-hook claude-hook",
             "async": true
           }
         ]
       }
     ],
-    "SubagentStop": [
+    "Stop": [
       {
         "hooks": [
           {
             "type": "command",
-            "command": "bunx moshi-hooks # moshi-hooks",
+            "command": "/opt/homebrew/bin/moshi-hook claude-hook",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/opt/homebrew/bin/moshi-hook claude-hook",
             "async": true
           }
         ]
@@ -80,38 +92,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bunx moshi-hooks # moshi-hooks",
-            "async": true
-          },
-          {
-            "type": "command",
             "command": "printf '\\a' > /dev/tty",
             "async": true
           }
         ],
         "matcher": "permission_prompt|idle_prompt"
-      }
-    ],
-    "PreToolUse": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bunx moshi-hooks # moshi-hooks",
-            "async": true
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bunx moshi-hooks # moshi-hooks",
-            "async": true
-          }
-        ]
       }
     ]
   },
@@ -162,6 +147,7 @@
   },
   "effortLevel": "high",
   "skipDangerousModePermissionPrompt": true,
+  "editorMode": "vim",
   "skipAutoPermissionPrompt": true,
   "allow_remote_sessions": true,
   "agentPushNotifEnabled": true
