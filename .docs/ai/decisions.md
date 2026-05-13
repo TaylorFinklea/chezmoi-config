@@ -97,3 +97,5 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 2026-05-09: Implement OpenCode task-complete terminal bells as a managed global OpenCode plugin listening for `session.idle` and writing BEL to `/dev/tty`, rather than changing tmux or editing the Moshi-generated project-local OpenCode plugin. OpenCode has plugin events for this but no Codex-style built-in `notification_method = "bel"` setting.
 
 2026-05-13: Use tmux as the clipboard bridge for Neovim sessions running inside tmux. tmux is allowed to accept app clipboard writes with `set-clipboard on`, tmux copy-mode yanks pipe to `pbcopy`, and Neovim sets `g:clipboard = "tmux"` when `$TMUX` is present so yanks use `tmux load-buffer -w` instead of relying on the macOS `pbcopy` provider from inside the pane.
+
+2026-05-13: Deny Ghostty clipboard reads from terminal programs (`clipboard-read = deny`) while keeping clipboard writes allowed. This suppresses macOS/Ghostty prompts caused by OSC 52 clipboard read requests during tmux/Neovim focus activity without breaking the desired Neovim/tmux yank-to-system-clipboard path, which only needs write access.
