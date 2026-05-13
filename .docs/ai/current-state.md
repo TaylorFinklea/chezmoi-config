@@ -10,6 +10,7 @@ Last-session breadcrumb. Update before ending each AI session. Older history liv
 
 ## Recent Progress
 
+- Updated the Neovim LSP/LazyVim override so diagnostic virtual text is suppressed for `markdown` and `markdown.mdx` buffers while preserving the existing LazyVim diagnostic settings for other filetypes. Applied the managed file to `~/.config/nvim/lua/plugins/lsp.lua`; target `chezmoi diff` is clean.
 - Fixed clipboard behavior for Neovim inside tmux: tmux now allows app clipboard writes with `set-clipboard on`, tmux copy-mode `y` pipes selections to `pbcopy`, and Neovim forces the built-in `tmux` clipboard provider when `$TMUX` is set. Applied both managed files locally; the stale/broken Nix `~/.config/nvim/lua/config/options.lua` symlink was replaced by the chezmoi-managed regular file.
 - Added OpenCode to the shared `github` MCP catalog entry using the hosted GitHub MCP endpoint plus `GITHUB_PAT_TOKEN` as an Authorization header, with OAuth disabled for that PAT-backed path.
 - Renamed the personal Supabase MCP catalog entry from `supabase-personal` to `supabase`, and made OpenCode's Supabase OAuth config explicit (`oauth: {}`) so the renamed server gets a clean OAuth identity instead of reusing stale cached client state.

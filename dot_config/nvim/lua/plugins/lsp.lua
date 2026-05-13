@@ -2,8 +2,19 @@ return {
   -- LSP Configuration
   {
     "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
+    opts = function(_, opts)
+      opts.diagnostics = opts.diagnostics or {}
+
+      local virtual_text = opts.diagnostics.virtual_text
+      opts.diagnostics.virtual_text = function(_, bufnr)
+        local filetype = vim.bo[bufnr].filetype
+        if filetype == "markdown" or filetype == "markdown.mdx" then
+          return false
+        end
+        return virtual_text
+      end
+
+      opts.servers = vim.tbl_deep_extend("force", opts.servers or {}, {
         -- Python
         pyright = {},
 
@@ -23,7 +34,7 @@ return {
 
         -- TypeScript/JavaScript
         ts_ls = {},
-      },
-    },
+      })
+    end,
   },
 }
