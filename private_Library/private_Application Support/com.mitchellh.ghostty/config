@@ -1,7 +1,6 @@
 theme = tokyonight
 font-family = "FiraCode Nerd Font"
 macos-option-as-alt = true
-clipboard-read = deny
 
 # Send tmux window navigation/reordering on Cmd+h/l so Alt+h/l stays free for AeroSpace.
 keybind = cmd+h=esc:h

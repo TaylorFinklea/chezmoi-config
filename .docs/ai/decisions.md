@@ -98,4 +98,4 @@ Concise ADR log. Append new entries at the bottom when meaningful design, toolin
 
 2026-05-13: Use tmux as the clipboard bridge for Neovim sessions running inside tmux. tmux is allowed to accept app clipboard writes with `set-clipboard on`, tmux copy-mode yanks pipe to `pbcopy`, and Neovim sets `g:clipboard = "tmux"` when `$TMUX` is present so yanks use `tmux load-buffer -w` instead of relying on the macOS `pbcopy` provider from inside the pane.
 
-2026-05-13: Deny Ghostty clipboard reads from terminal programs (`clipboard-read = deny`) while keeping clipboard writes allowed. This suppresses macOS/Ghostty prompts caused by OSC 52 clipboard read requests during tmux/Neovim focus activity without breaking the desired Neovim/tmux yank-to-system-clipboard path, which only needs write access.
+2026-05-13: Keep Ghostty's default prompt-on-read clipboard policy and stop the unexpected read source instead. Yanky system-clipboard focus sync is disabled inside tmux, avoiding OSC 52 reads on pane/window focus changes while preserving tmux/Neovim clipboard writes for yanks.
