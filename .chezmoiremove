@@ -6,6 +6,9 @@
 # Auto-commit Stop hook (source removed in commit a019e02)
 .claude/hooks/auto-commit-on-stop.sh
 
+# Stale zsh login startup file; dot_zshenv owns Homebrew shellenv setup.
+.zprofile
+
 # Spec-agent pack (dropped 2026-04-29 — see decisions.md)
 .claude/agents/spec-planner.md
 .claude/agents/spec-implementer.md

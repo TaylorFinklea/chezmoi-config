@@ -2,7 +2,7 @@
 # This file is always sourced, so it should contain only environment variables
 
 # Homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 
 # Local bin directory
 export PATH="$HOME/.local/bin:$PATH"
