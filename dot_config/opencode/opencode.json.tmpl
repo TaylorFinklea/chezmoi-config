@@ -55,4 +55,24 @@
 {{- end }}
 {{- end }}
   }
+{{- if eq $profile "personal" }},
+  "provider": {
+    "litellm": {
+      "name": "LiteLLM (bytesaddle proxy)",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:4000/v1",
+        "apiKey": "{env:LITELLM_MASTER_KEY}"
+      },
+      "models": {
+        "kimi-k2": {},
+        "claude-sonnet": {},
+        "claude-opus": {},
+        "gpt-5": {},
+        "deepseek-v3": {},
+        "qwen3-coder-hosted": {}
+      }
+    }
+  }
+{{- end }}
 }

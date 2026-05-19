@@ -63,6 +63,26 @@
             "async": true
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/opt/homebrew/bin/uv run --directory {{ .chezmoi.homeDir }}/git/bytesaddle python {{ .chezmoi.homeDir }}/git/bytesaddle/harness/capture/hooks/session_start.py",
+            "async": true
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/opt/homebrew/bin/uv run --directory {{ .chezmoi.homeDir }}/git/bytesaddle python {{ .chezmoi.homeDir }}/git/bytesaddle/harness/capture/hooks/session_end.py",
+            "async": true
+          }
+        ]
       }
     ],
     "Stop": [
@@ -92,8 +112,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "printf '\\a' > /dev/tty",
-            "async": true
+            "command": "/opt/homebrew/bin/jq -nc '{terminalSequence: \"\\u0007\"}'"
           }
         ],
         "matcher": "permission_prompt|idle_prompt"

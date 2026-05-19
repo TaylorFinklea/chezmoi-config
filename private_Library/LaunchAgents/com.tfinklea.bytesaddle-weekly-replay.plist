@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "https://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.tfinklea.bytesaddle-weekly-replay</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/tfinklea/git/bytesaddle/scripts/weekly-replay.sh</string>
+  </array>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Weekday</key>
+    <integer>0</integer>
+    <key>Hour</key>
+    <integer>15</integer>
+    <key>Minute</key>
+    <integer>0</integer>
+  </dict>
+  <key>RunAtLoad</key>
+  <false/>
+  <key>StandardOutPath</key>
+  <string>/Users/tfinklea/.bytesaddle/launchd-out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/tfinklea/.bytesaddle/launchd-err.log</string>
+</dict>
+</plist>
