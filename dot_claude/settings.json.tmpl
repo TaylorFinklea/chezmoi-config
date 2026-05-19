@@ -72,6 +72,15 @@
             "async": true
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "{{ .chezmoi.homeDir }}/.claude/hooks/handoff-freshness.sh",
+            "timeout": 10
+          }
+        ]
       }
     ],
     "SessionEnd": [
@@ -92,6 +101,17 @@
             "type": "command",
             "command": "/opt/homebrew/bin/moshi-hook claude-hook",
             "async": true
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "{{ .chezmoi.homeDir }}/.claude/hooks/handoff-rewake.sh",
+            "asyncRewake": true,
+            "timeout": 10,
+            "rewakeSummary": "AI handoff drift detected"
           }
         ]
       }

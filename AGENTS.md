@@ -25,6 +25,8 @@ Before signing off, update:
 
 Use `.docs/ai/handoff-template.md` as the checklist format.
 
+Claude Code sessions additionally get automated backstops via `dot_claude/hooks/`: a synchronous `SessionStart` hook surfaces `.docs/ai/current-state.md` freshness, and a `Stop` hook (`asyncRewake: true`) re-wakes once per session when source files changed without `current-state.md` being touched. Other agents rely on convention.
+
 ### After Major Features
 
 Update handoff docs immediately after completing a significant feature. Don't wait for session end.
