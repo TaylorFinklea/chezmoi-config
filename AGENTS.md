@@ -4,7 +4,7 @@ Canonical agent instructions for this user. Applies to Claude Code, Codex, GitHu
 
 ## Handoff State
 
-Cross-session continuity lives in `.docs/ai/` (git-tracked). These docs are the source of truth — not chat memory.
+Cross-session continuity lives in `.docs/ai/` (git-tracked). These docs are machine-readable state, not prose for humans. Be terse — bullet fragments over sentences — but never omit details that would block the next session from resuming without asking questions.
 
 ### Session Start
 
