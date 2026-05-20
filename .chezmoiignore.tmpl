@@ -27,6 +27,14 @@ scripts/
 .idea/
 *.code-workspace
 
+# pi-mono: secrets, runtime state, and installed package trees
+# (managed pi config is authored in dot_pi/; these are regenerated locally)
+.pi/agent/auth.json
+.pi/agent/sessions/
+.pi/agent/logs/
+.pi/agent/npm/
+.pi/agent/git/
+
 {{- if eq $profile "personal" }}
 Library/Application Support/espanso/match/base.yml
 {{- end }}

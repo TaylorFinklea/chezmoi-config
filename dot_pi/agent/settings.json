@@ -1,0 +1,14 @@
+{
+  "lastChangelogVersion": "0.73.1",
+  "skills": [
+    "~/.claude/skills",
+    "~/.codex/skills"
+  ],
+  "packages": [
+    "git:github.com/badlogic/pi-skills",
+    "npm:pi-docparser",
+    "npm:pi-skillful",
+    "npm:pi-ask-user",
+    "npm:pi-resource-center"
+  ]
+}
